@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import "../style/style.css";
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -8,7 +8,6 @@ import AnnouncementIcon from '@material-ui/icons/Announcement';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 import MicIcon from '@material-ui/icons/Mic';
 import BugReportIcon from '@material-ui/icons/BugReport';
-import { auth } from '../firebase';
 import firebase from '../firebase';
 import FaceIcon from '@material-ui/icons/Face';
 import AdminAccountManagement from './AdminAccountManagement';
@@ -48,7 +47,7 @@ export default function AdminUI() {
     
 
     function activateTab(tabName,setTabname) {
-        if (tabName == "accountTab") {
+        if (tabName === "accountTab") {
             setAccountTab(true);
             setDashboardTab(false);
             setWebpagesTab(false);
@@ -63,14 +62,14 @@ export default function AdminUI() {
             const dbRef = firebase.database().ref("account-details");
             dbRef.on('value', snapshot => {
                 snapshot.forEach(snap => {
-                    if (currentUser == snap.val().email) {
+                    if (currentUser === snap.val().email) {
                                 setUser(snap.val().email);
                                 setUsername(snap.val().username);
                                 }
                     });
                 })
         } 
-        else if (tabName == "dashboardTab") {
+        else if (tabName === "dashboardTab") {
             setAccountTab(false);
             setDashboardTab(true);
             setWebpagesTab(false);
@@ -82,7 +81,7 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
-        } else if (tabName == "theme") {
+        } else if (tabName === "theme") {
             setAccountTab(false);
             setDashboardTab(false);
             setTheme(true);
@@ -94,7 +93,7 @@ export default function AdminUI() {
             setLiveStreamTab(false);
             setPodcastsTab(false);
             setReportsTab(false);
-        }else if (tabName == "webpagesTab") {
+        }else if (tabName === "webpagesTab") {
             setAccountTab(false);
             setDashboardTab(false);
             setWebpagesTab(true);
@@ -106,7 +105,7 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
-        }else if (tabName == "servicesTab") {
+        }else if (tabName === "servicesTab") {
             setAccountTab(false);
             setDashboardTab(false);
             setWebpagesTab(false);
@@ -118,7 +117,7 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
-        }else if (tabName == "calendarTab") {
+        }else if (tabName === "calendarTab") {
             setAccountTab(false);
             setDashboardTab(false);
             setWebpagesTab(false);
@@ -130,7 +129,7 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
-        }else if (tabName == "seatsTab") {
+        }else if (tabName === "seatsTab") {
             setAccountTab(false);
             setDashboardTab(false);
             setWebpagesTab(false);
@@ -142,7 +141,7 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
-        }else if (tabName == "announcementTab") {
+        }else if (tabName === "announcementTab") {
             setAccountTab(false);
             setDashboardTab(false);
             setWebpagesTab(false);
@@ -154,7 +153,7 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
-        }else if (tabName == "liveStreamTab") {
+        }else if (tabName === "liveStreamTab") {
             setAccountTab(false);
             setDashboardTab(false);
             setWebpagesTab(false);
@@ -166,7 +165,7 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
-        }else if (tabName == "podcastsTab") {
+        }else if (tabName === "podcastsTab") {
             setAccountTab(false);
             setDashboardTab(false);
             setWebpagesTab(false);
@@ -178,7 +177,7 @@ export default function AdminUI() {
             setPodcastsTab(true);
             setReportsTab(false);
             setTheme(false);
-        } else if(tabName=="reportsTab"){
+        } else if(tabName === "reportsTab"){
             setAccountTab(false);
             setDashboardTab(false);
             setWebpagesTab(false);

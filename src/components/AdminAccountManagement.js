@@ -93,7 +93,7 @@ function AdminAccountManagement({ username, email }) {
     function handleChangeUsername(e) {
         e.preventDefault();
         const dbRef = firebase.database().ref("account-details");
-        if (usernameInput == "") {
+        if (!usernameInput ) {
             setUsernameError("Please enter your Username");
             setUsernameErrorState(true);
             }else if (usernameInput.length < 8) {
@@ -103,7 +103,7 @@ function AdminAccountManagement({ username, email }) {
             setUsernameError("");
             setUsernameErrorState(false);
         }
-        if (passwordInput == "") {
+        if (!passwordInput) {
             setPasswordError("Please enter your Password");
             setPasswordErrorState(true);
         } else {
@@ -138,18 +138,18 @@ function AdminAccountManagement({ username, email }) {
       
     }
     function handleEmailReset(e) {
-        if (emailInput == "") {
+        if (!emailInput) {
             setEmailError("Please enter your Email");
             setEmailErrorState(true);
 
         } else if (!validator.isEmail(emailInput)) {
             setEmailError("Please enter a valid email");
             setEmailErrorState(true);
-        } else if (emailInput == user) {
+        } else if (emailInput === user) {
             setEmailError("Please choose a different email from your current one");
             setEmailErrorState(true);
         }
-        if (passwordInput == "") {
+        if (!passwordInput) {
             setPasswordError("Please enter your password");
             setPasswordErrorState(true);
         } else {
@@ -223,10 +223,10 @@ function AdminAccountManagement({ username, email }) {
         } else {
            setPasswordError('')
             setPasswordErrorState(false);
-        } if (passwordConfirmInput == "") {
+        } if (!passwordConfirmInput) {
              setPasswordConfirmError("Please re-enter your new password");
              setPasswordConfirmErrorState(true);
-        }if (passwordConfirmInput != passwordInput) {
+        }if (passwordConfirmInput !== passwordInput) {
              setPasswordConfirmError("Passwords do not match");
              setPasswordConfirmErrorState(true);
         }else {
@@ -360,7 +360,7 @@ function AdminAccountManagement({ username, email }) {
                     <div className="tertiary-color modal-body position-relative">
                         <div className="position-absolute off-set-top">
                             <div className="account-img">
-                                <img src={usernameIllustration}></img>
+                                <img src={usernameIllustration} alt="username"></img>
                             </div>
                         </div>
                         <div className = "pad-t-md">
@@ -425,7 +425,7 @@ function AdminAccountManagement({ username, email }) {
                     <div className="tertiary-color modal-body position-relative">
                         <div className="position-absolute off-set-top">
                             <div className="account-img">
-                                <img src={emailIllustration}></img>
+                                <img src={emailIllustration} alt="email"></img>
                             </div>
                         </div>
                         <div className = "pad-t-md">
@@ -489,7 +489,7 @@ function AdminAccountManagement({ username, email }) {
                     <div className="tertiary-color modal-body position-relative">
                         <div className="position-absolute off-set-top-mid">
                             <div className="account-img">
-                                <img src={passwordIllustration}></img>
+                                <img src={passwordIllustration} alt="password"></img>
                             </div>
                         </div>
                         <div className = "pad-t-md">
@@ -542,12 +542,12 @@ function AdminAccountManagement({ username, email }) {
                     </div>
                     </Fade>
             </Modal>
-               {feedbackVariant == "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
+               {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="success">
                     {alertMessage}
                 </Alert>
             </Snackbar> :
-            feedbackVariant == "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
+            feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="warning">
                     {alertMessage}
                 </Alert>

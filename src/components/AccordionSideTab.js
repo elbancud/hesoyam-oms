@@ -10,6 +10,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import TextField from '@material-ui/core/TextField';
 import firebase from '../firebase';
 import { useAuth } from '../context/AuthContext';
+import { useCookies } from 'react-cookie';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,8 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AccordionSideTab() {
   const [typing, setTyping] = useState(false);
-  const { currentUser, key } = useAuth();
-
+  const [cookies, setCookie] = useCookies(['user']);
   const [siteTitle, setSiteTitle] = useState("");
   const [headerTitle, setHeaderTitle] = useState("");
   const [subHeaderTitle, setSubHeaderTitle] = useState("");
@@ -43,7 +43,6 @@ function AccordionSideTab() {
   const [siteEmail, setSiteEmail] = useState("");
 
 
-  const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -51,7 +50,7 @@ function AccordionSideTab() {
   };
   function saveChanges(e) {
     e.preventDefault();
-    const dbRef = firebase.database().ref("account-details/" + key);
+    const dbRef = firebase.database().ref("account-details/" + cookies.Key);
    
     if (siteTitle !== "") {
       dbRef.update({ savedSiteTitle: siteTitle })

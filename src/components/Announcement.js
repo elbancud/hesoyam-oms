@@ -160,7 +160,7 @@ function Announcement() {
         } else {
             setEditDescriptionTextFieldState(false)
             setEditDescriptionTextFieldError("")
-            if (editPostTitleTextFieldInput == activePost && editDescriptionTextFieldInput == activeDescription) {
+            if (editPostTitleTextFieldInput === activePost && editDescriptionTextFieldInput === activeDescription) {
                 setAlertStatus(true)
                 setFeedbackVariant("error")
                 setAlertMessage("Oops you don't seem to change anything, kindly check it again. Thankyou")

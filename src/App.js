@@ -18,8 +18,6 @@ const GeneratedWebLogin = lazy(() => import('./components/GeneratedWebLogin'))
 const ServiceUser = lazy(() => import('./components/ServiceUser'))
 
 function App() {
-  let [loading, setLoading] = useState(true);
-  let [color, setColor] = useState("#533c9f");
 
   return (
 
@@ -31,7 +29,7 @@ function App() {
             <Suspense fallback={
                           <div className="middle-fix" >
                                 <div className="flex-default-center-xy">
-                                    <RingLoader color={color} loading={loading} size={80} speedMultiplier="1.4" /><br />
+                                    <RingLoader color={"#533c9f"} loading={true} size={80} speedMultiplier="1.4" /><br />
                                 </div>
                                 <div className="pad-y-sm"><p><b>To God be the Glory</b></p></div></div>}>
                         <Route path="/design1" exact >
