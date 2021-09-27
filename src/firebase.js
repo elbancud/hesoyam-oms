@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-const app = firebase.initializeApp({
+ firebase.initializeApp({
   apiKey: "AIzaSyC7j88BG_NTA0sMsdqPLmUN2RFHm1j3lss",
   authDomain: "hesoyam-oms-867e4.firebaseapp.com",
   projectId: "hesoyam-oms-867e4",

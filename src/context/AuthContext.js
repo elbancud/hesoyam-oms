@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
                 const dbRef = firebase.database().ref("account-details");
                       dbRef.on('value', snapshot => {
                           snapshot.forEach(snap => {
-                              if (user.email == snap.val().email) {
+                              if (user.email === snap.val().email) {
                                   setKey(snap.key)
                                   }
                               });
