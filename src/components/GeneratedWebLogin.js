@@ -13,7 +13,6 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import firebase from 'firebase';
 import { useAuth } from "../context/AuthContext";
 import { useCookies } from 'react-cookie';
-import { LaptopWindowsOutlined } from '@material-ui/icons';
 
 export default function GeneratedWebLogin(){
   //variables
@@ -57,21 +56,36 @@ export default function GeneratedWebLogin(){
     } else {
       try {
         await login(emailInput, passwordInput);
-        history.push("/design1")
-        setPasswordError("");
-        setPasswordErrorState(false);
-        setError("");
-        const db = firebase.database().ref("user-account-details");
-        db.on('value', snapshot => {
-          snapshot.forEach(snap => {
-            if (snap.val().email === emailInput) {
-              setCookie('UserLoginKey', snap.key);
-              return true;
+         const dbAccountDetails = firebase.database().ref("user-account-details") 
+                  
+          dbAccountDetails.orderByChild("email").equalTo(emailInput).once('value').then(snapshot => {
+            if (snapshot.exists()) {
+              history.push("/design1")
+              setPasswordError("");
+              setPasswordErrorState(false);
+              setError("");
+              const db = firebase.database().ref("user-account-details");
+              db.on('value', snapshot => {
+                snapshot.forEach(snap => {
+                  if (snap.val().email === emailInput) {
+                    setCookie('UserLoginKey', snap.key);
+                    setCookie('UserFirstName', snap.val().username)
+                    setCookie('UserLastName',snap.val().lastname)
+                    setCookie('UserEmail', snap.val().email)
+                    return true;
+                  }
+                  window.location.reload()
+                })
+              })
+              
+            } else {
+              setEmailError("Invalid email or password");
+              setEmailErrorState(true);
+              setError("Invalid email or password");
+              setPasswordError("Invalid email or password");
+              setPasswordErrorState(true);
             }
-            
           })
-        })
-        window.location.reload()
       }
       catch (error)  {
         if ( error.code === "auth/wrong-password") {

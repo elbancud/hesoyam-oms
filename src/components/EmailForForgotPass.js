@@ -63,7 +63,7 @@ const Login = (props) => {
               </div>
             </nav>
             <div className="graphics">
-              <img src={uiBanner} className="rotate" alt="church image"></img>
+              <img src={uiBanner} className="rotate" alt="church banners"></img>
             </div>
         </div>
         <div className="full-width">

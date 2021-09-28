@@ -3,7 +3,6 @@ import '../style/themes.css'
 import '../style/style.css'
 import Container from "@material-ui/core/Container";
 import { Button } from "@material-ui/core";
-import { useAuth } from '../context/AuthContext';
 import firebase from "../firebase"
 import {  Link, useHistory} from 'react-router-dom';
 import { useCookies } from 'react-cookie';
@@ -33,7 +32,7 @@ function PrayerWall() {
                     const dbRef = firebase.database().ref("account-details");
                         dbRef.on('value', snapshot => {
                             snapshot.forEach(snap => {
-                                if (snap.val().email == cookies.User) {
+                                if (snap.val().email === cookies.User) {
                                     setSiteTitle(snap.val().savedSiteTitle)
                                  
                                 }
@@ -111,7 +110,7 @@ function PrayerWall() {
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
                                 <Link to="/design1">
-                                    <h3 className="" id =""> {typeof(siteTitle) == 'undefined'? "Site title": siteTitle}</h3>
+                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
                                     
                                 </Link>
                             </div>
@@ -178,12 +177,12 @@ function PrayerWall() {
                         </div>
                 
                     </Container>
-                    {feedbackVariant == "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                    {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
                         <Alert onClose={handleCloseAlert} severity="success">
                             {alertMessage}
                         </Alert>
                     </Snackbar> :
-                    feedbackVariant == "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                    feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
                         <Alert onClose={handleCloseAlert} severity="warning">
                             {alertMessage}
                         </Alert>

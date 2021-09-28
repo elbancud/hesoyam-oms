@@ -7,11 +7,10 @@ import Tooltip from '@mui/material/Tooltip';
 import "../style/style.css";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
+import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import { useAuth } from '../context/AuthContext';
 import FormHelperText from '@mui/material/FormHelperText';
 import firebase from 'firebase';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -105,7 +104,7 @@ function Service() {
             setRequirementState(false)
             setRequirementError("")
         }
-        if (service === "") {
+        if (!service) {
             setSelectErrorState(true)
             setSelectError("Select a church service");
         } else {
@@ -115,9 +114,7 @@ function Service() {
                
                 //push if no errorrs
                     const dbAccountDetails = firebase.database().ref("account-details") 
-                    const requirementPush = {
-                            requirement: requirementInput.toLowerCase(),
-                    }
+                  
                     dbAccountDetails.orderByKey().equalTo(service).once('value').then(snapshot => { 
                         if (snapshot.exists()) {
                             const dbRef = firebase.database().ref("account-details/" + service);
@@ -454,12 +451,12 @@ function Service() {
                     </Fade>
             </Modal>
             </Container>
-                 {feedbackVariant == "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                 {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="success">
                     {alertMessage}
                 </Alert>
             </Snackbar> :
-            feedbackVariant == "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+            feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="warning">
                     {alertMessage}
                 </Alert>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import '../style/themes.css'
 import '../style/style.css'
-import {  Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import firebase from "../firebase"
 import Box from '@mui/material/Box';
@@ -9,22 +9,20 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
-import { auth } from '../firebase';
+// import { auth } from '../firebase';
 
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import { fontSize } from '@mui/system';
 export default function AccountMenu() {
     const [openLogoutModal, setOpenLogoutModal] = useState(false);
     const history = useHistory();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
 
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -36,11 +34,11 @@ export default function AccountMenu() {
         setAnchorEl(null);
     };
     useEffect(() => {
-            const db = firebase.database().ref("user-account-details/" + cookies.UserLoginKey)
-            db.on("value", snapshot => {
-                setFirstName(snapshot.val().username)
-                setLastName(snapshot.val().lastname)
-            })
+           
+              setFirstName(cookies.UserFirstName ? cookies.UserFirstName : "")
+              setLastName(cookies.UserLastName ? cookies.UserLastName: "")
+              setEmail(cookies.UserEmail ? cookies.UserEmail : "")
+
             
     }, []);
 
@@ -60,6 +58,17 @@ export default function AccountMenu() {
     }
     return color;
   }
+  function stringAvatar() {
+    return {
+      sx: {
+        bgcolor: stringToColor(firstName + lastName),
+      },
+      children: `${firstName.charAt(0).toUpperCase()+""+lastName.charAt(0).toUpperCase()}`,
+    };
+  }
+  const redirectToUserSetting = () => {
+    history.push("/userSettings")
+  }
   const handleCloseModal = () => {
     setOpenLogoutModal(false)
   }
@@ -70,6 +79,12 @@ export default function AccountMenu() {
   const handleLogout = () => {
      firebase.auth().signOut().then(() => {
             removeCookie("UserLoginKey");
+            removeCookie("UserFirstName");
+            removeCookie("UserLastName");
+            removeCookie("UserEmail");
+            
+       
+            
             setOpenLogoutModal(false)
             window.location.reload();
         })
@@ -80,7 +95,7 @@ export default function AccountMenu() {
       
         <Tooltip title="Account settings">
           <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
-            <Avatar sx={{ width: 50, height: 50 }}>{firstName.charAt(0).toUpperCase()+""+lastName.charAt(0).toUpperCase()}</Avatar>
+            <Avatar sx={{ bgcolor: {stringToColor}, width: 50, height: 50 }} {...stringAvatar()}/>
           </IconButton>
         </Tooltip>
       </Box>
@@ -120,26 +135,29 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        
-        <MenuItem>
-          <Avatar /> Appointments
-        </MenuItem>
-        <Divider />
-
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem onClick={logoutModalOpen}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
-      </Menu>
-      <Modal
+            <MenuItem onClick>
+                <div className="custom-p">
+                  <p><b>{firstName + " " + lastName}</b></p>
+                  <p >{email}</p>
+                  
+                </div>
+            </MenuItem>
+            
+            
+            <MenuItem>
+               Appointments
+            </MenuItem>
+            {/* <Divider /> */}
+            
+            <MenuItem onClick = {redirectToUserSetting}>
+              Settings
+            </MenuItem>
+            <MenuItem onClick={logoutModalOpen}>
+             
+              Logout
+            </MenuItem>
+          </Menu>
+          <Modal
                     classes="modal"
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"

@@ -38,7 +38,7 @@ function Landingpage() {
                   size="large"
                   id="btn-large-primary-outline"
                   >
-                  Get Started
+                  Sign in
                   
                   </Button>
             </div>
@@ -50,7 +50,7 @@ function Landingpage() {
             <div className="header-banner">
               <h1>Generate Faith Instantly</h1>
               <p className="pad-y-sm">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore
+                How awesome would it be to generate a website and automate the church operation system within seconds?.  We are mirrored to your church activities, but here we take it to another step. 
               </p>
               <Button
                 onClick={redirectToLogin}
@@ -60,7 +60,7 @@ function Landingpage() {
                 size="large"
                 id = "btn-large-primary"
               >
-                Start your website
+                Explore
               </Button>
             </div>
             <div className="banner-graphics">
@@ -85,7 +85,7 @@ function Landingpage() {
                 <div className="flex-no-wrap">
                   <div className="subtitle box-sm">
                     <h1 >Indulge in a virtual appointment system</h1>
-                    <p className="pad-y-sm">Check in your available schedules in a particular service and mark it in the virtual calendar</p>
+                    <p className="pad-y-sm">Check in your available schedules in a particular service and mark it in the virtual calendar. We</p>
                     <Button
                       onClick={redirectToLogin}
                       variant="contained"

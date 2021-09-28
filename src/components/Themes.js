@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import design1 from '../images/Design1-BoldType.JPG';
 import design2 from '../images/Design2-SerifFlex.JPG';
 import design3 from '../images/Design3-DarkModeSerif.JPG';
@@ -6,7 +6,6 @@ import { Button } from "@material-ui/core";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { useHistory } from 'react-router-dom';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -15,14 +14,11 @@ import MobileFriendlyIcon from '@material-ui/icons/MobileFriendly';
 import TabletIcon from '@material-ui/icons/Tablet';
 import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows';
 import firebase from '../firebase';
-import { auth } from '../firebase';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
-import { useAuth } from '../context/AuthContext';
 import { useCookies } from 'react-cookie';
 
 function Themes() {
-    const { currentUser, key } = useAuth();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [designPage, setDesignPage] = useState("");
@@ -55,9 +51,7 @@ function Themes() {
         setAnchorEl(null);
 
     };
-    const handleCloseMenu= () => {
-        setAnchorEl(null);
-    };
+  
     const handleOpenModal = () => {
          setOpenModal(true);
     }
@@ -113,7 +107,7 @@ function Themes() {
                     </div>
                      <div className=" flex-no-wrap flex-default-center-xy">
                         <div className="box box-default-width m-xy-md theme-img">
-                            <img src={design1}></img>
+                            <img src={design1} alt = "design 1"></img>
                             <div className="modal-footer plain-white-color-bg  pad-x-sm ">
                                 <div className="flex-space-between pad-y-sm">
                                     <p>Bold and Loud</p>
@@ -130,7 +124,7 @@ function Themes() {
                             </div>
                         </div>
                         <div className="box box-default-width  m-xy-md theme-img">
-                             <img src={design2}></img>
+                             <img src={design2} alt = "design 2"></img>
                              <div className="modal-footer plain-white-color-bg  pad-x-sm ">
                                 <div className="flex-space-between pad-y-sm">
                                     <p>Classic Blue</p>
@@ -146,7 +140,7 @@ function Themes() {
                             </div>  
                         </div>
                         <div className="box box-default-width  m-xy-md theme-img">
-                             <img src={design3}></img>
+                             <img src={design3} alt ="design 3"></img>
                              <div className="modal-footer plain-white-color-bg  pad-x-sm ">
                                 <div className="flex-space-between pad-y-sm">
                                     <p>Dark Spectrum</p>
@@ -161,24 +155,7 @@ function Themes() {
                                 </div>
                             </div>  
                         </div>
-                    
-                    <div className="box box-default-width m-xy-md theme-img">
-                            <img src={design1}></img>
-                            <div className="modal-footer plain-white-color-bg  pad-x-sm ">
-                                <div className="flex-space-between pad-y-sm">
-                                    <p>Bold and Loud</p>
-                                    <Button
-                                            onClick={(event) => { handleClickMenu(event,"design1") }}
-                                            className="btn-large primary-color"
-                                            color="secondary"
-                                            size="large"
-                                    >
-                                    <MoreHorizIcon />
-                                    
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
+             
                     </div>
                 
             </main>
@@ -269,19 +246,19 @@ function Themes() {
                             </div>
                             <div className="tertiary-color ">
                                 <div  className={webSizeCustom}>
-                                    {designPage == "design1"? <Design1/>:""}
+                                    {designPage === "design1"? <Design1/>:""}
                                 </div>
                             
                             </div>
                         </div>
                     </Fade>
             </Modal>
-             {feedbackVariant == "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
+             {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="success">
                     {alertMessage}
                 </Alert>
             </Snackbar> :
-            feedbackVariant == "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
+            feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="warning">
                     {alertMessage}
                 </Alert>

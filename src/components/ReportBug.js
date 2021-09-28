@@ -7,15 +7,14 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { useAuth } from '../context/AuthContext';
 import firebase from '../firebase';
-import FormHelperText from '@mui/material/FormHelperText';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
+import { useCookies } from 'react-cookie';
 
 function ReportTab() {
-    const { currentUser, key } = useAuth();
-    const dbRef = firebase.database().ref("account-details/" + key);
+    const [cookies, setCookies] = useCookies(['user'])
+    const dbRef = firebase.database().ref("account-details/" + cookies.Key);
 
     const [summaryInput, setSummaryInput] = useState("");
     const [descriptionInput, setDescriptionInput] = useState("");
@@ -181,12 +180,12 @@ function ReportTab() {
                     </div>
 
                 </Container>
-                {feedbackVariant == "success" ? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
+                {feedbackVariant === "success" ? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} severity="success">
                         {alertMessage}
                     </Alert>
                 </Snackbar> :
-                    feedbackVariant == "warning" ? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
+                    feedbackVariant === "warning" ? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
                         <Alert onClose={handleCloseAlert} severity="warning">
                             {alertMessage}
                         </Alert>

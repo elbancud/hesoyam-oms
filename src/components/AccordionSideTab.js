@@ -9,25 +9,7 @@ import { Button } from "@material-ui/core";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import TextField from '@material-ui/core/TextField';
 import firebase from '../firebase';
-import { useAuth } from '../context/AuthContext';
 import { useCookies } from 'react-cookie';
-
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-}));
-
 
 
 function AccordionSideTab() {

@@ -16,6 +16,7 @@ const GeneratedWebRegistration = lazy(()=> import('./components/GeneratedWebRegi
 const PrayerWall = lazy(()=> import('./components/PrayerWall'))
 const GeneratedWebLogin = lazy(() => import('./components/GeneratedWebLogin'))
 const ServiceUser = lazy(() => import('./components/ServiceUser'))
+const UserSettings = lazy(() => import('./components/UserSettings'))
 
 function App() {
 
@@ -26,7 +27,7 @@ function App() {
               <AuthProvider>
 
                 <Switch>
-            <Suspense fallback={
+                        <Suspense fallback={
                           <div className="middle-fix" >
                                 <div className="flex-default-center-xy">
                                     <RingLoader color={"#533c9f"} loading={true} size={80} speedMultiplier="1.4" /><br />
@@ -61,6 +62,9 @@ function App() {
                         </Route>
                         <Route path="/userService" exact >
                           <ServiceUser/>
+                        </Route>
+                        <Route path="/userSettings" exact >
+                          <UserSettings/>
                         </Route>
                     </Suspense>
 

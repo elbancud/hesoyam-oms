@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Container from "@material-ui/core/Container";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import "../style/style.css";
-import { useAuth } from '../context/AuthContext';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
 
 function Podcast() {
 
     //variables
-    const { key, currentUser } = useAuth();
 
     const [alertStatus, setAlertStatus] = useState(false);
     const [feedbackVariant, setFeedbackVariant] = useState("");
@@ -67,12 +64,12 @@ function Podcast() {
                     </div>
                 </div>
             </Container>
-                 {feedbackVariant == "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                 {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="success">
                     {alertMessage}
                 </Alert>
             </Snackbar> :
-            feedbackVariant == "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+            feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="warning">
                     {alertMessage}
                 </Alert>

@@ -7,6 +7,7 @@ import {  Link, useHistory} from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import TopNavGenWeb from './TopNavGenWeb'
 import UserProfile from './UserProfile';
+import Skeleton from './Skeleton';
 
 function Design1() {
     const [siteTitle, setSiteTitle] = useState("");
@@ -30,7 +31,7 @@ function Design1() {
                                  if (snap.hasChild("designName")) {
                                     setActivatePage(snap.val().designName);
                                 }
-                                  if (snap.val().email == cookies.User) {
+                                  if (snap.val().email === cookies.User) {
                                     setSiteTitle(snap.val().savedSiteTitle)
                                     setHeaderTitle(snap.val().savedHeaderTitle)
                                     setSubHeaderTitle(snap.val().savedSubHeaderTitle)
@@ -45,9 +46,8 @@ function Design1() {
                         })
                     if(cookies.UserLoginKey) {
                         setActiveCookes(true)
-                        setUpdate(!update)
                     }
-    }, [update]);
+    }, []);
     function getStarted() {
         history.push("/genWebLogin")
     }
@@ -68,7 +68,7 @@ function Design1() {
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
                                 <Link to="/design1">
-                                    <h3 className="" id =""> {typeof(siteTitle) == 'undefined'? "Site title": siteTitle}</h3>
+                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
                                     
                                 </Link>
                             </div>
@@ -117,8 +117,8 @@ function Design1() {
                         </div>
                     </nav>
                     <div className="align-text-center pad-y-lg">
-                        <h1 className="" id ="dynamic-h1"> {typeof(headerTitle) == 'undefined'? "To God be the glory": headerTitle}</h1>
-                        <p >{typeof(subHeaderTitle) == 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum venenatis nunc, non gravida ligula sodales commodo. Sed lectus mauris, mollis scelerisque diam vel": subHeaderTitle}</p>
+                        <h1 className="" id ="dynamic-h1"> {typeof(headerTitle) === 'undefined'? "To God be the glory": headerTitle}</h1>
+                        <p >{typeof(subHeaderTitle) === 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum venenatis nunc, non gravida ligula sodales commodo. Sed lectus mauris, mollis scelerisque diam vel": subHeaderTitle}</p>
                         <div className="pad-y-sm">
                             <Button
                                 variant="contained"
@@ -132,7 +132,7 @@ function Design1() {
                         </div>
                         
                         <div className="m-t-md">
-                            <img src="https://images.unsplash.com/photo-1579975096649-e773152b04cb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"></img>
+                            <img src="https://images.unsplash.com/photo-1579975096649-e773152b04cb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="church banner"></img>
                         </div>
                     </div>
                 </header>

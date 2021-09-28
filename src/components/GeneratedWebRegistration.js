@@ -12,7 +12,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
 import { Snackbar } from '@material-ui/core';
 import { useCookies } from 'react-cookie';
 import "../style/themes.css";
@@ -26,7 +25,7 @@ const GeneratedWebRegistration = (props) => {
                     const dbRef = firebase.database().ref("account-details");
                         dbRef.on('value', snapshot => {
                             snapshot.forEach(snap => {
-                                if (snap.val().email == cookies.User) {
+                                if (snap.val().email === cookies.User) {
                                     setSiteTitle(snap.val().savedSiteTitle)
                                     
                                 }
@@ -38,7 +37,6 @@ const GeneratedWebRegistration = (props) => {
     }, []);
   //useRef gives acces to an id
   const [usernameInput, setUsernameInput] = useState('');
-  const [emailInput, setEmailInput] = useState('');
 
   const [lastNameInput, setLastNameInput] = useState('');
   const [lastNameError, setLastNameError] = useState('');
@@ -49,7 +47,7 @@ const GeneratedWebRegistration = (props) => {
   
   const [usernameError, setUsernameError] = useState('');
   const [usernameErrorState, setUsernameErrorState] = useState(false);
-
+  const [emailInput, setEmailInput] = useState('');
   const [emailError, setEmailError] = useState('');
   const [emailErrorState, setEmailErrorState] = useState(false);
   
@@ -90,7 +88,7 @@ const GeneratedWebRegistration = (props) => {
     e.preventDefault();
    
     
-    if (usernameInput == "") {
+    if (!usernameInput) {
       setUsernameError("Please enter your First name");
       setUsernameErrorState(true);
       setError("Please complete the fields");
@@ -99,7 +97,7 @@ const GeneratedWebRegistration = (props) => {
       setUsernameErrorState(false);
       setError("");
     }
-    if (lastNameInput == "") {
+    if (!lastNameInput) {
       setLastNameError("Please enter your lastname");
       setLastNameInputState(true);
       setError("Please complete the fields");
@@ -109,7 +107,7 @@ const GeneratedWebRegistration = (props) => {
       setLastNameInputState(false);
       setError("");
     }
-    if (emailInput == "") {
+    if (!emailInput ) {
       setEmailError("Please enter your Email");
       setEmailErrorState(true);
       setError("Please complete the fields");
@@ -123,7 +121,7 @@ const GeneratedWebRegistration = (props) => {
 
     }
   
-    if (passwordInput === "") {
+    if (!passwordInput ) {
       setPasswordError("Please enter your Password");
       setPasswordErrorState(true);
       setError("Please complete the fields");
@@ -141,7 +139,7 @@ const GeneratedWebRegistration = (props) => {
 
     }
     
-    if (passwordConfirmInput == "") {
+    if (!passwordConfirmInput ) {
       setPasswordConfirmError("Please repeat your Password");
       setPasswordConfirmErrorState(true);
       setError("Please complete the fields");
@@ -181,7 +179,7 @@ const GeneratedWebRegistration = (props) => {
                                const dbRef = firebase.database().ref("user-account-details");
                                 dbRef.on('value', snapshot => {
                                     snapshot.forEach(snap => {
-                                        if (emailInput == snap.val().email) {
+                                        if (emailInput === snap.val().email) {
                                             setCookie('Key', snap.key);
                                             }
                                         });
@@ -193,7 +191,7 @@ const GeneratedWebRegistration = (props) => {
                           );
                         }).catch(error => {
                           setError(error.message);
-                          if (error.code == "auth/email-already-in-use") {
+                          if (error.code === "auth/email-already-in-use") {
                             setEmailError("Email already registered");
                             setEmailErrorState(true);
                             setError("Please enter another registered email");
@@ -227,7 +225,7 @@ const GeneratedWebRegistration = (props) => {
                 </div>
               </nav>
               <div className="graphics-offset">
-                <img src={uiBanner} className="rotate"></img>
+                <img src={uiBanner} className="rotate" alt ="login banner"></img>
               </div>
         </div>
         <div className="full-width">
@@ -295,12 +293,12 @@ const GeneratedWebRegistration = (props) => {
                 </form>
             </div>
       </div>
-       {feedbackVariant == "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={2000} onClose={handleCloseAlert}>
+       {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={2000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="success">
                     {alertMessage}
                 </Alert>
             </Snackbar> :
-            feedbackVariant == "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={2000} onClose={handleCloseAlert}>
+            feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={2000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="warning">
                     {alertMessage}
                 </Alert>

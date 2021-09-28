@@ -6,20 +6,18 @@ import { Button } from "@material-ui/core";
 import { useHistory } from 'react-router-dom';
 import Design1 from './Design1';
 import firebase from '../firebase';
-import { auth } from '../firebase';
 import EditIcon from '@material-ui/icons/Edit';
 import AccordionSideTab from './AccordionSideTab';
-import { useAuth } from '../context/AuthContext';
 import Container from "@material-ui/core/Container";
 
 function PageTab() {
-    const { currentUser, key } = useAuth();
+    // const { currentUser, key } = useAuth();
     const history = useHistory();
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [designPage, setDesignPage] = useState("");
-    const [openModal, setOpenModal] = useState(false);
+    // const [anchorEl, setAnchorEl] = useState(null);
+    // const [designPage, setDesignPage] = useState("");
+    // const [openModal, setOpenModal] = useState(false);
     
-    const [webSizeCustom, setWebSizeCustom] = useState("");
+    // const [webSizeCustom, setWebSizeCustom] = useState("");
     
     const [activatePage, setActivatePage] = useState("");
     const [customizeTheme, setCustomizeTheme] = useState(false);
@@ -72,9 +70,9 @@ function PageTab() {
                             
                         </main>
                     <div className=" flex-no-wrap ">
-                        <div className={activatePage == ""? "display-none": "display-block"}>
+                        <div className={!activatePage ? "display-none": "display-block"}>
                             <div className="box box-default-width m-xy-md theme-img">
-                                <img src={activatePage == "design1"? design1: activatePage == "design2" ? design2:""}></img>
+                                <img src={activatePage === "design1"? design1: activatePage === "design2" ? design2:""}></img>
                                 <div className="modal-footer plain-white-color-bg  pad-x-sm ">
                                     <div className="flex-space-between pad-y-sm">
                                     <p>{activatePage == "design1" ? "Bold and Loud": ""} (Landingpage)</p>
@@ -93,7 +91,7 @@ function PageTab() {
                             </div>
 
                         </div>
-                        <div className={activatePage == ""? "display-block": "display-none"}>
+                        <div className={!activatePage ? "display-block": "display-none"}>
                             "no theme selected yet"
 
                         </div>

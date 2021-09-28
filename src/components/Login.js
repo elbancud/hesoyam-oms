@@ -6,7 +6,6 @@ import uiBanner from "../images/ui-oms.png";
 import {  Link, useHistory} from 'react-router-dom';
 import ErrorIcon from '@material-ui/icons/Error';
 import validator from 'validator';
-import { auth } from '../firebase';
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -38,7 +37,7 @@ export default function Login(){
   async function handleLoginSubmit(e) {
     e.preventDefault();
 
-    if (emailInput == "") {
+    if (!emailInput) {
       setEmailError("Please enter your Email");
       setEmailErrorState(true);
       setError("Please complete the fields");
@@ -50,7 +49,7 @@ export default function Login(){
       setError("");
       setEmailErrorState(false);
     }
-    if (passwordInput == "") {
+    if (!passwordInput) {
       setPasswordError("Please enter your password");
       setPasswordErrorState(true);
       setError("Please complete the fields");
@@ -64,8 +63,11 @@ export default function Login(){
         const dbRef = firebase.database().ref("account-details");
                                 dbRef.on('value', snapshot => {
                                     snapshot.forEach(snap => {
-                                        if (emailInput == snap.val().email) {
+                                        if (emailInput === snap.val().email) {
                                             setCookie('Key', snap.key);
+                                            setCookie('UserFirstName', snap.val().username)
+                                            setCookie('UserLastName',snap.val().lastName )
+                                            setCookie('UserEmail',snap.val().email)
                                             }
                                         });
                                 })
