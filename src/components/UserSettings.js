@@ -19,6 +19,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { auth } from '../firebase';
+import { useAuth } from '../context/AuthContext';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
@@ -52,6 +54,7 @@ function a11yProps(index) {
 }
 
 export default function UserSettings() {
+    const {userSideLogin} = useAuth()
     const [value, setValue] = React.useState(0);
     const [cookies, setCookies] = useCookies(['user'])
     const [siteTitle, setSiteTitle] = useState("")
@@ -86,7 +89,7 @@ export default function UserSettings() {
     const [passwordConfirmError, setPasswordConfirmError] = useState('');
     const [passwordConfirmErrorState, setPasswordConfirmErrorState] = useState(false);
     const [showPasswordState, setShowPasswordState] = useState(false);
-
+    const [passwordEnable, setPasswordEnable] = useState(true);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -118,11 +121,9 @@ export default function UserSettings() {
         dbRef.on('value', snapshot => {
             snapshot.forEach(snap => {
                               
-                if (snap.val().email == cookies.User) {
+                if (snap.val().email === cookies.User) {
                     setSiteTitle(snap.val().savedSiteTitle)
-                                
                 }
-
             });
         })
         setUsernameInput(cookies.UserFirstName)
@@ -131,6 +132,9 @@ export default function UserSettings() {
     }, []);
     const setTextFieldEnable = () => {
         setTextField(false)
+    }
+    const setPasswordEnableTrue = () => {
+        setPasswordEnable(false)
     }
     const savePersonalInfo = () => {
         if (!usernameInput) {
@@ -176,7 +180,7 @@ export default function UserSettings() {
                             setCookies('UserLastName',lastNameInput)
                             setCookies('UserEmail', emailInput)
                             window.location.reload();
-                        }).catch((error) => {
+                        }).catch(() => {
                             
                         })
                         
@@ -185,8 +189,66 @@ export default function UserSettings() {
             }
         }
     }
+    const resetPassword = () => {
+        auth.signInWithEmailAndPassword(cookies.UserEmail, passwordCurrentInput)
+              .then(() => {
+                setPasswordCurrentError("");
+                 setPasswordCurrentErrorState(false);
+                 
+            }).catch(() => {
+                 setPasswordCurrentError("Incorrect password");
+                 setPasswordCurrentErrorState(true);
+            })
+        
+        if (!passwordCurrentInput) {
+            setPasswordCurrentError("Please enter your current password");
+            setPasswordCurrentErrorState(true);
+
+        } else {
+            setPasswordCurrentError("");
+            setPasswordCurrentErrorState(false);
+        }if (!passwordInput) {
+             setPasswordError("Please enter your new password");
+             setPasswordErrorState(true);
+        } if (!validator.isStrongPassword(passwordInput, {
+            minLength: 8, minLowercase: 1,
+            minUppercase: 1, minNumbers: 1
+            })) {
+            setPasswordError('Weak password: TRY Minimum of 8 characters, 1 Lowercase, 1 Uppercase, 1 Number, 1 Symbol')
+            setPasswordErrorState(true);
+        } else {
+           setPasswordError('')
+            setPasswordErrorState(false);
+        } if (passwordConfirmInput === "") {
+             setPasswordConfirmError("Please re-enter your new password");
+             setPasswordConfirmErrorState(true);
+        }if (passwordConfirmInput !== passwordInput) {
+             setPasswordConfirmError("Passwords do not match");
+             setPasswordConfirmErrorState(true);
+        }else {
+           setPasswordConfirmError('')
+            setPasswordConfirmErrorState(false);
+        }
+            if (!passwordConfirmErrorState && !passwordErrorState && !passwordCurrentErrorState) {
+                firebase.auth().currentUser.updatePassword(passwordConfirmInput).then(() => {
+                    setPasswordConfirmError("");
+                    setPasswordConfirmErrorState(false);
+                    setPasswordError('')
+                    setPasswordErrorState(false);
+                    setAlertStatus(true)
+                    setFeedbackVariant("success")
+                    setAlertMessage("Keep it to yourself chief! password updated.")
+                    setPasswordInput("")
+                    setPasswordConfirmInput("")
+                    setPasswordCurrentError("")
+                })
+               
+        }
+        
+    }
     const cancelTextField = () => {
         setTextField(true);
+        setPasswordEnable(true)
     }
   return (
     <div className="position-relative">
@@ -307,7 +369,7 @@ export default function UserSettings() {
                 <div className="pad-y-sm">
                     <div>
                         <b>Security</b>
-                        
+                        <br />
                         Your passwords
                         
                     </div>
@@ -319,14 +381,14 @@ export default function UserSettings() {
                             <div className="box-small-width">
                                 Current password:
                             </div>
-                            <TextField error={passwordCurrentErrorState} helperText={passwordCurrentError} onChange={e => { setPasswordCurrentInput(e.target.value) }} value={passwordCurrentInput} id="outlined-full-width" fullWidth label="Current Password" variant="outlined" type="password" />
+                            <TextField disabled={passwordEnable} error={passwordCurrentErrorState} helperText={passwordCurrentError} onChange={e => { setPasswordCurrentInput(e.target.value) }} value={passwordCurrentInput} id="outlined-full-width" fullWidth label="Current Password" variant="outlined" type="password" />
                         </div>
                         <div className="flex-default m-y-sm ">
                             <div className="box-small-width">
                                New password:
                             </div>
-                                    <div className="position-relative full-width">
-                                        <TextField error={passwordErrorState} helperText={passwordError} onChange={e => { setPasswordInput(e.target.value) }} value={passwordInput} id="outlined-full-width" fullWidth label="New Password" variant="outlined" type={showPasswordState?"text":"password"}/>
+                                    <div className="pad-y-sm position-relative full-width">
+                                        <TextField disabled={passwordEnable} error={passwordErrorState} helperText={passwordError} onChange={e => { setPasswordInput(e.target.value) }} value={passwordInput} id="outlined-full-width" fullWidth label="New Password" variant="outlined" type={showPasswordState?"text":"password"}/>
                                             <div div className="position-absolute-right">
                                                 <IconButton onClick = {showPassword}>
                                                     {showPasswordState?<Visibility />:<VisibilityOff />}
@@ -338,21 +400,21 @@ export default function UserSettings() {
                             <div className="box-small-width">
                                Repeat password:
                             </div>
-                            <TextField error={passwordConfirmErrorState} helperText={passwordConfirmError} onChange={e => { setPasswordConfirmInput(e.target.value) }} value={passwordConfirmInput} id="outlined-full-width" fullWidth label="Confirm Password" variant="outlined" type="password" />
+                            <TextField disabled={passwordEnable} error={passwordConfirmErrorState} helperText={passwordConfirmError} onChange={e => { setPasswordConfirmInput(e.target.value) }} value={passwordConfirmInput} id="outlined-full-width" fullWidth label="Confirm Password" variant="outlined" type="password" />
                             
                         </div>
-                        <div className={!textField? "display-none":""}>
+                        <div className={!passwordEnable? "display-none":""}>
                         <div className="pad-y-sm">
                             
-                                  <Button onClick={setTextFieldEnable} variant="outlined" size="medium">
+                                  <Button onClick={setPasswordEnableTrue} variant="outlined" size="medium">
                                         Edit settings
                                   </Button>
                         </div>
                     
                         </div>
-                        <div className="display-none" id ={!textField? "display-block" : ""}>
+                        <div className="display-none" id ={!passwordEnable? "display-block" : ""}>
                             <div className="pad-y-sm flex-default">
-                                    <Button onClick={savePersonalInfo} variant="contained" size="medium" id="btn-large-primary">
+                                    <Button onClick={resetPassword} variant="contained" size="medium" id="btn-large-primary">
                                             Save changes
                                     </Button>
                                     <div className="pad-x-sm">

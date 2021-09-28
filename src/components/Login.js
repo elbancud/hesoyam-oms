@@ -65,9 +65,7 @@ export default function Login(){
                                     snapshot.forEach(snap => {
                                         if (emailInput === snap.val().email) {
                                             setCookie('Key', snap.key);
-                                            setCookie('UserFirstName', snap.val().username)
-                                            setCookie('UserLastName',snap.val().lastName )
-                                            setCookie('UserEmail',snap.val().email)
+                                            
                                             }
                                         });
                                 })

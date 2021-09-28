@@ -83,9 +83,8 @@ export default function AccountMenu() {
             removeCookie("UserLastName");
             removeCookie("UserEmail");
             
-       
-            
             setOpenLogoutModal(false)
+            history.push("/design1")
             window.location.reload();
         })
    }
