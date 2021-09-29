@@ -190,16 +190,7 @@ export default function UserSettings() {
         }
     }
     const resetPassword = () => {
-        auth.signInWithEmailAndPassword(cookies.UserEmail, passwordCurrentInput)
-              .then(() => {
-                setPasswordCurrentError("");
-                 setPasswordCurrentErrorState(false);
-                 
-            }).catch(() => {
-                 setPasswordCurrentError("Incorrect password");
-                 setPasswordCurrentErrorState(true);
-            })
-        
+      
         if (!passwordCurrentInput) {
             setPasswordCurrentError("Please enter your current password");
             setPasswordCurrentErrorState(true);
@@ -217,20 +208,33 @@ export default function UserSettings() {
             setPasswordError('Weak password: TRY Minimum of 8 characters, 1 Lowercase, 1 Uppercase, 1 Number, 1 Symbol')
             setPasswordErrorState(true);
         } else {
-           setPasswordError('')
+            setPasswordError('')
             setPasswordErrorState(false);
-        } if (passwordConfirmInput === "") {
+        } if (!passwordConfirmInput) {
+            setPasswordConfirmErrorState(true);
              setPasswordConfirmError("Please re-enter your new password");
-             setPasswordConfirmErrorState(true);
-        }if (passwordConfirmInput !== passwordInput) {
+        }else if (passwordConfirmInput !== passwordInput) {
              setPasswordConfirmError("Passwords do not match");
              setPasswordConfirmErrorState(true);
         }else {
            setPasswordConfirmError('')
             setPasswordConfirmErrorState(false);
         }
+          auth.signInWithEmailAndPassword(emailInput, passwordCurrentInput)
+            .then(() => {
+                 setPasswordCurrentError("");
+                 setPasswordCurrentErrorState(false);
+                 
+            }).catch(() => {
+                 setPasswordCurrentError("Incorrect password");
+                 setPasswordCurrentErrorState(true);
+            })
+        
             if (!passwordConfirmErrorState && !passwordErrorState && !passwordCurrentErrorState) {
                 firebase.auth().currentUser.updatePassword(passwordConfirmInput).then(() => {
+                    setPasswordInput("")
+                    setPasswordConfirmInput("")
+                    setPasswordCurrentError("")
                     setPasswordConfirmError("");
                     setPasswordConfirmErrorState(false);
                     setPasswordError('')
@@ -238,9 +242,6 @@ export default function UserSettings() {
                     setAlertStatus(true)
                     setFeedbackVariant("success")
                     setAlertMessage("Keep it to yourself chief! password updated.")
-                    setPasswordInput("")
-                    setPasswordConfirmInput("")
-                    setPasswordCurrentError("")
                 })
                
         }
@@ -249,6 +250,19 @@ export default function UserSettings() {
     const cancelTextField = () => {
         setTextField(true);
         setPasswordEnable(true)
+        setPasswordConfirmError("");
+        setPasswordConfirmErrorState(false);
+        setPasswordError('')
+        setPasswordErrorState(false);
+        setPasswordCurrentError("");
+        setPasswordCurrentErrorState(false);
+        setUsernameError("");
+        setUsernameErrorState(false);
+        setLastNameError("");
+        setLastNameInputState(false);
+        setEmailError("");
+        setEmailErrorState(false);
+
     }
   return (
     <div className="position-relative">
@@ -307,11 +321,10 @@ export default function UserSettings() {
                 className="box pad-xy-sm tab-height-adopt"
             >
                 <Tab label="General" {...a11yProps(0)} />
-                <Tab label="Security" {...a11yProps(1)} />
+                <Tab label="Appointments" {...a11yProps(1)} />
                 
             </Tabs>
             <TabPanel value={value} index={0}  className="width-md-no-margin">
-                <div>
                     
                 <div>
                     <b>Profile</b>
@@ -389,7 +402,7 @@ export default function UserSettings() {
                             </div>
                                     <div className="pad-y-sm position-relative full-width">
                                         <TextField disabled={passwordEnable} error={passwordErrorState} helperText={passwordError} onChange={e => { setPasswordInput(e.target.value) }} value={passwordInput} id="outlined-full-width" fullWidth label="New Password" variant="outlined" type={showPasswordState?"text":"password"}/>
-                                            <div div className="position-absolute-right">
+                                            <div className="position-absolute-right">
                                                 <IconButton onClick = {showPassword}>
                                                     {showPasswordState?<Visibility />:<VisibilityOff />}
                                                 </IconButton>
@@ -427,7 +440,6 @@ export default function UserSettings() {
                         </div>
                     </div>
                     
-                </div>
                 </div>
             
             </TabPanel>

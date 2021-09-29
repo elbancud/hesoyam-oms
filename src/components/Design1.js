@@ -7,8 +7,7 @@ import {  Link, useHistory} from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import TopNavGenWeb from './TopNavGenWeb'
 import UserProfile from './UserProfile';
-import Skeleton from './Skeleton';
-
+import Carousel from './Carousel'
 function Design1() {
     const [siteTitle, setSiteTitle] = useState("");
     const [headerTitle, setHeaderTitle] = useState("");
@@ -22,7 +21,8 @@ function Design1() {
     const [activatePage, setActivatePage] = useState("");
     const [cookies, setCookie] = useCookies(['user']);
     const [update, setUpdate] =useState(false)
-    const [activeCookies, setActiveCookes ] = useState(false)
+    const [activeCookies, setActiveCookes] = useState(false)
+    
     useEffect(() => {
                     const dbRef = firebase.database().ref("account-details");
                         dbRef.on('value', snapshot => {
@@ -59,6 +59,23 @@ function Design1() {
 
         }
     }
+    const responsive = {
+    desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 3,
+        slidesToSlide: 3 // optional, default to 1.
+    },
+    tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 2,
+        slidesToSlide: 2 // optional, default to 1.
+    },
+    mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1,
+        slidesToSlide: 1 // optional, default to 1.
+    }
+    };
     return (
         
         <div className="design1-properties">
@@ -84,7 +101,7 @@ function Design1() {
                                             <a href="#aboutUs">About Us</a>
                                     </li>
                                     <li>
-                                            <a href="#aboutUs">Contact Us</a>
+                                            <a href="#contactUs">Contact Us</a>
                                     </li>
                                     <li>
                                        <Link to="/donate">
@@ -120,7 +137,10 @@ function Design1() {
                         <h1 className="" id ="dynamic-h1"> {typeof(headerTitle) === 'undefined'? "To God be the glory": headerTitle}</h1>
                         <p >{typeof(subHeaderTitle) === 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum venenatis nunc, non gravida ligula sodales commodo. Sed lectus mauris, mollis scelerisque diam vel": subHeaderTitle}</p>
                         <div className="pad-y-sm">
+                             {
+                            activeCookies? <div></div>:  
                             <Button
+                                onClick = {getStarted}
                                 variant="contained"
                                 className="btn-large primary-color"
                                 color="default"
@@ -129,6 +149,8 @@ function Design1() {
                                 >
                                 Get Started
                             </Button>
+                        }
+                            
                         </div>
                         
                         <div className="m-t-md">
@@ -140,45 +162,8 @@ function Design1() {
                     <div className="align-text-center">
                         <p><b>News, Events, and Announcements</b></p>
                     </div>
-                    <div className=" flex-no-wrap flex-default-center-xy pad-y-md">
-                        <div className="box box-default-width m-xy-md theme-img">
-                            <img src="https://images.unsplash.com/photo-1531627467965-e9c3dd19209c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"></img>
-                           <div className="pad-xy-sm events">
-                                <h3 >
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                        </div>
-                        <div className="box box-default-width  m-xy-md theme-img">
-                             <img src="https://images.unsplash.com/photo-1531627467965-e9c3dd19209c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"></img>
-                                <div className="pad-xy-sm events">
-                                    <h3>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                               </div>
-                        </div>
-                        <div className="box box-default-width  m-xy-md theme-img">
-                            <img src="https://images.unsplash.com/photo-1531627467965-e9c3dd19209c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"></img>
-                              <div className="pad-xy-sm events">
-                                <h3>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                              </div>
-                                
-                        </div>
-                        <div className="box box-default-width m-xy-md theme-img">
-                            <img src="https://images.unsplash.com/photo-1531627467965-e9c3dd19209c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"></img>
-                           <div className="pad-xy-sm events">
-                                <h3 >
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                        </div>
-                        
+                    <div className=" pad-y-md">
+                        <Carousel />
                     </div>
 
                 </main>

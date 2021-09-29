@@ -14,7 +14,7 @@ import firebase from 'firebase';
 import { useAuth } from "../context/AuthContext";
 import { useCookies } from 'react-cookie';
 
-export default function GeneratedWebLogin(){
+export default function Donate(){
   //variables
   const history = useHistory();
   const [error, setError] = useState('');

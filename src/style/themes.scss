@@ -26,6 +26,11 @@ img {
 .primary-bg-color-off-white {
   background-color: #fff8f2;
 }
+.text-custom-width {
+  h2 {
+    max-width: 400px;
+  }
+}
 .design1-properties {
   font-family: "Inter", sans-serif;
 

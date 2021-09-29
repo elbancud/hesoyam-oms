@@ -53,7 +53,7 @@ function Announcement() {
     
     
     useEffect(() => {
-        const dbRef = firebase.database().ref("account-details/" + cookies.Key);
+        const dbRef = firebase.database().ref("announcements");
         dbRef.once("value")
             .then(function (snapshot) {
                 const postSnap = snapshot.val();
@@ -92,7 +92,7 @@ function Announcement() {
       
             if (titleErrorState === false && descriptionInputErrorState === false) {
                
-                const dbRefPush = firebase.database().ref("account-details/" + key);
+                const dbRefPush = firebase.database().ref("announcements");
                 dbRefPush.orderByChild('announcementTitle').equalTo(titleInput).once('value').then(snapshot => {
                     if (snapshot.exists()) {
                         setAlertStatus(true)

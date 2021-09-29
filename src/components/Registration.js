@@ -225,7 +225,7 @@ const Registration = (props) => {
                   <div>
                     <div className="pad-y-sm position-relative">
                       <TextField error={passwordErrorState} helperText={passwordError} onChange={e => { setPasswordInput(e.target.value) }} value={passwordInput} id="outlined-full-width" fullWidth label="Password" variant="outlined" type={showPasswordState?"text":"password"}/>
-                          <div div className="position-absolute-right">
+                          <div  className="position-absolute-right">
                               <IconButton onClick = {showPassword}>
                                 {showPasswordState?<Visibility />:<VisibilityOff />}
                               </IconButton>
