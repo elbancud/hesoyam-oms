@@ -837,6 +837,14 @@ footer li {
   }
 }
 
+.flex-flow-wrap-start {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
 @media screen and (max-width: 1080px) {
   .flex-no-wrap {
     -webkit-box-pack: center;

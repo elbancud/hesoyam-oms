@@ -16,7 +16,7 @@ function Podcast() {
     const [alertStatus, setAlertStatus] = useState(false);
     const [feedbackVariant, setFeedbackVariant] = useState("");
     const [alertMessage, setAlertMessage] = useState("");
-
+  
     //display inputted requirements on change event
     //map through objects
  
@@ -50,21 +50,7 @@ function Podcast() {
                 <div className="pad-y-sm">
                   
                     <div className=" flex-default ">
-                        {/* textbox or an edit  */}
-                        <div >
-                        </div>
-
-                        <div className="pad-xy-sm">
-                            <Button
-                                id="btn-large-secondary"
-                                variant="contained"
-                                className="btn-large primary-color"
-                                color="secondary"
-                                size="large"
-                            >
-                                Save
-                            </Button>
-                        </div>
+                     
                     </div>
                 </div>
             </Container>

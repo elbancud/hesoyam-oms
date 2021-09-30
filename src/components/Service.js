@@ -19,12 +19,14 @@ import { Snackbar } from '@material-ui/core';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useCookies } from 'react-cookie';
+import validator from 'validator';
 
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import { max, set } from 'date-fns';
 function Service() {
-
+    
     //variables
     const [service, setService] = useState('');
     const [requirementErrorState, setRequirementState] = useState(false);
@@ -51,6 +53,26 @@ function Service() {
     const [editRequirementState, setEditRequirementState] = useState(false);
     const [editRequirementError, setEditRequirementError] = useState("");
     const [editRequirementInput, setEditRequirementInput] = useState("");
+
+    const [maxErrorState, setMaxErrorState] = useState(false);
+    const [maxError, setMaxError] = useState("");
+    const [maxCapacity, setMaxCapacity] = useState("");
+
+    const [operationDaysFromErrorState, setOperationDaysFromErrorState] = useState(false);
+    const [operationDaysFrom, setOperationDaysFrom] = useState("");
+    const [operationDayFromError, setOperationDayFromError] = useState("");
+    
+    const [operationDaysToErrorState, setOperationDaysToErrorState] = useState(false);
+    const [operationDaysTo, setOperationDaysTo] = useState("");
+    const [operationDayToError, setOperationDayToError] = useState("");
+
+    const [timeOpFromState, setTimeOpFromState] = useState(false);
+    const [timeOpFrom, setTimeOpFrom] = useState("");
+    const [timeOpFromError, setTimeOpFromError] = useState("");
+
+    const [timeOpToState, setTimeOpToState] = useState(false);
+    const [timeOpTo, setTimeOpto] = useState("");
+    const [timeOpToError, setTimeOpToError] = useState("");
     //display inputted requirements on change event
     //map through objects
     const handleChange = (event) => {
@@ -60,9 +82,14 @@ function Service() {
         setUpdate(!update);
 
     };
+    function handleOperationDaysFrom(event) {
+        setOperationDaysFrom(event.target.value);
+    }
+    function handleOperationDaysTo(event) {
+        setOperationDaysTo(event.target.value);
+    }
     const pushState = () => {
         const dbRef = firebase.database().ref("account-details/" + service);
-
                                    const requirementPush = {
                                     requirement: requirementInput.toLowerCase(),
                                 }
@@ -140,6 +167,53 @@ function Service() {
               
             }
         }
+        if (!maxCapacity) {
+            setMaxErrorState(true)
+            setMaxError("Please enter max capacity")
+        } else if (isNaN(parseInt(maxCapacity))) {
+            setMaxErrorState(true)
+            setMaxError("Please enter Numbers only")
+        }
+        else {
+            setMaxErrorState(false)
+            setMaxError("")
+        }
+        if (!operationDaysFrom) {
+            setOperationDaysFromErrorState(true)
+            setOperationDayFromError("Please select starting date")
+        } else {
+            setOperationDaysFromErrorState(false)
+            setOperationDayFromError("")
+        }
+        if (!operationDaysTo) {
+            setOperationDaysToErrorState(true)
+            setOperationDayToError("Please select an ending date")
+        } else {
+            setOperationDaysToErrorState(false)
+            setOperationDayToError("")
+        }
+        if (!operationDaysFrom) {
+            setOperationDaysFromErrorState(true)
+            setOperationDayFromError("Please select starting date")
+        } else {
+            setOperationDaysFromErrorState(false)
+            setOperationDayFromError("")
+        }
+        if (!timeOpFrom) {
+            setTimeOpFromState(true)
+            setTimeOpFromError("Please select an opening hours")
+        } else {
+            setTimeOpFromState(false)
+            setTimeOpFromError("")
+        }
+        if (!timeOpTo) {
+            setTimeOpToState(true)
+            setTimeOpToError("Please select closing hours")
+        } else {
+            setTimeOpToState(false)
+            setTimeOpToError("")
+        }
+        alert(timeOpFrom)
         setUpdate(!update);
       
     }
@@ -279,7 +353,130 @@ function Service() {
                         <FormHelperText>{selectError}</FormHelperText>
 
                     </FormControl>
-                </Box>
+                     </Box>
+                      <div className="pad-y-sm flex-flow-wrap-start ">
+                        <div className="m-r-sm m-y-sm" >
+                            
+                            <div>
+                                <h5><b>Max Capacity</b></h5>
+                            </div>
+                             <Box sx={{maxWidth:120}}>
+                                <TextField type="text" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} error={maxErrorState} helperText={maxError} onChange={e => { setMaxCapacity(e.target.value) }} value={maxCapacity} id="outlined-full-width" fullWidth label="Max capacity" variant="outlined" className="text-input-deafult" />
+                            </Box>
+                        </div>
+                       
+                        <div className="m-y-sm">
+
+                            <div>
+                                <h5><b>Operation days</b></h5>
+                            </div>
+                            <div className=" flex-default ">
+                                
+                                <div>
+                                    <Box sx={{ minWidth: 120 }}>
+                                        <FormControl fullWidth error={operationDaysFromErrorState} >
+                                            <InputLabel id="demo-simple-select-label">From</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={operationDaysFrom}
+                                                label="Service"
+                                                onChange={handleOperationDaysFrom}
+                                            >
+                                                <MenuItem value="Sunday">Sunday </MenuItem>
+                                                <MenuItem value="Monday">Monday</MenuItem>
+                                                <MenuItem value="Tuesday">Tuesday</MenuItem>
+                                                <MenuItem value="Wednesday">Wednesday</MenuItem>
+                                                <MenuItem value="Thursday">Thursday</MenuItem>
+                                                <MenuItem value="Friday">Friday</MenuItem>
+                                                <MenuItem value="Saturday">Saturday</MenuItem>
+                                            </Select>
+                                            <FormHelperText>{operationDayFromError}</FormHelperText>
+
+                                        </FormControl>
+                                    </Box>
+                                </div>
+                                <div className="pad-x-sm">
+                                
+                                    
+                                    <Box sx={{ minWidth: 120 }}>
+                                        <FormControl fullWidth error={operationDaysToErrorState} >
+                                            <InputLabel id="demo-simple-select-label">To</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={operationDaysTo}
+                                                label="Service"
+                                                onChange={handleOperationDaysTo}
+                                            >
+                                                <MenuItem value="Sunday">Sunday </MenuItem>
+                                                <MenuItem value="Monday">Monday</MenuItem>
+                                                <MenuItem value="Tuesday">Tuesday</MenuItem>
+                                                <MenuItem value="Wednesday">Wednesday</MenuItem>
+                                                <MenuItem value="Thursday">Thursday</MenuItem>
+                                                <MenuItem value="Friday">Friday</MenuItem>
+                                                <MenuItem value="Saturday">Saturday</MenuItem>
+                                            </Select>
+                                            <FormHelperText>{operationDayToError}</FormHelperText>
+
+                                        </FormControl>
+                                    </Box>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="m-y-sm ">
+                                <div>
+                                    <h5><b>Time operations</b></h5>
+                                </div>
+                            <div className="flex-default">
+                                  <div className="m-r-sm">
+                                
+                                <TextField
+                                    error={timeOpFromState}
+                                    helperText={timeOpFromError}
+                                    onChange={e => { setTimeOpFrom(e.target.value) }}
+                                    value = {timeOpFrom}
+                                    variant="outlined"
+                                    variant="outlined"
+                                    id="time"
+                                    label="From"
+                                    type="time"
+                                    defaultValue="07:30"
+                                    InputLabelProps={{
+                                    shrink: true,
+                                    }}
+                                    inputProps={{
+                                    step: 300, // 5 min
+                                    }}
+                                    sx={{ width: 150 }}
+                                />
+                            </div>
+                            <div className="m-r-sm">
+                                
+                                 <TextField
+                                    error={timeOpToState}
+                                    helperText={timeOpToError}
+                                    onChange={e => { setTimeOpto(e.target.value) }}
+                                    value = {timeOpTo}
+                                    variant="outlined"
+                                    id="time"
+                                    label="To"
+                                    type="time"
+                                    defaultValue="05:00"
+                                    InputLabelProps={{
+                                    shrink: true,
+                                    }}
+                                    inputProps={{
+                                    step: 300, // 5 min
+                                    }}
+                                    sx={{ width: 150 }}
+                                />
+                            </div>
+                            </div>
+                          
+                        </div>
+
+                    </div>
                 <div className="pad-y-sm">
                     <div className="flex-default">
                         <div className="icon-padding">
@@ -294,7 +491,12 @@ function Service() {
                             <TextField error={requirementErrorState} helperText={requirementError} onChange={e => { setRequirementInput(e.target.value) }} value={requirementInput} id="outlined-full-width" fullWidth label="Enter requirement" variant="outlined" className="text-input-deafult" />
                         </div>
 
-                        <div className="pad-xy-sm">
+                       
+                    </div>
+                  
+              
+                    <div>
+                         <div className="pad-y-sm">
                             <Button
                                 onClick={saveServiceRequirement}
                                 disabled={!requirementInput}
@@ -472,3 +674,4 @@ function Service() {
 }
 
 export default Service
+
