@@ -82,6 +82,7 @@ function Service() {
         setUpdate(!update);
 
     };
+    
     function handleOperationDaysFrom(event) {
         setOperationDaysFrom(event.target.value);
     }
@@ -167,6 +168,11 @@ function Service() {
               
             }
         }
+        
+        setUpdate(!update);
+      
+    }
+    function handleSetServiceProperties() {
         if (!maxCapacity) {
             setMaxErrorState(true)
             setMaxError("Please enter max capacity")
@@ -213,11 +219,7 @@ function Service() {
             setTimeOpToState(false)
             setTimeOpToError("")
         }
-        alert(timeOpFrom)
-        setUpdate(!update);
-      
     }
-    
     
     const handleCloseModal = () => {
         setOpenEditModal(false)
@@ -475,6 +477,20 @@ function Service() {
                             </div>
                           
                         </div>
+                        <div className="grid-place-center">
+                            
+                            <Button
+                                onClick={handleSetServiceProperties}
+                                disabled={!requirementInput}
+                                id="btn-large-secondary"
+                                variant="contained"
+                                className="btn-large primary-color "
+                                color="secondary"
+                                size="large"
+                            >
+                                Save
+                            </Button>
+                        </div>
 
                     </div>
                 <div className="pad-y-sm">
@@ -490,13 +506,8 @@ function Service() {
                         <div >
                             <TextField error={requirementErrorState} helperText={requirementError} onChange={e => { setRequirementInput(e.target.value) }} value={requirementInput} id="outlined-full-width" fullWidth label="Enter requirement" variant="outlined" className="text-input-deafult" />
                         </div>
-
-                       
-                    </div>
-                  
-              
-                    <div>
-                         <div className="pad-y-sm">
+                        <div>
+                         <div className="pad-xy-sm">
                             <Button
                                 onClick={saveServiceRequirement}
                                 disabled={!requirementInput}
@@ -509,7 +520,12 @@ function Service() {
                                 Save
                             </Button>
                         </div>
+                    </div>           
+                       
                     </div>
+                  
+              
+                    
                     <ul className="width-sm-no-margin ul-customized pad-x-md">
                             {serviceArray ? serviceArray.map((data)=> {
                                 return (

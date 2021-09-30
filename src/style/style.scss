@@ -182,6 +182,7 @@ b {
 }
 .position-absolute {
   position: absolute;
+  z-index: 1;
   .account-img {
     img {
       width: 100%;
@@ -293,6 +294,9 @@ b {
 }
 .m-r-sm {
   margin-right: 1rem;
+}
+.m-r-md {
+  margin-right: 2rem;
 }
 .m-t-sm {
   margin-top: 1rem;
@@ -493,6 +497,19 @@ header {
   font-size: 11px;
   padding: 0.3rem 0;
   margin: 0 auto;
+}
+#reserved {
+  background-color: #eeeeee;
+}
+#available {
+  background-color: #26a69a;
+  color: #fff;
+}
+.seat-div {
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  // color: #fff;
+  cursor: pointer;
 }
 #btn-large-primary {
   // padding: 1rem 3rem;

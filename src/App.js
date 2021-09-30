@@ -17,6 +17,8 @@ const PrayerWall = lazy(()=> import('./components/PrayerWall'))
 const GeneratedWebLogin = lazy(() => import('./components/GeneratedWebLogin'))
 const ServiceUser = lazy(() => import('./components/ServiceUser'))
 const UserSettings = lazy(() => import('./components/UserSettings'))
+const Donate = lazy(() => import('./components/Donate'))
+
 
 function App() {
 
@@ -65,6 +67,9 @@ function App() {
                         </Route>
                         <Route path="/userSettings" exact >
                           <UserSettings/>
+                        </Route>
+                        <Route path="/donationPage" exact >
+                          <Donate/>
                         </Route>
                     </Suspense>
 

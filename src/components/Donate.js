@@ -6,116 +6,49 @@ import TextField from '@material-ui/core/TextField';
 import uiBanner from "../images/ui-oms.png";
 import {  Link, useHistory} from 'react-router-dom';
 import ErrorIcon from '@material-ui/icons/Error';
-import validator from 'validator';
-import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+
 import firebase from 'firebase';
 import { useAuth } from "../context/AuthContext";
-import { useCookies } from 'react-cookie';
+import NavUser from "./NavUser";
 
 export default function Donate(){
   //variables
-  const history = useHistory();
   const [error, setError] = useState('');
   const [showPasswordState, setShowPasswordState] = useState(false);
 
-  const [emailInput, setEmailInput] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [emailErrorState, setEmailErrorState] = useState(false);
-  
-  const [passwordInput, setPasswordInput] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [passwordErrorState, setPasswordErrorState] = useState(false);
-  const [cookies, setCookie] = useCookies(['user']);
+ 
+  const [usernameInput, setUsernameInput] = useState('');
+  const [usernameError, setUsernameError] = useState('');
+  const [usernameErrorState, setUsernameErrorState] = useState(false);
 
+  const [amount, setAmount] = useState('');
+  const [amountError, setAmountError] = useState('');
+  const [amountErrorState, setAmountErrorState] = useState(false);
+
+ 
   const { login } = useAuth();
 
-   function showPassword(e) {
+  function showPassword(e) {
     e.preventDefault();
     setShowPasswordState(!showPasswordState);
   }
-  async function handleLoginSubmit(e) {
-    e.preventDefault();
-    if (!emailInput ) {
-      setEmailError("Please enter your Email");
-      setEmailErrorState(true);
-      setError("Please complete the fields");
-    } else if (!validator.isEmail(emailInput)) {
-      setEmailError("Please enter a valid email");
-      setEmailErrorState(true);
-      setError("Please complete the fields");
-    } else {
-      setError("");
-      setEmailErrorState(false);
-    }
-    if(!passwordInput) {
-      setPasswordError("Please enter your password");
-      setPasswordErrorState(true);
-      setError("Please complete the fields");
-    } else {
-      try {
-        await login(emailInput, passwordInput);
-         const dbAccountDetails = firebase.database().ref("user-account-details") 
-                  
-          dbAccountDetails.orderByChild("email").equalTo(emailInput).once('value').then(snapshot => {
-            if (snapshot.exists()) {
-              history.push("/design1")
-              setPasswordError("");
-              setPasswordErrorState(false);
-              setError("");
-              const db = firebase.database().ref("user-account-details");
-              db.on('value', snapshot => {
-                snapshot.forEach(snap => {
-                  if (snap.val().email === emailInput) {
-                    setCookie('UserLoginKey', snap.key);
-                    setCookie('UserFirstName', snap.val().username)
-                    setCookie('UserLastName',snap.val().lastname)
-                    setCookie('UserEmail', snap.val().email)
-                    return true;
-                  }
-                  window.location.reload()
-                })
-              })
-              
-            } else {
-              setEmailError("Invalid email or password");
-              setEmailErrorState(true);
-              setError("Invalid email or password");
-              setPasswordError("Invalid email or password");
-              setPasswordErrorState(true);
-            }
-          })
-      }
-      catch (error)  {
-        if ( error.code === "auth/wrong-password") {
-          setEmailError("Invalid email or password");
-          setEmailErrorState(true);
-          setError("Invalid email or password");
-          setPasswordError("Invalid email or password");
-          setPasswordErrorState(true);
-        } else if (error.code === "auth/user-not-found") {
-          setEmailError("User not found, please anter a registered account");
-          setEmailErrorState(true);
-          setError("User not found, please anter a registered account");
-          setPasswordError("User not found, please anter a registered account");
-          setPasswordErrorState(true);
-        }
-      }
-    }
+  function handleLoginSubmit(e) {
+   
   }
   return (
-    <div>
+    <div className = "position-relative">
+      <div className="position-absolute full-width">
+        <NavUser/>
 
+      </div>
       <div className="">
         <main className="full-height flex-flow-wrap ">
           <div className="  pad-xy-md width-sm primary-bg-color-off-white full-height left-banner position-relative">
               <nav className="pad-y-sm pad-y-md ">
                 <div className=" align-text-left pad-xy-md ">
-                    <div className="app-name align-text-center">
-                          <h3 className="secondary-color-text">Hesoyam</h3>
-                      </div>
-                    <h2>Welcome back, Ready to keep spreading the words of God?</h2>                    
+                
+                      <h2>Psalm 112:5</h2>
+                    <p>Good will come to those who are generous and lend freely, who conduct their affairs with justice.</p>                    
                 </div>
               </nav>
               <div className="graphics-offset">
@@ -133,48 +66,34 @@ export default function Donate(){
                     </div>
                 }
                 <div className="subtitle ">
-                  <h3>Sign in your account</h3>     
+                  <h3>Donate</h3>     
+                  <p>We are grateful for your donation, it will help us to further our goals</p>
                 </div>
                 <form autoComplete="off" onSubmit={handleLoginSubmit}>
                   <div className="pad-y-sm">
-                      <TextField error={emailErrorState} helperText={emailError} onChange={e => {setEmailInput(e.target.value)}} value={emailInput}   id="outlined-full-width" fullWidth label="Email" variant="outlined" className="text-input-deafult"/>
+                       <TextField  error={usernameErrorState} helperText={usernameError} onChange={e => { setUsernameInput(e.target.value) }} value={usernameInput} id="outlined-full-width" fullWidth label="Name (optional)" variant="outlined" type="text" className="text-input-deafult" />
+
                   </div>
                   <div>
-                  <div className="flex-end">
-                        <Link to ="emailForgetPass">
-                          <p className="primary-color-text"><b>Forgot Password?</b></p>
-                      
-                        </Link>
-                    </div>
+                  
                     <div>
-                      <div className="pad-y-sm position-relative">
-                        <TextField error={passwordErrorState} helperText={passwordError} onChange={e => { setPasswordInput(e.target.value) }} value={passwordInput} id="outlined-full-width" fullWidth label="Password" variant="outlined" type={showPasswordState?"text":"password"}/>
-                            <div  className="position-absolute-right">
-                                <IconButton onClick = {showPassword}>
-                                  {showPasswordState?<Visibility />:<VisibilityOff />}
-                                </IconButton>
-                          </div>
+                    <div className="pad-y-sm position-relative">
+                        <TextField type="text" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} error={amountErrorState} helperText={amountError} onChange={e => { setAmount(e.target.value) }} value={amount} id="outlined-full-width" fullWidth label="Amount" variant="outlined" className="text-input-deafult" />
                       </div>
                     </div>
                     <div className="pad-y-sm">
                       <Button
-                      variant="contained"
-                      className="btn-large primary-color full-width"
-                      color="secondary"
-                      size="large"
-                      id="btn-large-primary"
-                      type="submit">
-                      Login
+                        variant="contained"
+                        className="btn-large primary-color full-width"
+                        color="secondary"
+                        size="large"
+                        id="btn-large-primary"
+                        type="submit">
+                        Donate
                       </Button>
                     </div>
                       
-                    <div className="pad-y-sm align-text-center">
-                        <p>Not a member yet? No worries 
-                          <Link to="/genWebRegistration">
-                            <span className="primary-color-text cursor-pointer"><b> Sign Up</b> </span>
-                          </Link>
-                    </p>
-                      </div>
+                  
                     </div>
                   
                 </form>

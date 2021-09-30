@@ -104,7 +104,7 @@ function Design1() {
                                             <a href="#contactUs">Contact Us</a>
                                     </li>
                                     <li>
-                                       <Link to="/donate">
+                                       <Link to="/donationPage">
                                             Donate
                                         </Link>
                                     </li>

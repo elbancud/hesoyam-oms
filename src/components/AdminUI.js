@@ -34,9 +34,9 @@ export default function AdminUI() {
     const [theme, setTheme] = useState(false);
     const [webpagesTab, setWebpagesTab] = useState(false);
     
-    const [servicesTab, setServicesTab] = useState(true);
+    const [servicesTab, setServicesTab] = useState(false);
     const [calendarTab, setCalendarTab] = useState(false);
-    const [seatsTab, setSeatsTab] = useState(false);
+    const [seatsTab, setSeatsTab] = useState(true);
     const [announcementTab, setAnnouncementTab] = useState(false);
     const [livestreamTab, setLiveStreamTab] = useState(false);
     const [podcastsTab, setPodcastsTab] = useState(false);

@@ -56,20 +56,34 @@ export default function Login(){
     } else {
       try {
         await login(emailInput, passwordInput);
-        history.push("/adminUI")
-        setPasswordError("");
-        setPasswordErrorState(false);
-        setError("");
-        const dbRef = firebase.database().ref("account-details");
-                                dbRef.on('value', snapshot => {
-                                    snapshot.forEach(snap => {
-                                        if (emailInput === snap.val().email) {
-                                            setCookie('Key', snap.key);
-                                            
-                                            }
-                                        });
-                                })
-        setCookie("User", emailInput);
+        const dbAccountDetails = firebase.database().ref("account-details") 
+                  
+          dbAccountDetails.orderByChild("email").equalTo(emailInput).once('value').then(snapshot => {
+            if (snapshot.exists()) {
+                history.push("/adminUI")
+                setPasswordError("");
+                setPasswordErrorState(false);
+                setError("");
+                const dbRef = firebase.database().ref("account-details");
+                                        dbRef.on('value', snapshot => {
+                                            snapshot.forEach(snap => {
+                                                if (emailInput === snap.val().email) {
+                                                    setCookie('Key', snap.key);
+                                                    
+                                                    }
+                                                });
+                                        })
+                setCookie("User", emailInput);
+              
+            } else {
+              setEmailError("Invalid email or password");
+              setEmailErrorState(true);
+              setError("Invalid email or password");
+              setPasswordError("Invalid email or password");
+              setPasswordErrorState(true);
+            }
+          })
+     
      }
       catch (error)  {
         if ( error.code === "auth/wrong-password") {

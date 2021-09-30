@@ -21,9 +21,7 @@ export function AuthProvider({ children }) {
        
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
-            setUserSideLogin(cookies.UserEmail)
             setCurrentUser(user ? user.email : "")
-            user ? localStorage.setItem('user', JSON.stringify(user.email)) : localStorage.removeItem('user');
             if (user) {
                 const dbRef = firebase.database().ref("account-details");
                       dbRef.on('value', snapshot => {
@@ -44,7 +42,6 @@ export function AuthProvider({ children }) {
             currentUser,
             key,
             login,
-            userSideLogin
         }
     return (
         <AuthContext.Provider value={value}>

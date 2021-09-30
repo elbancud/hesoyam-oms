@@ -155,8 +155,7 @@ function AdminAccountManagement({ username, email }) {
         } else {
             setPasswordError("");
             setPasswordErrorState(false);
-    
-            auth.signInWithEmailAndPassword(currentUser, passwordInput)
+            auth.signInWithEmailAndPassword(cookies.User, passwordInput)
             .then(user => {
                 const dbRef = firebase.database().ref("account-details");
                 dbRef.orderByChild('email').equalTo(emailInput).once('value').then(snapshot => {
@@ -194,7 +193,7 @@ function AdminAccountManagement({ username, email }) {
       }
     }
     function handleResetPassword(e) {
-          auth.signInWithEmailAndPassword(currentUser, passwordCurrentInput)
+          auth.signInWithEmailAndPassword(cookies.User, passwordCurrentInput)
               .then(user => {
                 setPasswordCurrentError("");
                  setPasswordCurrentErrorState(false);
@@ -289,7 +288,7 @@ function AdminAccountManagement({ username, email }) {
                             <div className="subtitle flex-space-between m-y-sm">
                                 <div>
                                     <p>EMAIL</p>
-                                    <p><b>{currentUser}</b></p>
+                                    <p><b>{cookies.User}</b></p>
                                 
                                 </div>
                                 <div>

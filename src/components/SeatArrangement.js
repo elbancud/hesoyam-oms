@@ -7,22 +7,36 @@ import { useAuth } from '../context/AuthContext';
 import firebase from 'firebase';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
-
-function Podcast() {
-
+import EventSeatIcon from '@mui/icons-material/EventSeat';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import Chip from '@mui/material/Chip';
+import Avatar from '@mui/material/Avatar';
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+function SeatArrangement() {
+   
     //variables
     const { key, currentUser } = useAuth();
+    const [announcementArray, setAnnouncementArray] = useState();
 
     const [alertStatus, setAlertStatus] = useState(false);
     const [feedbackVariant, setFeedbackVariant] = useState("");
     const [alertMessage, setAlertMessage] = useState("");
-  
-    //display inputted requirements on change event
-    //map through objects
- 
-    // validate 
-    //disable if no requirement is inputted
-    //push requirement
+    const [seat, setSeat] = useState([{reserve: true}, 'b', {reserve: true},'d'])
+    
+    //get 
+     useEffect(() => {
+        const dbRef = firebase.database().ref("announcements");
+        dbRef.once("value")
+            .then(function (snapshot) {
+                const postSnap = snapshot.val();
+                const announcementArray = [];
+                for (let id in postSnap) {
+                    announcementArray.push({id, ...postSnap[id]});
+                }
+                setAnnouncementArray(announcementArray)
+            });
+    }, [])
     const saveServiceRequirement = (event) => {
 
     }
@@ -40,17 +54,58 @@ function Podcast() {
     };
     return (
         <div>
-
             <Container className="pad-y-md">
                 <div className="title pad-y-sm">
                     <h2>Seat Management</h2>
                     <p>Shown here are rows and columns of your church. At the moment it is static and pre-defined, but the availability is dynamic and referenced from the user's appointments. </p>
                 </div>
-       
+                <div>
+                    <h5>Legends</h5>
+                    <div className="flex-default">
+                        <div className="m-r-sm">
+                            <Chip label="Reserved" sx={{bgcolor:"eeeeee", color:"#34344d"}}/>
+                        </div>
+                        <div className="m-r-sm">
+                            <Chip label="Available" sx={{bgcolor:"#26a69a", color:"#fff"}}/>
+                        </div>
+                    </div>
+                </div>
                 <div className="pad-y-sm">
-                  
                     <div className=" flex-default ">
-                     
+                         
+                        {seat ? seat.map((data,index)=> {
+                                if(data.reserve){
+                                    return (
+                                    <div className=" ">
+                                        <div >
+                                                <Tooltip title="Click for action">
+                                                   
+                                                   
+                                                        <Button variant="contained" id="reserved" disableElevation>
+                                                            {index}
+                                                        </Button>
+                                            </Tooltip>
+                                        </div> 
+
+                                    </div>
+                                    ) 
+                                } else {
+                                    return (
+                                    <div className=" ">
+                                        <div className="seat-div">
+                                            <Tooltip title="Click for action">
+                                                   
+                                                    <Button variant="contained" id="available" disableElevation>
+                                                            {index}
+                                                        </Button>
+                                            </Tooltip>
+                                        </div> 
+
+                                    </div>
+                                    )
+                                }                            
+                                
+                        }) : "No anouncements yet"}
                     </div>
                 </div>
             </Container>
@@ -74,4 +129,4 @@ function Podcast() {
     )
 }
 
-export default Podcast
+export default SeatArrangement
