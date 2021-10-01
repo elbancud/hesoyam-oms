@@ -1,4 +1,4 @@
-import React, {Suspense,useState , lazy} from "react";
+import React, {Suspense , lazy} from "react";
 import "./style/style.css";
 import { BrowserRouter as Router, Route, Switch, } from 'react-router-dom';
 import PrivateRoute from "./components/PrivateRoute";

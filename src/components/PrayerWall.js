@@ -198,8 +198,8 @@ function PrayerWall() {
                     <main>
                         {prayerArray ? prayerArray.map((data)=> {
                                     return (
-                                    <div className="m-y-sm ">
-                                        <div key={data.id} className="box width-sm">
+                                    <div className="m-y-sm "  key={data.id}>
+                                        <div className="box width-sm">
                                                     <div className="pad-xy-sm ">
                                                         <div className="">
                                                             <p>{data.postInput}</p>

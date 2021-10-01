@@ -19,7 +19,6 @@ import Fade from '@material-ui/core/Fade';
 function Announcement() {
 
     //variables
-    const { key } = useAuth();
 
     const [alertStatus, setAlertStatus] = useState(false);
     const [feedbackVariant, setFeedbackVariant] = useState("");
@@ -31,7 +30,7 @@ function Announcement() {
     const [descriptionInput, setDescriptionInput] = useState("");
     const [descriptionInputError, setDescriptionInputError] = useState("");
     const [descriptionInputErrorState, setDescriptionInputErrorState] = useState(false);
-    const [cookies, setCookie] = useCookies(['user']);
+    const cookies = useCookies(['user'])
     const [update, setUpdate] = useState(false);
     const [announcementArray, setAnnouncementArray] = useState();
 
@@ -170,7 +169,7 @@ function Announcement() {
                 setEditPostTitleTextFieldError("No changes found")
 
             }
-              if(editDescriptionTextFieldState === false && editDescriptionTextFieldState === false && editPostTitleTextFieldInput.length > 8 && editDescriptionTextFieldInput.length > 8 && editPostTitleTextFieldInput != activePost || editDescriptionTextFieldInput != activeDescription){
+              if(editDescriptionTextFieldState === false && editDescriptionTextFieldState === false && editPostTitleTextFieldInput.length > 8 && editDescriptionTextFieldInput.length > 8 && editPostTitleTextFieldInput !== activePost || (editDescriptionTextFieldInput != activeDescription)){
                             setEditDescriptionTextFieldState(false)
                             setEditDescriptionTextFieldError("")
                             setEditPostTitleTextFieldState(false)
@@ -297,12 +296,12 @@ function Announcement() {
                 </div>
       
             </Container>
-                 {feedbackVariant == "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                 {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="success">
                     {alertMessage}
                 </Alert>
             </Snackbar> :
-            feedbackVariant == "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+            feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="warning">
                     {alertMessage}
                 </Alert>

@@ -4,10 +4,9 @@ import "../style/themes.css"
 import { Button } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import uiBanner from "../images/ui-oms.png";
-import {  Link, useHistory} from 'react-router-dom';
 import ErrorIcon from '@material-ui/icons/Error';
 
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import { useAuth } from "../context/AuthContext";
 import NavUser from "./NavUser";
 
@@ -26,12 +25,6 @@ export default function Donate(){
   const [amountErrorState, setAmountErrorState] = useState(false);
 
  
-  const { login } = useAuth();
-
-  function showPassword(e) {
-    e.preventDefault();
-    setShowPasswordState(!showPasswordState);
-  }
   function handleLoginSubmit(e) {
    
   }

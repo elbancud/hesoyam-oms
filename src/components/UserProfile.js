@@ -16,7 +16,6 @@ import Tooltip from '@mui/material/Tooltip';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { fontSize } from '@mui/system';
 export default function AccountMenu() {
     const [openLogoutModal, setOpenLogoutModal] = useState(false);
     const history = useHistory();

@@ -25,7 +25,7 @@ import { useCookies } from 'react-cookie';
 function AdminAccountManagement({ username, email }) {
     const history = useHistory();
     const { currentUser, key } = useAuth();
-     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+     const [cookies, removeCookie] = useCookies(["user"]);
 
     const [openUsernameModal, setOpenUsernameModal] = useState(false);
     const [openEmailModal, setOpenEmailModal] = useState(false);
@@ -47,8 +47,7 @@ function AdminAccountManagement({ username, email }) {
     const [passwordConfirmError, setPasswordConfirmError] = useState('');
     const [passwordConfirmErrorState, setPasswordConfirmErrorState] = useState(false);
 
-    const [user, setUser] = useState(null);
-    const [userName, setUsername] = useState("");
+    const [user] = useState(null);
     const [emailInput, setEmailInput] = useState('');
     const [emailError, setEmailError] = useState('');
     const [emailErrorState, setEmailErrorState] = useState(false);

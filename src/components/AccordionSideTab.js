@@ -1,5 +1,4 @@
 import React, { useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -14,7 +13,6 @@ import { useCookies } from 'react-cookie';
 
 function AccordionSideTab() {
   const [typing, setTyping] = useState(false);
-  const [cookies, setCookie] = useCookies(['user']);
   const [siteTitle, setSiteTitle] = useState("");
   const [headerTitle, setHeaderTitle] = useState("");
   const [subHeaderTitle, setSubHeaderTitle] = useState("");
@@ -23,7 +21,7 @@ function AccordionSideTab() {
   const [location, setLocation] = useState("");
   const [number, setNumber] = useState("");
   const [siteEmail, setSiteEmail] = useState("");
-
+  const cookies = useCookies(['user'])
 
   const [expanded, setExpanded] = React.useState(false);
 

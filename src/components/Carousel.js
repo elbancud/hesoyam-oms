@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import Paper from '@mui/material/Paper';
 import firebase from 'firebase';
 import { useCookies } from 'react-cookie';
 import "../style/style.css";
@@ -14,7 +13,6 @@ import "../style/themes.css"
 function Carousel() {
     const [announcementArray, setAnnouncementArray] = useState();
     const [activeItemIndex, setActiveItemIndex] = useState(0);
-    const [cookies, setCookie] = useCookies(['user']);
 
     useEffect(() => {
 
