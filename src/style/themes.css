@@ -47,7 +47,7 @@ img {
 }
 
 .design1-properties h1 {
-  font-size: clamp(72px, 10vw, 190px);
+  font-size: clamp(62px, 10vw, 90px);
 }
 
 .design1-properties h3 {
@@ -55,7 +55,7 @@ img {
 }
 
 .design1-properties p {
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
   line-height: 2;
 }
@@ -69,9 +69,10 @@ img {
 }
 
 .design1-properties main .about-us h2 {
-  font-size: clamp(32px, 10vw, 72px) !important;
+  font-size: clamp(32px, 5vw, 48px) !important;
   line-height: 1.2;
-  max-width: 1080px;
+  width: 80%;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -83,6 +84,6 @@ img {
 .design1-properties main .contact-us p {
   font-size: clamp(18px, 10vw, 24px) !important;
   line-height: 1.5;
-  max-width: 350px;
+  max-width: 450px;
 }
 /*# sourceMappingURL=themes.css.map */

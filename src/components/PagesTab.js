@@ -100,6 +100,7 @@ function PageTab() {
                 
             </main>
             </div>
+            </Container>
         
             <main className={customizeTheme ? "display-block" : "display-none"}>
                 <div className="flex-default-align-default  pad-x-sm">
@@ -107,16 +108,15 @@ function PageTab() {
                         <div className=" position-fixed-top box-default-width position-absolute"> 
                             <AccordionSideTab/>
                         </div>
-
                     </div>
+                    <Container>
+                        <div>
+                            {activatePage == "design1"? <Design1/> : ""}
+                        </div>
 
-                    <div>
-                        {activatePage == "design1"? <Design1/> : ""}
-
-                    </div>
+                    </Container>
                 </div>
             </main>
-            </Container>
 
         </div>
         

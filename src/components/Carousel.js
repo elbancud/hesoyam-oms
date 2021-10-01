@@ -37,7 +37,7 @@ function Carousel() {
                     <ItemsCarousel
                         requestToChangeActive={setActiveItemIndex}
                         activeItemIndex={activeItemIndex}
-                        numberOfCards={1}
+                        numberOfCards={2}
                         gutter={20}
                         leftChevron={<Tooltip title="previous">
                                                 <IconButton >

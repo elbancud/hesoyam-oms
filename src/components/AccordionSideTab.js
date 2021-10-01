@@ -98,7 +98,6 @@ function AccordionSideTab() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
           id="panel1bh-header"
-           className="bottom-border"
            
         >
           <Typography variant="subtitle2">Site Title</Typography>
@@ -142,7 +141,6 @@ function AccordionSideTab() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3bh-content"
           id="panel3bh-header"
-          className="bottom-border"
         >
           <Typography variant="subtitle2">Header: Subtitle</Typography>
 
@@ -163,7 +161,6 @@ function AccordionSideTab() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel4bh-content"
           id="panel4bh-header"
-          className="bottom-border"
         >
           <Typography variant="subtitle2">Announcements & Events</Typography>
         </AccordionSummary>
@@ -178,7 +175,6 @@ function AccordionSideTab() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel4bh-content"
           id="panel4bh-header"
-          className="bottom-border"
         >
           <Typography variant="subtitle2">About Us: Main text</Typography>
         </AccordionSummary>
@@ -198,7 +194,6 @@ function AccordionSideTab() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel4bh-content"
           id="panel4bh-header"
-          className="bottom-border"
         >
           <Typography variant="subtitle2">About Us: Description</Typography>
         </AccordionSummary>
@@ -218,7 +213,6 @@ function AccordionSideTab() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel4bh-content"
           id="panel4bh-header"
-          className="bottom-border"
         >
           <Typography variant="subtitle2">Contact Us: Contact Details</Typography>
         </AccordionSummary>
@@ -257,7 +251,6 @@ function AccordionSideTab() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel4bh-content"
           id="panel4bh-header"
-          className="bottom-border"
         >
           <Typography variant="subtitle2">Colors and backgrounds</Typography>
         </AccordionSummary>
@@ -273,7 +266,6 @@ function AccordionSideTab() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel4bh-content"
           id="panel4bh-header"
-          className="bottom-border"
         >
           <Typography variant="subtitle2">Fonts</Typography>
         </AccordionSummary>

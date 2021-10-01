@@ -38,13 +38,13 @@ img {
     background-color: #fff8f2 !important;
   }
   h1 {
-    font-size: clamp(72px, 10vw, 190px);
+    font-size: clamp(62px, 10vw, 90px);
   }
   h3 {
     line-height: 1.5;
   }
   p {
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
     line-height: 2;
   }
@@ -57,9 +57,10 @@ img {
     .about-us {
       text-align: center;
       h2 {
-        font-size: clamp(32px, 10vw, 72px) !important;
+        font-size: clamp(32px, 5vw, 48px) !important;
         line-height: 1.2;
-        max-width: 1080px;
+        width: 80%;
+        max-width: 800px;
         margin: 0 auto;
       }
     }
@@ -71,7 +72,7 @@ img {
       p {
         font-size: clamp(18px, 10vw, 24px) !important;
         line-height: 1.5;
-        max-width: 350px;
+        max-width: 450px;
       }
     }
   }
