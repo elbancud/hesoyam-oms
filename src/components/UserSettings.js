@@ -19,7 +19,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { auth } from '../firebase';
-import { useAuth } from '../context/AuthContext';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

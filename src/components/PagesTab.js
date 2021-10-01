@@ -72,10 +72,10 @@ function PageTab() {
                     <div className=" flex-no-wrap ">
                         <div className={!activatePage ? "display-none": "display-block"}>
                             <div className="box box-default-width m-xy-md theme-img">
-                                <img src={activatePage === "design1"? design1: activatePage === "design2" ? design2:""}></img>
+                                <img src={activatePage === "design1"? design1: activatePage === "design2" ? design2:""} alt = "pages"></img>
                                 <div className="modal-footer plain-white-color-bg  pad-x-sm ">
                                     <div className="flex-space-between pad-y-sm">
-                                    <p>{activatePage == "design1" ? "Bold and Loud": ""} (Landingpage)</p>
+                                    <p>{activatePage === "design1" ? "Bold and Loud": ""} (Landingpage)</p>
                                         <Button
                                                 onClick = {handleCustomize}
                                                 className="btn-large primary-color"
@@ -111,7 +111,7 @@ function PageTab() {
                     </div>
                     <Container>
                         <div>
-                            {activatePage == "design1"? <Design1/> : ""}
+                            {activatePage === "design1"? <Design1/> : ""}
                         </div>
 
                     </Container>

@@ -6,7 +6,6 @@ import "../style/style.css";
 import firebase from 'firebase';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
-import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Chip from '@mui/material/Chip';
 function SeatArrangement() {

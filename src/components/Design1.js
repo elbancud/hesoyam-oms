@@ -22,33 +22,34 @@ function Design1() {
     const [activeCookies, setActiveCookes] = useState(false)
     const [activatedPage, setActivatePage] = useState("")
     useEffect(() => {
-                    const dbRef = firebase.database().ref("account-details");
+                    const dbRef = firebase.database().ref("generated-data");
                         dbRef.on('value', snapshot => {
-                            snapshot.forEach(snap => {
+                            console.log(snapshot)
+                                    setSiteTitle(snapshot.val().savedSiteTitle)
+                                    setHeaderTitle(snapshot.val().savedHeaderTitle)
+                                    setSubHeaderTitle(snapshot.val().savedSubHeaderTitle)
+                                    setAboutUsMain(snapshot.val().savedAboutMainText)
+                                    setAboutUsSub(snapshot.val().savedAboutSubText)
+                                    setLocation(snapshot.val().savedLocation)
+                                    setSiteEmailData(snapshot.val().savedSiteEmail)
+                                    setNumber(snapshot.val().savedNumber)
+                            // snapshot.forEach(snap => {
                               
-                                 if (snap.hasChild("designName")) {
-                                    setActivatePage(snap.val().designName);
-                                }
-                                  if (snap.val().email === cookies.User) {
-                                    setSiteTitle(snap.val().savedSiteTitle)
-                                    setHeaderTitle(snap.val().savedHeaderTitle)
-                                    setSubHeaderTitle(snap.val().savedSubHeaderTitle)
-                                    setAboutUsMain(snap.val().savedAboutMainText)
-                                    setAboutUsSub(snap.val().savedAboutSubText)
-                                    setLocation(snap.val().savedLocation)
-                                    setSiteEmailData(snap.val().savedSiteEmail)
-                                    setNumber(snap.val().savedNumber)
-                                }
-
-                            });
+                            //     //  if (snap.hasChild("designName")) {
+                            //     //     setActivatePage(snap.val().designName);
+                            //     // }
+                                    
+                            // });
                         })
                     if(cookies.UserLoginKey) {
                         setActiveCookes(true)
                     }
     }, []);
+
     function getStarted() {
         history.push("/genWebLogin")
     }
+
     function handleServiceRedirect() {
         if (cookies.UserLoginKey) {
             history.push("/userService")
@@ -57,23 +58,7 @@ function Design1() {
 
         }
     }
-    // const responsive = {
-    // desktop: {
-    //     breakpoint: { max: 3000, min: 1024 },
-    //     items: 3,
-    //     slidesToSlide: 3 // optional, default to 1.
-    // },
-    // tablet: {
-    //     breakpoint: { max: 1024, min: 464 },
-    //     items: 2,
-    //     slidesToSlide: 2 // optional, default to 1.
-    // },
-    // mobile: {
-    //     breakpoint: { max: 464, min: 0 },
-    //     items: 1,
-    //     slidesToSlide: 1 // optional, default to 1.
-    // }
-    // };
+   
     return (
         
         <div className="design1-properties">

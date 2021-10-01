@@ -30,7 +30,7 @@ function AccordionSideTab() {
   };
   function saveChanges(e) {
     e.preventDefault();
-    const dbRef = firebase.database().ref("account-details/" + cookies.Key);
+    const dbRef = firebase.database().ref("generated-data");
    
     if (siteTitle !== "") {
       dbRef.update({ savedSiteTitle: siteTitle })

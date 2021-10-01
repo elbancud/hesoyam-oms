@@ -5,15 +5,12 @@ import { Button } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import uiBanner from "../images/ui-oms.png";
 import ErrorIcon from '@material-ui/icons/Error';
-
 // import firebase from 'firebase';
-import { useAuth } from "../context/AuthContext";
 import NavUser from "./NavUser";
 
 export default function Donate(){
   //variables
   const [error, setError] = useState('');
-  const [showPasswordState, setShowPasswordState] = useState(false);
 
  
   const [usernameInput, setUsernameInput] = useState('');
@@ -24,7 +21,7 @@ export default function Donate(){
   const [amountError, setAmountError] = useState('');
   const [amountErrorState, setAmountErrorState] = useState(false);
 
- 
+  
   function handleLoginSubmit(e) {
    
   }
