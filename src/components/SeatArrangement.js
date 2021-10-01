@@ -3,21 +3,15 @@ import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import "../style/style.css";
-import { useAuth } from '../context/AuthContext';
 import firebase from 'firebase';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
-import EventSeatIcon from '@mui/icons-material/EventSeat';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Chip from '@mui/material/Chip';
-import Avatar from '@mui/material/Avatar';
-import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 function SeatArrangement() {
    
     //variables
-    const { key, currentUser } = useAuth();
-    const [announcementArray, setAnnouncementArray] = useState();
 
     const [alertStatus, setAlertStatus] = useState(false);
     const [feedbackVariant, setFeedbackVariant] = useState("");
@@ -25,18 +19,7 @@ function SeatArrangement() {
     const [seat, setSeat] = useState([{reserve: true}, 'b', {reserve: true},'d'])
     
     //get 
-     useEffect(() => {
-        const dbRef = firebase.database().ref("announcements");
-        dbRef.once("value")
-            .then(function (snapshot) {
-                const postSnap = snapshot.val();
-                const announcementArray = [];
-                for (let id in postSnap) {
-                    announcementArray.push({id, ...postSnap[id]});
-                }
-                setAnnouncementArray(announcementArray)
-            });
-    }, [])
+     
     const saveServiceRequirement = (event) => {
 
     }

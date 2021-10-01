@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { auth } from '../firebase';
 import firebase from 'firebase';
-import { useCookies } from 'react-cookie'
 
 const AuthContext = React.createContext();
 
@@ -12,8 +11,6 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [key, setKey] = useState();
-    const [userSideLogin, setUserSideLogin] = useState();
-    const [cookies, setCookies] = useCookies(['user'])
     
     function login(email, password) {
         return auth.signInWithEmailAndPassword(email, password)

@@ -439,7 +439,6 @@ function Service() {
                                     onChange={e => { setTimeOpFrom(e.target.value) }}
                                     value = {timeOpFrom}
                                     variant="outlined"
-                                    variant="outlined"
                                     id="time"
                                     label="From"
                                     type="time"

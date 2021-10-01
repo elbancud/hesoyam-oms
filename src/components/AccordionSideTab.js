@@ -66,7 +66,7 @@ function AccordionSideTab() {
     setTyping(false);
 
   }
-
+ 
    return (
     
      <div className="box-default-width-accordion">
@@ -106,10 +106,9 @@ function AccordionSideTab() {
               <i>Set your website's title here. This will be saved and displayed at the top left corner of your website.</i>
             </Typography>
                   <div className="pad-l-t ">
-               <TextField value={siteTitle} onChange={(e) => { setSiteTitle(e.target.value); setTyping(true)}} fullWidth id="outlined-full-width" fullWidth label="Site title" size="small" variant="outlined" className="text-input-deafult full-width"/>
+                      <TextField value={siteTitle} onChange={(e) => { setSiteTitle(e.target.value); setTyping(true)}} fullWidth id="outlined-full-width"  label="Site title" size="small" variant="outlined" className="text-input-deafult full-width"/>
                   </div>
-
-           </div>
+            </div>
 
         </AccordionDetails>
       </Accordion>
@@ -127,9 +126,8 @@ function AccordionSideTab() {
               <i>Enter your website's tagline here. We suggest it is referenced as to how you want your audiences to remember.</i>
             </Typography>
             <div className="pad-l-t ">
-               <TextField value={headerTitle} onChange={(e) => { setHeaderTitle(e.target.value); setTyping(true)}} fullWidth id="outlined-full-width" fullWidth label="Tagline" size="small" variant="outlined" className="text-input-deafult full-width"/>
+               <TextField value={headerTitle} onChange={(e) => { setHeaderTitle(e.target.value); setTyping(true)}}  id="outlined-full-width"  label="Tagline" size="small" variant="outlined" className="text-input-deafult full-width"/>
                   </div>
-
            </div>
 
         </AccordionDetails>
@@ -149,7 +147,7 @@ function AccordionSideTab() {
               <i>This section is the phrase under your tagline. Ideally, this will have a brief description of your services and overall info about the website</i>
             </Typography>
             <div className="pad-l-t ">
-               <TextField value={subHeaderTitle} onChange={(e) => { setSubHeaderTitle(e.target.value); setTyping(true)}} fullWidth id="outlined-full-width" fullWidth label="Sub title" size="small" variant="outlined" className="text-input-deafult full-width"/>
+               <TextField value={subHeaderTitle} onChange={(e) => { setSubHeaderTitle(e.target.value); setTyping(true)}}  id="outlined-full-width" fullWidth label="Sub title" size="small" variant="outlined" className="text-input-deafult full-width"/>
                   </div>
            </div>
         </AccordionDetails>
@@ -182,7 +180,7 @@ function AccordionSideTab() {
               <i>In this section briefly indicate what the institution's  Mission or Vision.</i>
             </Typography>
             <div className="pad-l-t ">
-               <TextField value={aboutMainText} onChange={(e) => { setAboutMainText(e.target.value); setTyping(true)}}  fullWidth id="outlined-full-width" fullWidth label="About us" size="small" variant="outlined" className="text-input-deafult full-width"/>
+               <TextField value={aboutMainText} onChange={(e) => { setAboutMainText(e.target.value); setTyping(true)}}   id="outlined-full-width" fullWidth label="About us" size="small" variant="outlined" className="text-input-deafult full-width"/>
                   </div>
            </div>
         </AccordionDetails>
@@ -201,7 +199,7 @@ function AccordionSideTab() {
               <i>Under your main text dictates either of your Mission or Vissions's undertakings.</i>
             </Typography>
             <div className="pad-l-t ">
-               <TextField value={aboutSubText} onChange={(e) => { setAboutSubText(e.target.value); setTyping(true)}}  fullWidth id="outlined-full-width" fullWidth label="Description" size="small" variant="outlined" className="text-input-deafult full-width"/>
+               <TextField value={aboutSubText} onChange={(e) => { setAboutSubText(e.target.value); setTyping(true)}}   id="outlined-full-width"  label="Description" size="small" variant="outlined" className="text-input-deafult full-width"/>
                   </div>
            </div>
         </AccordionDetails>
@@ -227,18 +225,18 @@ function AccordionSideTab() {
              <div className="pad-y-sm ">
                       <Typography variant="subtitle2">Contact Details</Typography>
                       
-               <TextField value={number} onChange={(e) => { setNumber(e.target.value); setTyping(true)}} fullWidth id="outlined-full-width" fullWidth label="Contact Number" size="small" variant="outlined" className="text-input-deafult full-width"/>
+               <TextField value={number} onChange={(e) => { setNumber(e.target.value); setTyping(true)}}  id="outlined-full-width" fullWidth label="Contact Number" size="small" variant="outlined" className="text-input-deafult full-width"/>
                         <div className="pad-l-t">
                  
                     </div>
-               <TextField value={siteEmail} onChange={(e) => { setSiteEmail(e.target.value); setTyping(true) }} fullWidth id="outlined-full-width" fullWidth label="Email" size="small" variant="outlined" className="text-input-deafult full-width" />
+               <TextField value={siteEmail} onChange={(e) => { setSiteEmail(e.target.value); setTyping(true) }}  id="outlined-full-width" fullWidth label="Email" size="small" variant="outlined" className="text-input-deafult full-width" />
 
                   
 
              </div>
              <div className="">
                     <Typography variant="subtitle2">Contact Personnel</Typography>
-                    <TextField fullWidth id="outlined-full-width" fullWidth label="Fullname" size="small" variant="outlined" className="text-input-deafult full-width"/>
+                    <TextField fullWidth id="outlined-full-width"  label="Fullname" size="small" variant="outlined" className="text-input-deafult full-width"/>
 
              </div>
            </div>

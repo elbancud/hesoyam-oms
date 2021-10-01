@@ -3,7 +3,6 @@ import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import "../style/style.css";
-import { useAuth } from '../context/AuthContext';
 import firebase from 'firebase';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';

@@ -6,7 +6,6 @@ import Tooltip from '@mui/material/Tooltip';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import firebase from 'firebase';
-import { useCookies } from 'react-cookie';
 import "../style/style.css";
 import "../style/themes.css"
 
