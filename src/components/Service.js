@@ -108,13 +108,13 @@ function Service() {
 
         if (service) {
                   dbRef.once("value").then(function (snapshot) {
-                const snap = snapshot.val();
-                const serviceArray = [];
-                for (let id in snap) {
-                    serviceArray.push({id, ...snap[id]});
-                }
-                setServiceArray(serviceArray)
-                })
+                    const snap = snapshot.val();
+                    const serviceArray = [];
+                    for (let id in snap) {
+                        serviceArray.push({id, ...snap[id]});
+                    }
+                    setServiceArray(serviceArray)
+                    })
         }
        
        

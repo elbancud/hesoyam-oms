@@ -133,71 +133,72 @@ function ReportTab() {
     };
     return (
         <div>
-            <main className="m-x-sm  main-custom-flex pad-y-lg" >
-                <div className="title">
-                    <h2>Reports and Feedbacks</h2>
-                    <p>Ofcourse, there's no perfect system. Here, we genuinely appreciate your feedbacks and reports and we will cater it as much as we can.</p>
-                </div>
-                <Container className="m-t-md">
-                    <div className="box pad-xy-md">
-                        <div>
-                            <p className="error-red" ><b>{helperText}</b></p>
-                            <FormControl error={radioError} component="fieldset">
-                                <FormLabel component="legend">Urgency</FormLabel>
-                                <RadioGroup
-                                    aria-label="gender"
-                                    defaultValue=""
-                                    name="radio-buttons-group"
-                                >
-                                    <FormControlLabel checked={deselectAll1} onChange={handleRadio} color="secondary" value="This is a major bug in the app. There is no workaround." control={<Radio />} label="This is preventing me from using The app. There is no workaround." />
-                                    <FormControlLabel checked={deselectAll2} onChange={handleRadio} color="secondary" value="This is a major bug in the app, but there is a workaround." control={<Radio />} label="This is a major bug in the app, but there is a workaround" />
-                                    <FormControlLabel checked={deselectAll3} onChange={handleRadio} color="secondary" value="This is a minor bug." control={<Radio />} label="This is a minor bug." />
-                                </RadioGroup>
-                            </FormControl>
-                        </div>
-                        <div className="box-default-width">
-                            <div className="m-y-sm">
-                                <TextField error={summaryInputErrorState} helperText={summaryInputError} onChange={e => { setSummaryInput(e.target.value) }} value={summaryInput} id="outlined-full-width" fullWidth label="Summary" variant="outlined" type="text" className="text-input-deafult" />
-                            </div>
-                            <div className="m-y-sm">
-                                <TextField multiline rows={4} error={descriptionInputErrorState} helperText={descriptionInputError} onChange={e => { setDescriptionInput(e.target.value) }} value={descriptionInput} id="outlined-full-width" fullWidth label="Description" variant="outlined" type="text" className="text-input-deafult" />
-
-                            </div>
-
-                        </div>
-                        <div  >
-                            <Button
-                                onClick={handleReport}
-                                id="btn-large-secondary"
-                                variant="contained"
-                                className="btn-large primary-color"
-                                color="secondary"
-                                size="large"
-                            >
-                                Submit
-                            </Button>
-                        </div>
+            <Container className="pad-y-md">
+                <main className=" main-custom-flex " >
+                    <div className="title">
+                        <h2>Reports and Feedbacks</h2>
+                        <p>Ofcourse, there's no perfect system. Here, we genuinely appreciate your feedbacks and reports and we will cater it as much as we can.</p>
                     </div>
+                        <div className="box pad-xy-md m-t-md">
+                            <div>
+                                <p className="error-red" ><b>{helperText}</b></p>
+                                <FormControl error={radioError} component="fieldset">
+                                    <FormLabel component="legend">Urgency</FormLabel>
+                                    <RadioGroup
+                                        aria-label="gender"
+                                        defaultValue=""
+                                        name="radio-buttons-group"
+                                    >
+                                            <FormControlLabel  checked={deselectAll1} onChange={handleRadio} color="secondary" value="This is a major bug in the app. There is no workaround." control={<Radio />} label="This is preventing me from using The app. There is no workaround." />
+                                            <FormControlLabel className="pad-y-sm" checked={deselectAll2} onChange={handleRadio} color="secondary" value="This is a major bug in the app, but there is a workaround." control={<Radio />} label="This is a major bug in the app, but there is a workaround" />
+                                            <FormControlLabel  checked={deselectAll3} onChange={handleRadio} color="secondary" value="This is a minor bug." control={<Radio />} label="This is a minor bug." />
 
-                </Container>
-                {feedbackVariant === "success" ? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
-                    <Alert onClose={handleCloseAlert} severity="success">
-                        {alertMessage}
-                    </Alert>
-                </Snackbar> :
-                    feedbackVariant === "warning" ? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
-                        <Alert onClose={handleCloseAlert} severity="warning">
+                                    </RadioGroup>
+                                </FormControl>
+                            </div>
+                            <div className="box-default-width">
+                                <div className="m-y-sm">
+                                    <TextField error={summaryInputErrorState} helperText={summaryInputError} onChange={e => { setSummaryInput(e.target.value) }} value={summaryInput} id="outlined-full-width" fullWidth label="Summary" variant="outlined" type="text" className="text-input-deafult" />
+                                </div>
+                                <div className="m-y-sm">
+                                    <TextField multiline rows={4} error={descriptionInputErrorState} helperText={descriptionInputError} onChange={e => { setDescriptionInput(e.target.value) }} value={descriptionInput} id="outlined-full-width" fullWidth label="Description" variant="outlined" type="text" className="text-input-deafult" />
+
+                                </div>
+
+                            </div>
+                            <div  >
+                                <Button
+                                    onClick={handleReport}
+                                    id="btn-large-secondary"
+                                    variant="contained"
+                                    className="btn-large primary-color"
+                                    color="secondary"
+                                    size="large"
+                                >
+                                    Submit
+                                </Button>
+                            </div>
+                        </div>
+
+                    {feedbackVariant === "success" ? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
+                        <Alert onClose={handleCloseAlert} severity="success">
                             {alertMessage}
                         </Alert>
                     </Snackbar> :
-                        <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
-                            <Alert onClose={handleCloseAlert} severity="error">
+                        feedbackVariant === "warning" ? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
+                            <Alert onClose={handleCloseAlert} severity="warning">
                                 {alertMessage}
                             </Alert>
-                        </Snackbar>
-                }
-            </main>
-
+                        </Snackbar> :
+                            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
+                                <Alert onClose={handleCloseAlert} severity="error">
+                                    {alertMessage}
+                                </Alert>
+                            </Snackbar>
+                    }
+                    </main>
+                </Container>
+            
         </div>
 
     )

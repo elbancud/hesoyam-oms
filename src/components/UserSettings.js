@@ -276,7 +276,7 @@ export default function UserSettings() {
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
                                 <Link to="/design1">
-                                    <h3 className="" id =""> {typeof(siteTitle) == 'undefined'? "Site title": siteTitle}</h3>
+                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
                                     
                                 </Link>
                             </div>

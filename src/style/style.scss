@@ -346,7 +346,7 @@ b {
   min-width: 200px !important;
 }
 .box-default-width {
-  min-width: 300px;
+  max-width: 400px;
   background-color: #fff !important;
 }
 .box-default-width-accordion {
@@ -700,6 +700,12 @@ footer {
 .flex-flow-wrap-start {
   display: flex;
   flex-wrap: wrap;
+}
+.flex-flow-wrap-start-center-xy {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 @media screen and (max-width: 1080px) {
   .flex-no-wrap {

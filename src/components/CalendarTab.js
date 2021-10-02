@@ -24,18 +24,18 @@ const events = [
     {
         title: "Big Meeting",
         allDay: true,
-        start: new Date(2021, 6, 0),
-        end: new Date(2021, 6, 0),
+        start: new Date(2021, 9, 0),
+        end: new Date(2021, 9, 0),
     },
     {
         title: "Vacation",
-        start: new Date(2021, 6, 7),
-        end: new Date(2021, 6, 10),
+        start: new Date(2021, 9, 7),
+        end: new Date(2021, 9, 10),
     },
     {
         title: "Conference",
-        start: new Date(2021, 6, 20),
-        end: new Date(2021, 6, 23),
+        start: new Date(2021, 9, 20),
+        end: new Date(2021, 9, 23),
     },
 ];
 

@@ -21,7 +21,6 @@ function AccordionSideTab() {
   const [location, setLocation] = useState("");
   const [number, setNumber] = useState("");
   const [siteEmail, setSiteEmail] = useState("");
-  const cookies = useCookies(['user'])
 
   const [expanded, setExpanded] = React.useState(false);
 
@@ -219,7 +218,7 @@ function AccordionSideTab() {
             </Typography>
              <div className="m-t-sm">
                     <Typography variant="subtitle2">Location</Typography>
-               <TextField value={location} onChange={(e) => { setLocation(e.target.value); setTyping(true)}} fullWidth id="outlined-full-width" fullWidth label="Location" size="small" variant="outlined" className="text-input-deafult full-width"/>
+               <TextField value={location} onChange={(e) => { setLocation(e.target.value); setTyping(true)}}  id="outlined-full-width" fullWidth label="Location" size="small" variant="outlined" className="text-input-deafult full-width"/>
 
              </div>
              <div className="pad-y-sm ">

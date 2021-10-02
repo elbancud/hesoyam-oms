@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useCookies } from 'react-cookie';
 
 export default function PrivateRoute({ component: Component, ...rest }) {
-    const [cookies, setCookies] = useCookies(['user'])
+    const [cookies] = useCookies(['user'])
     const { currentUser } = useAuth();
     return (
            <Route

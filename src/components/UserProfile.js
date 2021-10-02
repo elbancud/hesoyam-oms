@@ -22,7 +22,7 @@ export default function AccountMenu() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
-     const [cookies,setCookies, removeCookie] = useCookies(["user"]);
+     const [cookies,removeCookie] = useCookies(["user"]);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);

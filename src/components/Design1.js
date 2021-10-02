@@ -157,9 +157,9 @@ function Design1() {
                         </div>
                         <div className="align-text-center pad-y-md about-us align-text-center">
                         <h2>
-                            { typeof(aboutUsMain) == 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipi scing elit. VivamLorem ipsum dolor sit amet, consectetur adipiscing ": aboutUsMain}
+                            { typeof(aboutUsMain) === 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipi scing elit. VivamLorem ipsum dolor sit amet, consectetur adipiscing ": aboutUsMain}
                             </h2>
-                            <p className="pad-y-sm"> { typeof(aboutUsSub) == 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipi scing elit. VivamLorem ipsum dolor sit amet, consectetur adipiscing ": aboutUsSub}</p>
+                            <p className="pad-y-sm"> { typeof(aboutUsSub) === 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipi scing elit. VivamLorem ipsum dolor sit amet, consectetur adipiscing ": aboutUsSub}</p>
                             
                         </div>
                     
@@ -174,13 +174,13 @@ function Design1() {
                         <div className="flex-no-wrap flex-default-center-xy contact-us pad-y-md">
                             <div className="box-default-width  pad-x-md ">
                             <h3>Location</h3>
-                                <p className="pad-y-sm"> { typeof(location) == 'undefined'? "Novaliches Chapter: #123123 St. Anthony St. Brgy. Holy Spirit Quezon City": location}</p>
+                                <p className="pad-y-sm"> { typeof(location) === 'undefined'? "Novaliches Chapter: #123123 St. Anthony St. Brgy. Holy Spirit Quezon City": location}</p>
                             
                             </div>
                             <div className="box-default-width  pad-x-md">
                                 <h3>Contacts</h3>
-                                  <p className="pad-y-sm"> { typeof(number) == 'undefined'? "#12345678910": number}</p>
-                                  <p className="pad-y-sm"> { typeof(siteEmailData) == 'undefined'? "example@gmailcom": siteEmailData}</p>
+                                  <p className="pad-y-sm"> { typeof(number) === 'undefined'? "#12345678910": number}</p>
+                                  <p className="pad-y-sm"> { typeof(siteEmailData) === 'undefined'? "example@gmailcom": siteEmailData}</p>
 
                             
                            </div>
