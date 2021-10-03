@@ -65,18 +65,20 @@ export default function TemporaryDrawer() {
             <Divider />
             <div className="pad-xy-sm">
                 <ul>
-
-                                    <li onClick={prayerWall}>
+                                    <li onClick={prayerWall} className="cursor-pointer">
                                             Prayer Wall
                                     </li>
-                                    <li onClick = {donate}>
+                                    <li onClick = {donate} className="cursor-pointer">
                                             Donate
                                     </li>
-                                    <li onClick={handleServiceRedirect}>
+                                    <li onClick={handleServiceRedirect} className="cursor-pointer">
                                             Services
                                     </li>
-                                    <li onClick={pod}>
+                                    <li onClick={pod} className="cursor-pointer">
                                             Podcast
+                                    </li>
+                                    <li onClick={getStarted} className="cursor-pointer">
+                                            Get started
                                     </li>
                 </ul>
             </div>

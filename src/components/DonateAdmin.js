@@ -47,6 +47,7 @@ function DonameAdmin() {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
     function readUpload(event) {
+        alert("tanginang yan")
         setUploadFile(event.target.files[0])
     }
     const handleCloseAlert = (event, reason) => {
@@ -59,13 +60,14 @@ function DonameAdmin() {
     const Input = styled('input')({
         display: 'none',
     });
-    async function uploadMp3() {
+    async function qrUpload() {
         // const id = uuidv4();
-        if (uploadFile.size > 2500) {
+        alert(uploadFile.type)
+        if (uploadFile.size > 25000) {
                                 setAlertStatus(true)
                                 setFeedbackVariant("error")
                                 setAlertMessage("Oopsies, file exceeded maximum size please choose below 25mb")
-        } else {
+        } else if(uploadFile.type !== "jpeg"){
           
          
                 
@@ -133,9 +135,9 @@ function DonameAdmin() {
                             <div className="pad-y-sm position-relative">
                                     <Tooltip title="Add photo">
                                         <label htmlFor="icon-button-file">
-                                            <Input  required id="icon-button-file" type="file" onChange={readUpload} />
-                                            <IconButton sx={{ fontSize: 120 }}  color="primary" aria-label="upload picture" component="span">
-                                                <ImageIcon sx={{ fontSize: 120 }} fontSize="large"/>
+                                            <Input required id="icon-button-file" type="file" onChange={readUpload} />
+                                            <IconButton  color="primary" aria-label="upload picture" component="span">
+                                                <ImageIcon  fontSize="large"/>
                                             </IconButton>
                                         </label>
                                     </Tooltip>
@@ -144,7 +146,7 @@ function DonameAdmin() {
                             <div className="pad-xy-sm">
                                 <Button
                                     disabled={!uploadFile}
-                                    onClick ={uploadMp3}
+                                    onClick ={qrUpload}
                                     id="btn-large-secondary"
                                     variant="contained"
                                     className="btn-large primary-color"

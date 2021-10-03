@@ -34,14 +34,14 @@ export default function AdminUI() {
     const [theme, setTheme] = useState(false);
     const [webpagesTab, setWebpagesTab] = useState(false);
     
-    const [servicesTab, setServicesTab] = useState(false);
+    const [servicesTab, setServicesTab] = useState(true);
     const [calendarTab, setCalendarTab] = useState(false);
     const [seatsTab, setSeatsTab] = useState(false);
     const [announcementTab, setAnnouncementTab] = useState(false);
     const [livestreamTab, setLiveStreamTab] = useState(false);
     const [podcastsTab, setPodcastsTab] = useState(false);
     const [reportsTab, setReportsTab] = useState(false);
-    const [donateTab, setDonateTab] = useState(true);
+    const [donateTab, setDonateTab] = useState(false);
 
     const [user, setUser] = useState(null);
     const [userName, setUsername] = useState("");

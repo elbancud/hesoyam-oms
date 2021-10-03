@@ -52,7 +52,6 @@ function Podcast() {
     }
     function readUpload(event) {
         setUploadFile(event.target.files[0])
-        console.log("hellos")
     }
     const handleCloseAlert = (event, reason) => {
         if (reason === 'clickaway') {
@@ -66,12 +65,21 @@ function Podcast() {
     });
     async function uploadMp3() {
         const id = uuidv4();
+       
         if (!titleInput && titleInput.length < 8) {
             setTitleErrorState(true)
             seTitleError("Please enter a title: Atleast 3 words or 8 characters")
         } else {
             setTitleErrorState(false)
             seTitleError("")
+        }
+        if (uploadFile.type !== "audio/mpeg") {
+            setAlertStatus(true)
+            setFeedbackVariant("error")
+            setAlertMessage("Oopsies, audio only. Ideally mp3 or mpeg ")
+            setUploadFile('')
+        }
+        else {
             if (titleInput && titleInput.length > 8 && uploadFile) {
                 const dbRefPush = firebase.database().ref("podcast-audios-upload");
                 await dbRefPush.orderByChild('audioTitle').equalTo(titleInput).once('value').then(snapshot => {
@@ -79,9 +87,9 @@ function Podcast() {
                         setAlertStatus(true)
                         setFeedbackVariant("error")
                         setAlertMessage("Oopsies, title is already existing try another one")
-                        setUploadFile('')
                         setTitleErrorState(true)
                         seTitleError("")
+                        setUploadFile('')
                     }
                     else {
                         dbRefPush.orderByChild('mp3Title').equalTo(uploadFile.name).once('value').then(snapshot => {
@@ -251,7 +259,7 @@ function Podcast() {
                             <TextField sx={{maxWidth: 600}} error={titleErrorState} helperText={titleError} onChange={e => { setTitleInput(e.target.value) }} value={titleInput} id="outlined-full-width" fullWidth label="Enter Title" variant="outlined" className="text-input-deafult" />
                                 <div  className="position-absolute-right">
                                     <label htmlFor="icon-button-file">
-                                        <Input accept=".mp3" id="icon-button-file" type="file" onChange={readUpload} />
+                                        <Input id="icon-button-file" type="file" onChange={readUpload} />
                                         <IconButton color="primary" aria-label="upload picture" component="span">
                                             <LibraryMusicIcon />
                                         </IconButton>
@@ -360,11 +368,7 @@ function Podcast() {
                     >
                     <Fade in={openEditModal}>
                         <div className="tertiary-color modal-body position-relative">
-                            {/* <div className="position-absolute off-set-top">
-                                <div className="account-img">
-                                    <img src={emailIllustration}></img>
-                                </div>
-                            </div> */}
+                           
                             <div className = "pad-t-sm">
                                 <div className="align-text-center pad-x-md">
                                     <h2>Edit your title</h2>

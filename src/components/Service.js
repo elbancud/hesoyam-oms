@@ -54,6 +54,14 @@ function Service() {
     const [maxErrorState, setMaxErrorState] = useState(false);
     const [maxError, setMaxError] = useState("");
     const [maxCapacity, setMaxCapacity] = useState("");
+    
+    const [daysBeforeErrorAppointState, setDaysBeforeErrorAppointState] = useState(false);
+    const [daysBeforeAppointError, setDaysBeforeAppointError] = useState("");
+    const [daysBeforeAppoint, setDaysAppointBefore] = useState("");
+
+    const [daysBeforeCancelErrorState, setDaysBeforeCancelErrorState] = useState(false);
+    const [daysBeforeCancelError, setDaysBeforeCancelError] = useState("");
+    const [daysBeforeCancel, setDaysBeforeCancel] = useState("");
 
     const [operationDaysFromErrorState, setOperationDaysFromErrorState] = useState(false);
     const [operationDaysFrom, setOperationDaysFrom] = useState("");
@@ -70,6 +78,8 @@ function Service() {
     const [timeOpToState, setTimeOpToState] = useState(false);
     const [timeOpTo, setTimeOpto] = useState("");
     const [timeOpToError, setTimeOpToError] = useState("");
+    const [enableConstraintBtn,setEnableConstraingtBtn] = useState(true);
+
     //display inputted requirements on change event
     //map through objects
     const handleChange = (event) => {
@@ -169,54 +179,7 @@ function Service() {
         setUpdate(!update);
       
     }
-    function handleSetServiceProperties() {
-        if (!maxCapacity) {
-            setMaxErrorState(true)
-            setMaxError("Please enter max capacity")
-        } else if (isNaN(parseInt(maxCapacity,10))) {
-            setMaxErrorState(true)
-            setMaxError("Please enter Numbers only")
-        }
-        else {
-            setMaxErrorState(false)
-            setMaxError("")
-        }
-        if (!operationDaysFrom) {
-            setOperationDaysFromErrorState(true)
-            setOperationDayFromError("Please select starting date")
-        } else {
-            setOperationDaysFromErrorState(false)
-            setOperationDayFromError("")
-        }
-        if (!operationDaysTo) {
-            setOperationDaysToErrorState(true)
-            setOperationDayToError("Please select an ending date")
-        } else {
-            setOperationDaysToErrorState(false)
-            setOperationDayToError("")
-        }
-        if (!operationDaysFrom) {
-            setOperationDaysFromErrorState(true)
-            setOperationDayFromError("Please select starting date")
-        } else {
-            setOperationDaysFromErrorState(false)
-            setOperationDayFromError("")
-        }
-        if (!timeOpFrom) {
-            setTimeOpFromState(true)
-            setTimeOpFromError("Please select an opening hours")
-        } else {
-            setTimeOpFromState(false)
-            setTimeOpFromError("")
-        }
-        if (!timeOpTo) {
-            setTimeOpToState(true)
-            setTimeOpToError("Please select closing hours")
-        } else {
-            setTimeOpToState(false)
-            setTimeOpToError("")
-        }
-    }
+ 
     
     const handleCloseModal = () => {
         setOpenEditModal(false)
@@ -321,6 +284,110 @@ function Service() {
 
         setAlertStatus(false);
     };
+    function serviceConstraints() {
+        if (!service) {
+            setSelectErrorState(true)
+            setSelectError("Select a church service");
+        } else {
+            setSelectErrorState(false)
+            setSelectError("");
+        }
+         if (!maxCapacity) {
+            setMaxErrorState(true)
+            setMaxError("Please enter max capacity")
+            setEnableConstraingtBtn(false)
+        } else if (isNaN(parseInt(maxCapacity,10))) {
+            setMaxErrorState(true)
+            setMaxError("Please enter Numbers only")
+            setEnableConstraingtBtn(false)
+        }
+        else {
+            setMaxErrorState(false)
+            setMaxError("")
+            setEnableConstraingtBtn(true)
+            
+        }
+        if (!operationDaysFrom) {
+            setOperationDaysFromErrorState(true)
+            setOperationDayFromError("Please select starting date")
+            setEnableConstraingtBtn(false)
+
+        } else {
+            setOperationDaysFromErrorState(false)
+            setOperationDayFromError("")
+            setEnableConstraingtBtn(true)
+
+        }
+        if (!operationDaysTo) {
+            setOperationDaysToErrorState(true)
+            setOperationDayToError("Please select an ending date")
+            setEnableConstraingtBtn(false)
+
+        } else {
+            setOperationDaysToErrorState(false)
+            setOperationDayToError("")
+            setEnableConstraingtBtn(true)
+
+        }
+        if (!operationDaysFrom) {
+            setOperationDaysFromErrorState(true)
+            setOperationDayFromError("Please select starting date")
+            setEnableConstraingtBtn(false)
+
+        } else {
+            setOperationDaysFromErrorState(false)
+            setOperationDayFromError("")
+            setEnableConstraingtBtn(true)
+
+        }
+        if (!timeOpFrom) {
+            setTimeOpFromState(true)
+            setTimeOpFromError("Please select an opening hours")
+            setEnableConstraingtBtn(false)
+
+        } else {
+            setTimeOpFromState(false)
+            setTimeOpFromError("")
+            setEnableConstraingtBtn(true)
+
+        }
+        if (!timeOpTo) {
+            setTimeOpToState(true)
+            setTimeOpToError("Please select closing hours")
+            setEnableConstraingtBtn(false)
+
+        } else {
+            setTimeOpToState(false)
+            setTimeOpToError("")
+            setEnableConstraingtBtn(true)
+
+        }
+        if (isNaN(parseInt(daysBeforeAppoint, 10))) {
+            setDaysBeforeAppointError("Please input numbers only")
+            setEnableConstraingtBtn(false)
+
+            setDaysBeforeErrorAppointState(true)
+        } else {
+            setDaysBeforeCancelError("")
+            setDaysBeforeErrorAppointState(false)
+            setEnableConstraingtBtn(true)
+
+        }
+        if (isNaN(parseInt(daysBeforeCancel, 10))) {
+            setDaysBeforeCancelError("Please input numbers only")
+            setEnableConstraingtBtn(false)
+
+            setDaysBeforeCancelErrorState(true)
+        } else {
+            setDaysBeforeCancelError("")
+            setDaysBeforeCancelErrorState(false)
+  
+        }
+        if (service && !isNaN(parseInt(daysBeforeCancel, 10)) && maxCapacity && !isNaN(parseInt(daysBeforeAppoint, 10)) && timeOpTo && timeOpFrom && operationDaysFrom && maxCapacity && !isNaN(parseInt(maxCapacity,10)))  {
+            alert("completed")
+        }
+             
+    }
     return (
         <div>
 
@@ -353,7 +420,7 @@ function Service() {
 
                     </FormControl>
                      </Box>
-                      <div className="pad-y-sm flex-flow-wrap-start ">
+                    <div className="pad-y-sm flex-flow-wrap-start ">
                         <div className="m-r-sm m-y-sm" >
                             
                             <div>
@@ -473,22 +540,46 @@ function Service() {
                             </div>
                           
                         </div>
-                        <div className="grid-place-center">
+                        
+                                     
+                </div>
+                    <div className="pad-y-sm flex-flow-wrap-start">
+                        <div className="m-y-sm ">
+                                    <div>
+                                        <h5><b>Appointment Period (in days)</b></h5>
+                                    </div>
+                                <div className="flex-default">
+                                    <div className="m-r-sm">
+                                        <TextField type="text" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} error={daysBeforeErrorAppointState} helperText={daysBeforeAppointError} onChange={e => { setDaysAppointBefore(e.target.value) }} value={daysBeforeAppoint} id="outlined-full-width" fullWidth label="Before appointments" variant="outlined" className="text-input-deafult" />
+                                    </div>
+                                </div>
                             
-                            <Button
-                                onClick={handleSetServiceProperties}
-                                disabled={!requirementInput}
-                                id="btn-large-secondary"
-                                variant="contained"
-                                className="btn-large primary-color "
-                                color="secondary"
-                                size="large"
-                            >
-                                Save
-                            </Button>
-                        </div>
-
+                            </div>
+                            <div className="m-y-sm ">
+                                    <div>
+                                        <h5><b>Cancellation Period (in days)</b></h5>
+                                    </div>
+                                <div className="flex-default">
+                                    <div className="m-r-sm">
+                                        <TextField type="text" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} error={daysBeforeCancelErrorState} helperText={daysBeforeCancelError} onChange={e => { setDaysBeforeCancel(e.target.value) }} value={daysBeforeCancel} id="outlined-full-width" fullWidth label="Before cancellation" variant="outlined" className="text-input-deafult" />
+                                    </div>
+                                    <div className="grid-place-center">
+                                        <Button
+                                            onClick={serviceConstraints}
+                                            disabled={!daysBeforeCancel}
+                                            // id="btn-large-secondary"
+                                            variant="outlined"
+                                            className="btn-large primary-color "
+                                            color="primary"
+                                            size="large"
+                                        >
+                                            Save
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div> 
                     </div>
+                
                 <div className="pad-y-sm">
                     <div className="flex-default">
                         <div className="icon-padding">
