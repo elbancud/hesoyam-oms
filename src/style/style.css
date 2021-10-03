@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Poppins, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Poppins, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   cursor: default;
   background-color: #f8f9fa;
   overflow-x: hidden !important;
@@ -45,25 +45,14 @@ b {
 
 .tertiary-gradient {
   background: radial-gradient(80.99% 100% at 50% 0%, #00ff0a 0%, #36008e 100%), radial-gradient(50% 123.47% at 50% 50%, #efe7c8 0%, #36008e 100%), linear-gradient(301.28deg, #ff006b 0%, #48dd9e 100%), linear-gradient(294.84deg, #5a60e4 0%, #d30000 100%), linear-gradient(52.29deg, #000000 0%, #00ff85 100%), radial-gradient(100% 138.69% at 100% 0%, #0007a5 0%, #ff7a00 100%), radial-gradient(70.41% 100% at 50% 0%, #d5b300 0%, #2200aa 100%);
-  background-blend-mode: screen, screen, lighten, overlay, lighten, difference, normal;
+  background-blend-mode: screen, screen, lighten, overlay, lighten, difference, normal;
 }
 
-<<<<<<< HEAD
 .under-garment-gradient {
   background: linear-gradient(114.95deg, rgba(235, 0, 255, 0.5) 0%, rgba(0, 71, 255, 0) 34.35%), linear-gradient(180deg, #004b5b 0%, #ffa7a7 100%), linear-gradient(244.35deg, #ffb26a 0%, #3676b1 50.58%, #00a3ff 100%), linear-gradient(244.35deg, #ffffff 0%, #004a74 49.48%, #ff0000 100%), radial-gradient(100% 233.99% at 0% 100%, #b70000 0%, #ad00ff 100%), linear-gradient(307.27deg, #219d87 0.37%, #2650ba 50.19%, #2800c6 100%), radial-gradient(100% 140% at 100% 0%, #ff00c7 0%, #006c7a 49.48%, #760000 100%);
-  background-blend-mode: hard-light, overlay, overlay, overlay, difference, difference, normal;
+  background-blend-mode: hard-light, overlay, overlay, overlay, difference, difference, normal;
 }
 
-.font-light h1 {
-  color: #f1f1f1;
-}
-
-.font-light p {
-  color: #f1f1f1;
-}
-
-=======
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 .primary-color-text {
   color: #533c9f;
 }
@@ -98,14 +87,14 @@ b {
   background-color: #f1f1f1;
 }
 
-<<<<<<< HEAD
-.nav-light-font h3,
-.nav-light-font li {
+.font-light h1,
+.font-light h2,
+.font-light p,
+.font-light h3,
+.font-light li {
   color: #f1f1f1;
 }
 
-=======
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 .error-red {
   color: #cd3d64;
 }
@@ -205,10 +194,6 @@ b {
   left: 50%;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
-<<<<<<< HEAD
-  z-index: 1500;
-=======
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 }
 
 .flex-flow-wrap {
@@ -245,13 +230,6 @@ b {
   display: none;
 }
 
-<<<<<<< HEAD
-#upload-img {
-  border: 3px dotted #757575;
-}
-
-=======
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 .custom-p b {
   font-weight: 500;
 }
@@ -299,7 +277,6 @@ b {
   top: 0;
 }
 
-<<<<<<< HEAD
 .position-fixed-top-z-0 {
   position: absolute;
   top: 0;
@@ -307,8 +284,10 @@ b {
   z-index: -1;
 }
 
-=======
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
+.height-90 {
+  height: 90%;
+}
+
 .position-absolute-left {
   position: absolute;
   left: 0;
@@ -633,25 +612,10 @@ header .nav-desktop-active {
   width: 100% !important;
 }
 
-<<<<<<< HEAD
-#full-width {
-  width: 100% !important;
-  border: none !important;
-}
-
-=======
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 .full-height {
   height: 100vh;
 }
 
-<<<<<<< HEAD
-.height-90 {
-  height: 90%;
-}
-
-=======
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 .full-height-percent {
   height: 100%;
 }

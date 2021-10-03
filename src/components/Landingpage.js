@@ -25,16 +25,8 @@ function Landingpage() {
             <div className="nav-desktop-active">
               <ul className="flex-default">
                 
-<<<<<<< HEAD
-                <li><a href="#Features">Features</a></li>
-                <li><a href="#AboutUs">About Us</a></li>
-
-             
-=======
-                <li><a href="#">Features</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">About Us</a></li>
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
+                <li><a href="#features">Features</a></li>
+                <li><a href="#aboutUs">About Us</a></li>
             </ul>
             </div>
             <div className="nav-desktop-active">
@@ -72,11 +64,7 @@ function Landingpage() {
               </Button>
             </div>
             <div className="banner-graphics">
-<<<<<<< HEAD
-              <img src={uiBanner} alt="cms banner"></img>
-=======
-              <img src={uiBanner}></img>
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
+              <img src={uiBanner} alt="church banner"></img>
             </div>
           </section>
         </Container>
@@ -91,11 +79,7 @@ function Landingpage() {
           </p>
         </div>
       </main>
-<<<<<<< HEAD
-      <main id="Features">
-=======
-      <main>
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
+      <main id="features">
           <section className="pad-xy-sm">
             <Container>
                 <div className="flex-no-wrap">
@@ -114,11 +98,7 @@ function Landingpage() {
                     </Button>
                   </div>
                   <div className="box-md graphics">
-<<<<<<< HEAD
-                    <img src={virtualCalendar} alt="virtual calendar"></img>
-=======
-                    <img src={virtualCalendar}></img>
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
+                    <img src={virtualCalendar} alt="church banner"></img>
                   </div>
                 </div>
             </Container>
@@ -127,11 +107,7 @@ function Landingpage() {
             <Container >
               <div className="flex-no-wrap pad-xy-sm">
                 <div className="box-md graphics">
-<<<<<<< HEAD
-                    <img src={virtualCalendar} alt="seat arrangement virtual"></img>
-=======
-                    <img src={virtualCalendar}></img>
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
+                    <img src={virtualCalendar} alt="church banner"></img>
                     
                   </div>
                   <div className="subtitle box-sm">
@@ -162,25 +138,14 @@ function Landingpage() {
                     </Button>
                   </div>
                   <div className="box-md graphics">
-<<<<<<< HEAD
-                    <img src={virtualCalendar} alt="start website"></img>
-=======
-                    <img src={virtualCalendar}></img>
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
+                    <img src={virtualCalendar} alt="church banner"></img>
                   </div>
                 </div>
             </Container>
           </section>
       </main>
-<<<<<<< HEAD
-      <main id="AboutUs">
-
-      </main>
-=======
-
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
       {/* egistration sections */}
-      <main className="secondary-gradient pad-xy-sm ">
+      <main className="secondary-gradient pad-xy-sm " id="aboutUs">
         <div className="title-section text-align-center ">
           <h2>Ready to get Started?</h2>
           <p>

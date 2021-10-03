@@ -20,11 +20,7 @@ function Design1() {
     const history = useHistory();
     const [cookies] = useCookies(['user']);
     const [activeCookies, setActiveCookes] = useState(false)
-<<<<<<< HEAD
     // const [activatedPage, setActivatePage] = useState("")
-=======
-    const [activatedPage, setActivatePage] = useState("")
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
     useEffect(() => {
                     const dbRef = firebase.database().ref("generated-data");
                         dbRef.on('value', snapshot => {
@@ -84,16 +80,7 @@ function Design1() {
                                             Prayer Wall
                                         </Link>
                                     </li>
-<<<<<<< HEAD
                                    
-=======
-                                    <li>
-                                            <a href="#aboutUs">About Us</a>
-                                    </li>
-                                    <li>
-                                            <a href="#contactUs">Contact Us</a>
-                                    </li>
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                                     <li>
                                        <Link to="/donationPage">
                                             Donate
@@ -102,14 +89,11 @@ function Design1() {
                                     <li onClick={handleServiceRedirect}>
                                             Services
                                     </li>
-<<<<<<< HEAD
                                     <li>
                                        <Link to="/userPodcast">
                                             Podcast
                                         </Link>
                                     </li>
-=======
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 
                             </ul>
                         </div>

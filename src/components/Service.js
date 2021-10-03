@@ -18,19 +18,11 @@ import { Snackbar } from '@material-ui/core';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-<<<<<<< HEAD
-=======
 import { useCookies } from 'react-cookie';
-import validator from 'validator';
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-<<<<<<< HEAD
-=======
-import { max, set } from 'date-fns';
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 function Service() {
     
     //variables
@@ -48,10 +40,6 @@ function Service() {
     const [feedbackVariant, setFeedbackVariant] = useState("");
     const [alertMessage, setAlertMessage] = useState("");
 
-<<<<<<< HEAD
-=======
-    const [cookies, setCookie] = useCookies(['user']);
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
     const [update, setUpdate] = useState(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
@@ -185,11 +173,7 @@ function Service() {
         if (!maxCapacity) {
             setMaxErrorState(true)
             setMaxError("Please enter max capacity")
-<<<<<<< HEAD
         } else if (isNaN(parseInt(maxCapacity,10))) {
-=======
-        } else if (isNaN(parseInt(maxCapacity))) {
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
             setMaxErrorState(true)
             setMaxError("Please enter Numbers only")
         }
@@ -274,11 +258,7 @@ function Service() {
                 setEditRequirementError("No changes found")
                 
             } else {
-<<<<<<< HEAD
-                     const dbAccountDetails = firebase.database().ref("account-details") 
-=======
                     const dbAccountDetails = firebase.database().ref("account-details") 
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                      dbAccountDetails.orderByKey().equalTo(service).once('value').then(snapshot => { 
                         if (snapshot.exists()) {
                             const dbRef = firebase.database().ref("account-details/" + service);
@@ -288,17 +268,10 @@ function Service() {
                                      
                                         setEditRequirementState(true)
                                         setEditRequirementError("Please try a new one.")
-<<<<<<< HEAD
-                                        setAlertStatus(true)
-                                        setFeedbackVariant("error")
-                                        setAlertMessage("Requirement already exist. Please enter a new one in the text field.")
-                                        return true
-=======
                                     setAlertStatus(true)
                                     setFeedbackVariant("error")
                                     setAlertMessage("Requirement already exist. Please enter a new one in the text field.")
                                     return true
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 
                                 } else {
                                       const dbRef = firebase.database().ref("account-details/" + service + "/" +activeKey);

@@ -5,11 +5,8 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
-<<<<<<< HEAD
-import {useHistory} from 'react-router-dom';
-import {useCookies } from 'react-cookie';
-=======
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
+import {   useHistory} from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const useStyles = makeStyles({
     list: {
@@ -21,18 +18,25 @@ const useStyles = makeStyles({
 });
 
 export default function TemporaryDrawer() {
-<<<<<<< HEAD
-    const history = useHistory();
     const [cookies] = useCookies(['user']);
-=======
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
+
+    const history = useHistory();
     const classes = useStyles();
     const [state, setState] = React.useState({
         top: false,
 
     });
-<<<<<<< HEAD
-     function prayerWall() {
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+
+        setState({ ...state, [anchor]: open });
+    };
+    function getStarted() {
+        history.push("/genWebLogin")
+    }
+    function prayerWall() {
         history.push("/prayerWall")
     }
     function donate() {
@@ -41,17 +45,6 @@ export default function TemporaryDrawer() {
     function pod() {
         history.push("/userPodcast")
     }
-=======
-
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
-
-        setState({ ...state, [anchor]: open });
-    };
-<<<<<<< HEAD
     function handleServiceRedirect() {
         if (cookies.UserLoginKey) {
             history.push("/userService")
@@ -59,9 +52,6 @@ export default function TemporaryDrawer() {
             history.push("/genWebLogin")
         }
     }
-=======
-
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
     const list = (anchor) => (
         <div
             className={clsx(classes.list, {
@@ -75,7 +65,7 @@ export default function TemporaryDrawer() {
             <Divider />
             <div className="pad-xy-sm">
                 <ul>
-<<<<<<< HEAD
+
                                     <li onClick={prayerWall}>
                                             Prayer Wall
                                     </li>
@@ -88,15 +78,6 @@ export default function TemporaryDrawer() {
                                     <li onClick={pod}>
                                             Podcast
                                     </li>
-=======
-
-                    <li >Prayerwall</li>
-                    <li ><a href="#aboutUs">About Us</a></li>
-                    <li ><a href="#contactUs">Contact Us</a></li>
-
-                    <li href="#aboutUs">Donate</li>
-                    <li>Services</li>
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                 </ul>
             </div>
         </div>

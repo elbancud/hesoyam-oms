@@ -4,7 +4,6 @@ import "../style/themes.css"
 import { Button } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import uiBanner from "../images/ui-oms.png";
-<<<<<<< HEAD
 import firebase from 'firebase';
 import NavUser from "./NavUser";
 import MuiAlert from '@material-ui/lab/Alert';
@@ -19,17 +18,6 @@ export default function Donate(){
   const [feedbackVariant, setFeedbackVariant] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
 
-=======
-import ErrorIcon from '@material-ui/icons/Error';
-// import firebase from 'firebase';
-import NavUser from "./NavUser";
-
-export default function Donate(){
-  //variables
-  const [error, setError] = useState('');
-
- 
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
   const [usernameInput, setUsernameInput] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [usernameErrorState, setUsernameErrorState] = useState(false);
@@ -38,7 +26,6 @@ export default function Donate(){
   const [amountError, setAmountError] = useState('');
   const [amountErrorState, setAmountErrorState] = useState(false);
 
-<<<<<<< HEAD
   function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
@@ -101,26 +88,15 @@ export default function Donate(){
                 </div>: ""
             }
     <div className="position-relative">
-    <Container>
 
       <div className="position-absolute full-width">
-        <NavUser/>
+        <Container>
+            
+            <NavUser/>
+        </Container>
 
         </div>
-    </Container>
         
-=======
-  
-  function handleLoginSubmit(e) {
-   
-  }
-  return (
-    <div className = "position-relative">
-      <div className="position-absolute full-width">
-        <NavUser/>
-
-      </div>
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
       <div className="">
         <main className="full-height flex-flow-wrap ">
           <div className="  pad-xy-md width-sm primary-bg-color-off-white full-height left-banner position-relative">
@@ -137,7 +113,6 @@ export default function Donate(){
           </div>
           <div className="full-width">
             <div className="pad-xy-sm width-sm ">
-<<<<<<< HEAD
                 
                 <div className="subtitle ">
                   <h3>Donate</h3>     
@@ -146,34 +121,13 @@ export default function Donate(){
                 <form autoComplete="off" onSubmit={handleSubmitDonation}>
                   <div className="pad-y-sm">
                        <TextField  error={usernameErrorState} helperText={usernameError} onChange={e => { setUsernameInput(e.target.value) }} value={usernameInput} id="outlined-full-width" fullWidth label="Name" variant="outlined" type="text" className="text-input-deafult" />
-=======
-                {error &&
-                    <div className="flex-default">
-                      <div className="m-r-sm">
-                        <ErrorIcon className= "error-red" />
-                      </div>
-                      <p className= "error-red" ><b>{error}</b></p>
-                    </div>
-                }
-                <div className="subtitle ">
-                  <h3>Donate</h3>     
-                  <p>We are grateful for your donation, it will help us to further our goals</p>
-                </div>
-                <form autoComplete="off" onSubmit={handleLoginSubmit}>
-                  <div className="pad-y-sm">
-                       <TextField  error={usernameErrorState} helperText={usernameError} onChange={e => { setUsernameInput(e.target.value) }} value={usernameInput} id="outlined-full-width" fullWidth label="Name (optional)" variant="outlined" type="text" className="text-input-deafult" />
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 
                   </div>
                   <div>
                   
                     <div>
                     <div className="pad-y-sm position-relative">
-<<<<<<< HEAD
                         <TextField type="text" error={amountErrorState} helperText={amountError} onChange={e => { setAmount(e.target.value) }} value={amount} id="outlined-full-width" fullWidth label="Amount" variant="outlined" className="text-input-deafult" />
-=======
-                        <TextField type="text" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} error={amountErrorState} helperText={amountError} onChange={e => { setAmount(e.target.value) }} value={amount} id="outlined-full-width" fullWidth label="Amount" variant="outlined" className="text-input-deafult" />
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                       </div>
                     </div>
                     <div className="pad-y-sm">
@@ -196,7 +150,6 @@ export default function Donate(){
           </div>
         </main>
         </div>
-<<<<<<< HEAD
             {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="success">
                     {alertMessage}
@@ -215,9 +168,6 @@ export default function Donate(){
             }
       </div>
       </div>
-=======
-    </div>
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
       
   );
 }

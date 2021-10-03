@@ -42,11 +42,7 @@ const Registration = (props) => {
   const [feedbackVariant, setFeedbackVariant] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
 
-<<<<<<< HEAD
-  const setCookie = useCookies(['user']);
-=======
   const [cookies, setCookie] = useCookies(['user']);
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 
   //get signup
   const history = useHistory();
@@ -169,11 +165,7 @@ const Registration = (props) => {
                           );
                         }).catch(error => {
                           setError(error.message);
-<<<<<<< HEAD
                           if (error.code === "auth/email-already-in-use") {
-=======
-                          if (error.code == "auth/email-already-in-use") {
->>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                             setEmailError("Email already registered");
                             setEmailErrorState(true);
                             setError("Please enter another registered email");

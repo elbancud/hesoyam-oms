@@ -133,7 +133,7 @@ function DonameAdmin() {
                             <div className="pad-y-sm position-relative">
                                     <Tooltip title="Add photo">
                                         <label htmlFor="icon-button-file">
-                                            <Input accept="image/*" required id="icon-button-file" type="file" onChange={readUpload} />
+                                            <Input  required id="icon-button-file" type="file" onChange={readUpload} />
                                             <IconButton sx={{ fontSize: 120 }}  color="primary" aria-label="upload picture" component="span">
                                                 <ImageIcon sx={{ fontSize: 120 }} fontSize="large"/>
                                             </IconButton>
