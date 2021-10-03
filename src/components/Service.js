@@ -87,6 +87,13 @@ function Service() {
         setSelectError("");
         setService(event.target.value);
         setUpdate(!update);
+                setMaxCapacity("")
+                setOperationDaysFrom()
+                setOperationDaysTo()
+                setTimeOpFrom()
+                setTimeOpto()
+                setDaysAppointBefore()
+                setDaysBeforeCancel()
 
     };
     
@@ -97,7 +104,7 @@ function Service() {
         setOperationDaysTo(event.target.value);
     }
     const pushState = () => {
-        const dbRef = firebase.database().ref("account-details/" + service);
+        const dbRef = firebase.database().ref("services/" + service);
                                    const requirementPush = {
                                     requirement: requirementInput.toLowerCase(),
                                 }
@@ -111,7 +118,7 @@ function Service() {
     //usestate for mounting 
 
     useEffect(() => {
-        const dbRef = firebase.database().ref("account-details/" + service);
+        const dbRef = firebase.database().ref("services/" + service);
 
         if (service) {
                   dbRef.once("value").then(function (snapshot) {
@@ -148,11 +155,11 @@ function Service() {
             if (requirementErrorState === false && selectErrorState === false && requirementInput.length > 3 && service !== "") {
                
                 //push if no errorrs
-                    const dbAccountDetails = firebase.database().ref("account-details") 
+                    const dbAccountDetails = firebase.database().ref("services") 
                   
                     dbAccountDetails.orderByKey().equalTo(service).once('value').then(snapshot => { 
                         if (snapshot.exists()) {
-                            const dbRef = firebase.database().ref("account-details/" + service);
+                            const dbRef = firebase.database().ref("services/" + service);
                             
                             dbRef.orderByChild('requirement').equalTo(requirementInput.toLowerCase()).once('value').then(snapshot => {
                                 if (snapshot.exists()) {
@@ -221,10 +228,10 @@ function Service() {
                 setEditRequirementError("No changes found")
                 
             } else {
-                    const dbAccountDetails = firebase.database().ref("account-details") 
+                    const dbAccountDetails = firebase.database().ref("services") 
                      dbAccountDetails.orderByKey().equalTo(service).once('value').then(snapshot => { 
                         if (snapshot.exists()) {
-                            const dbRef = firebase.database().ref("account-details/" + service);
+                            const dbRef = firebase.database().ref("services/" + service);
                             
                             dbRef.orderByChild('requirement').equalTo(editRequirementInput.toLowerCase()).once('value').then(snapshot => {
                                 if (snapshot.exists()) {
@@ -264,7 +271,7 @@ function Service() {
        
     }
     function handleDelete(title) {
-        const dbRef = firebase.database().ref("account-details/" + service).child(activeKey);
+        const dbRef = firebase.database().ref("services/" + service).child(activeKey);
         dbRef.remove().then(() => {
             setAlertStatus(true)
             setFeedbackVariant("success")
@@ -376,7 +383,6 @@ function Service() {
         if (isNaN(parseInt(daysBeforeCancel, 10))) {
             setDaysBeforeCancelError("Please input numbers only")
             setEnableConstraingtBtn(false)
-
             setDaysBeforeCancelErrorState(true)
         } else {
             setDaysBeforeCancelError("")
@@ -384,7 +390,26 @@ function Service() {
   
         }
         if (service && !isNaN(parseInt(daysBeforeCancel, 10)) && maxCapacity && !isNaN(parseInt(daysBeforeAppoint, 10)) && timeOpTo && timeOpFrom && operationDaysFrom && maxCapacity && !isNaN(parseInt(maxCapacity,10)))  {
-            alert("completed")
+            const dbRef = firebase.database().ref("services/" + service);
+            const serviceConstraints = {
+                maxCapacity: maxCapacity,
+                operationDaysStart: operationDaysFrom,
+                operationDaysEnd: operationDaysTo,
+                timeOperationStart: timeOpFrom,
+                timeOperatonEnd: timeOpTo,
+                daysBeforeAppointment: daysBeforeAppoint,
+                daysBeforeCancel: daysBeforeCancel
+            }
+            dbRef.update(serviceConstraints).then(() => {
+                setAlertStatus(true)
+                setFeedbackVariant("success")
+                setAlertMessage("Success! service constraints updated")
+                setUpdate(!update);
+
+              
+
+            })
+
         }
              
     }
@@ -573,7 +598,7 @@ function Service() {
                                             color="primary"
                                             size="large"
                                         >
-                                            Save
+                                            Save changes
                                         </Button>
                                     </div>
                                 </div>
@@ -615,18 +640,14 @@ function Service() {
                     
                     <ul className="width-sm-no-margin ul-customized pad-x-md">
                             {serviceArray ? serviceArray.map((data)=> {
+                                if (data.requirement) {
                                 return (
-                                    <li key={data.id}  >
-                                    <div className="">
+                                    <li key={data.id} className="full-width">
                                         <div className ="flex-space-between ">   
                                             <div className="">
-                                                <div className="">
-                                                    <div >
-                                                        <p><b>{data.requirement}</b></p>
-                                                    </div>
-                                                    
-                                                </div>
+                                                <p><b>{data.requirement}</b></p>
                                             </div>
+                                                    
                                             <div className="flex-default ">
                                                 <div className=" cursor-pointer">
                                                     <Tooltip title="Edit">
@@ -645,9 +666,10 @@ function Service() {
                                             </div>
                                         </div>
 
-                                    </div>
                                     </li>
                                     )
+                                } 
+                                return null
                             }): ""
                          }
                     </ul>
@@ -666,11 +688,7 @@ function Service() {
                     >
                     <Fade in={openEditModal}>
                         <div className="tertiary-color modal-body position-relative">
-                            {/* <div className="position-absolute off-set-top">
-                                <div className="account-img">
-                                    <img src={emailIllustration}></img>
-                                </div>
-                            </div> */}
+                         
                             <div className = "pad-t-sm">
                                 <div className="align-text-center pad-x-md">
                                     <h2>Edit your requirement</h2>
