@@ -68,8 +68,12 @@ function Carousel() {
 
                                  </div>
                                 )
+<<<<<<< HEAD
                               }
                               return null;
+=======
+                            }
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                         }) : "No anouncements yet"}
                     
                     </ItemsCarousel>

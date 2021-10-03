@@ -16,7 +16,11 @@ function PrayerWall() {
     const [siteTitle, setSiteTitle] = useState("");
    
     const history = useHistory();
+<<<<<<< HEAD
     const cookies= useCookies(['user']);
+=======
+    const [cookies, setCookie] = useCookies(['user']);
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
     const [alertStatus, setAlertStatus] = useState(false);
     const [feedbackVariant, setFeedbackVariant] = useState("");
     const [alertMessage, setAlertMessage] = useState("");

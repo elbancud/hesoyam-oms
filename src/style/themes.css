@@ -18,6 +18,7 @@ img {
   color: #000;
 }
 
+<<<<<<< HEAD
 #btn-large-primary-outline-white {
   border-radius: 0;
   border: 1px solid white;
@@ -25,6 +26,8 @@ img {
   color: white;
 }
 
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 #btn-large-primary-contained-black {
   border-radius: 0;
   border: 1px solid #000;
@@ -49,11 +52,14 @@ img {
   font-family: "Inter", sans-serif;
 }
 
+<<<<<<< HEAD
 .design1-properties .nav-light-font h3,
 .design1-properties .nav-light-font li {
   color: #f1f1f1;
 }
 
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 .design1-properties #primary-bg-color {
   background-color: #fff8f2 !important;
 }

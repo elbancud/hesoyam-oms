@@ -25,7 +25,11 @@ import { useCookies } from 'react-cookie';
 function AdminAccountManagement({ username, email }) {
     const history = useHistory();
     const { currentUser, key } = useAuth();
+<<<<<<< HEAD
      const [cookies, removeCookie] = useCookies(["user"]);
+=======
+     const [cookies,setCookies, removeCookie] = useCookies(["user"]);
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 
     const [openUsernameModal, setOpenUsernameModal] = useState(false);
     const [openEmailModal, setOpenEmailModal] = useState(false);

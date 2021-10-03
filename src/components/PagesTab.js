@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import design1 from '../images/Design1-BoldType.JPG';
 import design2 from '../images/Design2-SerifFlex.JPG';
+<<<<<<< HEAD
 // import design3 from '../images/Design3-DarkModeSerif.JPG';
+=======
+import design3 from '../images/Design3-DarkModeSerif.JPG';
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 import { Button } from "@material-ui/core";
 import { useHistory } from 'react-router-dom';
 import Design1 from './Design1';

@@ -168,7 +168,11 @@ function Announcement() {
                 setEditPostTitleTextFieldError("No changes found")
 
             }
+<<<<<<< HEAD
               if((editDescriptionTextFieldState === false && editDescriptionTextFieldState === false && editPostTitleTextFieldInput.length > 8 && editDescriptionTextFieldInput.length > 8 && editPostTitleTextFieldInput !== activePost) || (editDescriptionTextFieldInput !== activeDescription)){
+=======
+              if(editDescriptionTextFieldState === false && editDescriptionTextFieldState === false && editPostTitleTextFieldInput.length > 8 && editDescriptionTextFieldInput.length > 8 && editPostTitleTextFieldInput !== activePost || (editDescriptionTextFieldInput != activeDescription)){
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                             setEditDescriptionTextFieldState(false)
                             setEditDescriptionTextFieldError("")
                             setEditPostTitleTextFieldState(false)
@@ -289,9 +293,13 @@ function Announcement() {
 
                                  </div>
                                 )
+<<<<<<< HEAD
                              }
                               return null;
                             
+=======
+                            }
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                         }) : "No anouncements yet"}
                     </div>
                 </div>

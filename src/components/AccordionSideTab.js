@@ -8,6 +8,10 @@ import { Button } from "@material-ui/core";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import TextField from '@material-ui/core/TextField';
 import firebase from '../firebase';
+<<<<<<< HEAD
+=======
+import { useCookies } from 'react-cookie';
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 
 
 function AccordionSideTab() {

@@ -18,8 +18,11 @@ const GeneratedWebLogin = lazy(() => import('./components/GeneratedWebLogin'))
 const ServiceUser = lazy(() => import('./components/ServiceUser'))
 const UserSettings = lazy(() => import('./components/UserSettings'))
 const Donate = lazy(() => import('./components/Donate'))
+<<<<<<< HEAD
 const UserPodcast = lazy(() => import('./components/UserPodcast'))
 
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 
 
 function App() {
@@ -73,9 +76,12 @@ function App() {
                         <Route path="/donationPage" exact >
                           <Donate/>
                         </Route>
+<<<<<<< HEAD
                         <Route path="/userPodcast" exact >
                           <UserPodcast/>
                         </Route>
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                     </Suspense>
 
                 </Switch>

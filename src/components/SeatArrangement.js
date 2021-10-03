@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 import React, { useState } from 'react'
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import "../style/style.css";
 // import firebase from 'firebase';
+=======
+import React, { useState, useEffect } from 'react'
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import "../style/style.css";
+import firebase from 'firebase';
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
 import Tooltip from '@mui/material/Tooltip';
@@ -90,12 +99,20 @@ function SeatArrangement() {
                     </div>
                 </div>
             </Container>
+<<<<<<< HEAD
                  {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+=======
+                 {feedbackVariant == "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                 <Alert onClose={handleCloseAlert} severity="success">
                     {alertMessage}
                 </Alert>
             </Snackbar> :
+<<<<<<< HEAD
             feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+=======
+            feedbackVariant == "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                 <Alert onClose={handleCloseAlert} severity="warning">
                     {alertMessage}
                 </Alert>

@@ -13,8 +13,12 @@ import { Snackbar } from '@material-ui/core';
 import { useCookies } from 'react-cookie';
 
 function ReportTab() {
+<<<<<<< HEAD
 
     const cookies = useCookies(['user'])
+=======
+    const [cookies, setCookies] = useCookies(['user'])
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
     const dbRef = firebase.database().ref("account-details/" + cookies.Key);
 
     const [summaryInput, setSummaryInput] = useState("");

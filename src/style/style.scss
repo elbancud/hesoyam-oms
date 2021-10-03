@@ -63,6 +63,7 @@ b {
   background-blend-mode: screen, screen, lighten, overlay, lighten, difference,
     normal;
 }
+<<<<<<< HEAD
 .under-garment-gradient {
   // background: #360033; /* fallback for old browsers */
   // background: -webkit-linear-gradient(
@@ -102,6 +103,8 @@ b {
     color: #f1f1f1;
   }
 }
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 .primary-color-text {
   color: #533c9f;
 }
@@ -127,12 +130,15 @@ b {
 .plain-white-accent-bg {
   background-color: #f1f1f1;
 }
+<<<<<<< HEAD
 .nav-light-font {
   h3,
   li {
     color: #f1f1f1;
   }
 }
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 .error-red {
   color: $error-red;
 }
@@ -187,7 +193,10 @@ b {
   top: 40%;
   left: 50%;
   transform: translate(-50%);
+<<<<<<< HEAD
   z-index: 1500;
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 }
 //flex
 .flex-flow-wrap {
@@ -210,9 +219,12 @@ b {
 .on-customize-display-none {
   display: none;
 }
+<<<<<<< HEAD
 #upload-img {
   border: 3px dotted rgb(117, 117, 117);
 }
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 .custom-p {
   b {
     font-weight: 500;
@@ -254,12 +266,15 @@ b {
   position: fixed;
   top: 0;
 }
+<<<<<<< HEAD
 .position-fixed-top-z-0 {
   position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
 }
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 .position-absolute-left {
   position: absolute;
   left: 0;
@@ -528,6 +543,7 @@ header {
 .full-width {
   width: 100% !important;
 }
+<<<<<<< HEAD
 #full-width {
   width: 100% !important;
   border: none !important;
@@ -538,6 +554,11 @@ header {
 .height-90 {
   height: 90%;
 }
+=======
+.full-height {
+  height: 100vh;
+}
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 .full-height-percent {
   height: 100%;
 }

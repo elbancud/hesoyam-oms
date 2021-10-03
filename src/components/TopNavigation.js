@@ -44,6 +44,10 @@ export default function TemporaryDrawer() {
             <div className="pad-xy-sm">
                 <ul>
                     <li>Features</li>
+<<<<<<< HEAD
+=======
+                    <li>Products</li>
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                     <li>About Us</li>
 
                 </ul>

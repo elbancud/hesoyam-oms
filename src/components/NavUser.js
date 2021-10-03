@@ -21,13 +21,23 @@ function Design1() {
                               
                                   if (snap.val().email === cookies.User) {
                                     setSiteTitle(snap.val().savedSiteTitle)
+<<<<<<< HEAD
+=======
+                                 
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                                 }
 
                             });
                         })
+<<<<<<< HEAD
                         if(cookies.UserLoginKey) {
                             setActiveCookes(true)
                         }
+=======
+                    if(cookies.UserLoginKey) {
+                        setActiveCookes(true)
+                    }
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
     }, []);
     function getStarted() {
         history.push("/genWebLogin")

@@ -286,7 +286,11 @@ function Podcast() {
                  <div>
                     <h4>Files uploaded in your storage</h4>
                 </div>
+<<<<<<< HEAD
                 `<div className="flex-flow-wrap ">
+=======
+                <div className="flex-flow-wrap ">
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                         {podcastArray ? podcastArray.map((data)=> {
                                  return (
                                  <div key={data.id} className="box m-xy-sm box-default-width">
@@ -326,7 +330,11 @@ function Podcast() {
                                  </div>
                                  )
                         }) : "No podcasts uploaded yet"}
+<<<<<<< HEAD
                     </div>`
+=======
+                    </div>
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 
                  {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="success">

@@ -116,7 +116,11 @@ export default function Login(){
               </div>
             </nav>
             <div className="graphics-offset">
+<<<<<<< HEAD
               <img src={uiBanner} className="rotate" alt="cms banner"></img>
+=======
+              <img src={uiBanner} className="rotate"></img>
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
             </div>
         </div>
         <div className="full-width">

@@ -23,11 +23,19 @@ import ReportBug from './ReportBug';
 import Service from './Service';
 import "animate.css"
 import Announcement from './Announcement';
+<<<<<<< HEAD
 import { useAuth } from '../context/AuthContext';
 import Podcast from './Podcast';
 import SeatArragement from './SeatArrangement';
 import DonateAdmin from './DonateAdmin';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+=======
+
+import { useAuth } from '../context/AuthContext';
+import Podcast from './Podcast';
+import SeatArragement from './SeatArrangement';
+
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
 export default function AdminUI() {
     const [accountTab, setAccountTab] = useState(false);
     const [dashboardTab, setDashboardTab] = useState(false);
@@ -39,10 +47,15 @@ export default function AdminUI() {
     const [seatsTab, setSeatsTab] = useState(false);
     const [announcementTab, setAnnouncementTab] = useState(false);
     const [livestreamTab, setLiveStreamTab] = useState(false);
+<<<<<<< HEAD
     const [podcastsTab, setPodcastsTab] = useState(false);
     const [reportsTab, setReportsTab] = useState(false);
     const [donateTab, setDonateTab] = useState(true);
 
+=======
+    const [podcastsTab, setPodcastsTab] = useState(true);
+    const [reportsTab, setReportsTab] = useState(false);
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
     const [user, setUser] = useState(null);
     const [userName, setUsername] = useState("");
     const { currentUser } = useAuth();
@@ -83,7 +96,10 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
+<<<<<<< HEAD
             setDonateTab(false);
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
         } else if (tabName === "theme") {
             setAccountTab(false);
             setDashboardTab(false);
@@ -96,8 +112,11 @@ export default function AdminUI() {
             setLiveStreamTab(false);
             setPodcastsTab(false);
             setReportsTab(false);
+<<<<<<< HEAD
             setDonateTab(false);
 
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
         }else if (tabName === "webpagesTab") {
             setAccountTab(false);
             setDashboardTab(false);
@@ -110,8 +129,11 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
+<<<<<<< HEAD
             setDonateTab(false);
 
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
         }else if (tabName === "servicesTab") {
             setAccountTab(false);
             setDashboardTab(false);
@@ -124,8 +146,11 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
+<<<<<<< HEAD
             setDonateTab(false);
 
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
         }else if (tabName === "calendarTab") {
             setAccountTab(false);
             setDashboardTab(false);
@@ -138,8 +163,11 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
+<<<<<<< HEAD
             setDonateTab(false);
 
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
         }else if (tabName === "seatsTab") {
             setAccountTab(false);
             setDashboardTab(false);
@@ -152,8 +180,11 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
+<<<<<<< HEAD
             setDonateTab(false);
 
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
         }else if (tabName === "announcementTab") {
             setAccountTab(false);
             setDashboardTab(false);
@@ -166,8 +197,11 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
+<<<<<<< HEAD
             setDonateTab(false);
 
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
         }else if (tabName === "liveStreamTab") {
             setAccountTab(false);
             setDashboardTab(false);
@@ -180,8 +214,11 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
+<<<<<<< HEAD
             setDonateTab(false);
 
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
         }else if (tabName === "podcastsTab") {
             setAccountTab(false);
             setDashboardTab(false);
@@ -194,8 +231,11 @@ export default function AdminUI() {
             setPodcastsTab(true);
             setReportsTab(false);
             setTheme(false);
+<<<<<<< HEAD
             setDonateTab(false);
 
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
         } else if(tabName === "reportsTab"){
             setAccountTab(false);
             setDashboardTab(false);
@@ -208,6 +248,7 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(true);
             setTheme(false);
+<<<<<<< HEAD
             setDonateTab(false);
 
         } else if (tabName === "donateTab") {
@@ -223,6 +264,8 @@ export default function AdminUI() {
             setReportsTab(false);
             setTheme(false);
             setDonateTab(true);
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
         }
     }
     return (
@@ -324,6 +367,7 @@ export default function AdminUI() {
                                         <p className="m-b-sm"><b>Report</b></p>
                                     </div>
                                 </li>
+<<<<<<< HEAD
                                 <li className="flex-default pad-x-sm" id={donateTab ? "active" : ""} onClick={() => { activateTab("donateTab", setDonateTab) }}>
                                     <div className="icon-padding">
                                         <AccountBalanceWalletIcon className="cursor-pointer icon-set-light"/>
@@ -332,6 +376,8 @@ export default function AdminUI() {
                                         <p className="m-b-sm"><b>Donations</b></p>
                                     </div>
                                 </li>
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                             </ul>
                         
                         </div>
@@ -383,9 +429,12 @@ export default function AdminUI() {
                     </main>
                     <main className="display-none" id={seatsTab? "display-block":""}>
                         <SeatArragement/>
+<<<<<<< HEAD
                 </main>
                 <main className="display-none" id={donateTab? "display-block":""}>
                         <DonateAdmin/>
+=======
+>>>>>>> 77b7eb5d96475a28314da050b3a7999404d43dd8
                     </main>
                 </div>
         </div>
