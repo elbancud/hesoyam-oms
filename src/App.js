@@ -19,6 +19,7 @@ const ServiceUser = lazy(() => import('./components/ServiceUser'))
 const UserSettings = lazy(() => import('./components/UserSettings'))
 const Donate = lazy(() => import('./components/Donate'))
 const UserPodcast = lazy(() => import('./components/UserPodcast'))
+const AppointmentPage = lazy(() => import('./components/AppointmentPage'))
 
 function App() {
 
@@ -73,6 +74,9 @@ function App() {
               </Route>
               <Route path="/userPodcast" exact >
                 <UserPodcast />
+              </Route>
+              <Route path="/appointmentPage" exact >
+                <AppointmentPage/>
               </Route>
             </Suspense>
 

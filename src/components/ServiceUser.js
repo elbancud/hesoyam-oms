@@ -6,21 +6,20 @@ import { useCookies } from 'react-cookie';
 import firebase from "../firebase"
 import {  Link, useHistory} from 'react-router-dom';
 import UserProfile from './UserProfile';
-// import { Button } from "@material-ui/core";
 import TopNavGenWeb from './TopNavGenWeb'
 import 'react-h5-audio-player/lib/styles.css';
 import Card from '@mui/material/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { Button, CardActionArea, CardActions } from '@material-ui/core';
+import { Button, CardActionArea } from '@material-ui/core';
 
 
 function ServiceUser() {
         const [siteTitle, setSiteTitle] = useState("");
     
     const history = useHistory();
-    const [cookies] = useCookies(['user']);
+    const [cookies,setCookies] = useCookies(['user']);
     const [activeCookies, setActiveCookes] = useState(false)
     const [serviceArray, setServiceArray] = useState()
     
@@ -57,13 +56,16 @@ function ServiceUser() {
         history.push("/userPodcast")
     }
     function handleServiceRedirect() {
-            console.log("serviceArray")
 
-        // if (cookies.UserLoginKey) {
-        //     history.push("/userService")
-        // } else {
-        //     history.push("/genWebLogin")
-        // }
+        if (cookies.UserLoginKey) {
+            history.push("/userService")
+        } else {
+            history.push("/genWebLogin")
+        }
+    }
+    function redirectTotAppointment(service) {
+        history.push("/appointmentPage")
+        setCookies("activeService", service)
     }
     return (
         <div className="design1-properties">
@@ -130,36 +132,37 @@ function ServiceUser() {
                                 {serviceArray ? serviceArray.map((data) => {
                                         if (data.id.toLowerCase() === "baptism") {
                                             return (
-                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id}>
-                                                <CardActionArea>
-                                                    <CardMedia
-                                                    component="img"
-                                                    height="140"
-                                                    image="https://images.unsplash.com/photo-1619553433619-e4e225134558?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                                                    alt="green iguana"
-                                                    />
-                                                    <CardContent>
-                                                    <Typography gutterBottom variant="h6" component="div">
-                                                        {data.id}
-                                                    </Typography>
-                                                    <Typography variant="body2" >
-                                                        Christening.
-                                                    </Typography>
-                                                    </CardContent>
-                                                </CardActionArea>
+                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id} onClick={() => { redirectTotAppointment(data.id)}}>
+                                                    <CardActionArea>
+                                                        <CardMedia
+                                                            component="img"
+                                                            height="140"
+                                                            image="https://images.unsplash.com/photo-1619553433619-e4e225134558?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                                                            alt="green iguana"
+                                                        />
+                                                        <CardContent>
+                                                            <Typography gutterBottom variant="h6" component="div">
+                                                                {data.id}
+                                                            </Typography>
+                                                            <Typography variant="body2" >
+                                                                Christening.
+                                                            </Typography>
+                                                        </CardContent>
+                                                    </CardActionArea>
                                              
                                                 </Card>
                                         
                                             )
                                         } else if (data.id.toLowerCase() === "sunday mass") {
                                             return (
-                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id}>
+                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id} onClick={() => { redirectTotAppointment(data.id)}}>
+                                                
                                                 <CardActionArea>
                                                     <CardMedia
-                                                    component="img"
-                                                    height="140"
-                                                    image="https://images.unsplash.com/photo-1565566237557-4db41ccd167f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
-                                                    alt="green iguana"
+                                                        component="img"
+                                                        height="140"
+                                                        image="https://images.unsplash.com/photo-1565566237557-4db41ccd167f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
+                                                        alt="green iguana"
                                                     />
                                                     <CardContent>
                                                     <Typography gutterBottom variant="h6" component="div">
@@ -176,7 +179,8 @@ function ServiceUser() {
                                             )
                                         }else if (data.id.toLowerCase() === "marriage") {
                                             return (
-                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id}>
+                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id} onClick={() => { redirectTotAppointment(data.id)}}>
+                                                
                                                 <CardActionArea>
                                                     <CardMedia
                                                     component="img"
@@ -199,7 +203,8 @@ function ServiceUser() {
                                             )
                                         }else if (data.id.toLowerCase() === "compil") {
                                             return (
-                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id}>
+                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id} onClick={() => { redirectTotAppointment(data.id)}}>
+                                                
                                                 <CardActionArea>
                                                     <CardMedia
                                                     component="img"
@@ -222,7 +227,7 @@ function ServiceUser() {
                                             )
                                         }else if (data.id.toLowerCase() === "house blessing") {
                                             return (
-                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id}>
+                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id} onClick={() => { redirectTotAppointment(data.id)}}>
                                                 <CardActionArea>
                                                     <CardMedia
                                                     component="img"
@@ -245,7 +250,7 @@ function ServiceUser() {
                                             )
                                         }else if (data.id.toLowerCase() === "car blessing") {
                                             return (
-                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id}>
+                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id} onClick={() => { redirectTotAppointment(data.id)}}>
                                                 <CardActionArea>
                                                     <CardMedia
                                                     component="img"
@@ -262,13 +267,12 @@ function ServiceUser() {
                                                     </Typography>
                                                     </CardContent>
                                                 </CardActionArea>
-                                             
                                                 </Card>
                                         
                                             )
                                         }else if (data.id.toLowerCase() === "burial") {
                                             return (
-                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id}>
+                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id} onClick={() => { redirectTotAppointment(data.id)}}>
                                                 <CardActionArea>
                                                     <CardMedia
                                                     component="img"

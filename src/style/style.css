@@ -342,7 +342,7 @@ b {
 }
 
 .pad-y-md {
-  padding-top: 3rem;
+  padding: 3rem 0;
 }
 
 .pad-y-lg {
@@ -436,17 +436,16 @@ b {
 }
 
 .box-shadow-light {
-  -webkit-box-shadow: 0 0.5rem 1.2rem rgba(189, 197, 209, 0.2) !important;
-          box-shadow: 0 0.5rem 1.2rem rgba(189, 197, 209, 0.2) !important;
+  -webkit-box-shadow: 0 0.5rem 1.2rem rgba(165, 172, 182, 0.2) !important;
+          box-shadow: 0 0.5rem 1.2rem rgba(165, 172, 182, 0.2) !important;
 }
 
 .box {
-  border: 1px solid #e7eaf3;
   border-radius: 0.5rem;
   background-color: #fff;
   color: #4a4a6a;
-  -webkit-box-shadow: 0 0.5rem 1.2rem rgba(189, 197, 209, 0.2);
-          box-shadow: 0 0.5rem 1.2rem rgba(189, 197, 209, 0.2);
+  -webkit-box-shadow: 0 0.5rem 2.2rem rgba(127, 132, 138, 0.2);
+          box-shadow: 0 0.5rem 2.2rem rgba(127, 132, 138, 0.2);
 }
 
 .box p {
@@ -459,7 +458,6 @@ b {
 
 .box-default-width {
   max-width: 400px;
-  background-color: #fff !important;
 }
 
 .box-default-width-accordion {
