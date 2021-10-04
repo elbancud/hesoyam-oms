@@ -72,9 +72,9 @@ function ServiceUser() {
             <div className="position-relative ">
                     <Container> 
 
-                    <div className="pad-xy-sm position-fixed-top-z-0 full-width  height-90" id="primary-bg-color">
+                    <div className="pad-xy-sm position-fixed-top-z-0 full-width height-90" id="secondary-gradient">
                     </div>
-                    <nav className="pad-y-md flex-space-between ">
+                    <nav className="pad-y-md flex-space-between " >
                         <div className="logo flex-default">
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">

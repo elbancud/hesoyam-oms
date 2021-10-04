@@ -36,8 +36,15 @@ img {
   #primary-bg-color {
     background-color: #fff8f2 !important;
   }
+  #secondary-gradient {
+    background: linear-gradient(125.95deg, #c700bf 10.95%, #7da900 100%),
+      linear-gradient(341.1deg, #00c2ff 7.52%, #4e00b1 77.98%),
+      linear-gradient(222.34deg, #a90000 12.99%, #00ffe0 87.21%),
+      linear-gradient(130.22deg, #8fa600 18.02%, #5a31ff 100%);
+    background-blend-mode: screen, color-dodge, color-dodge, normal;
+  }
   h1 {
-    font-size: clamp(62px, 10vw, 90px);
+    font-size: clamp(24px, 10vw, 48px);
   }
   h3 {
     line-height: 1.5;

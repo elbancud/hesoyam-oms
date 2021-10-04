@@ -14,7 +14,7 @@ import UserProfile from './UserProfile';
 function PrayerWall() {
 
     const [siteTitle, setSiteTitle] = useState("");
-   
+    const [activeCookies, setActiveCookes] = useState(false)
     const history = useHistory();
     const [cookies] = useCookies(['user']);
     const [alertStatus, setAlertStatus] = useState(false);
@@ -29,16 +29,11 @@ function PrayerWall() {
     const [prayerArray, setPrayerArray] = useState();
 
     useEffect(() => {
-                    const dbRef = firebase.database().ref("account-details");
+                    const dbRef = firebase.database().ref("generated-data");
                         dbRef.on('value', snapshot => {
-                            snapshot.forEach(snap => {
-                                if (snap.val().email === cookies.User) {
-                                    setSiteTitle(snap.val().savedSiteTitle)
-                                 
-                                }
-                            
+
+                                    setSiteTitle(snapshot.val().savedSiteTitle)
                             });
-                        })
          const dbRefPrayers = firebase.database().ref("prayerWallPosts");
             dbRefPrayers.once("value")
                 .then(function (snapshot) {
@@ -51,6 +46,27 @@ function PrayerWall() {
                 });
                     
     }, [update]);
+  
+    function getStarted() {
+        history.push("/genWebLogin")
+    }
+    function prayerWall() {
+        history.push("/prayerWall")
+    }
+    function donate() {
+        history.push("/donationPage")
+    }
+    function pod() {
+        history.push("/userPodcast")
+    }
+    function handleServiceRedirect() {
+
+        if (cookies.UserLoginKey) {
+            history.push("/userService")
+        } else {
+            history.push("/genWebLogin")
+        }
+    }
     function getStarted() {
         history.push("/genWebLogin")
     }
@@ -105,7 +121,7 @@ function PrayerWall() {
         <div className="design1-properties">
        
             <header className="primary-bg-color pad-x-md">
-                    <nav className="pad-y-md flex-space-between">
+                     <nav className="pad-y-md flex-space-between " >
                         <div className="logo flex-default">
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
@@ -117,32 +133,30 @@ function PrayerWall() {
                         </div>
                         <div className="nav-desktop-active">
                             <ul className="flex-default">
-                                  <li>
-                                       <Link to="/prayerWall">
+                                    <li onClick={prayerWall}>
                                             Prayer Wall
-                                        </Link>
                                     </li>
-                                  
-                                    <li>
-                                       <Link to="/donate">
+                                    <li onClick = {donate}>
                                             Donate
-                                        </Link>
                                     </li>
                                     <li onClick={handleServiceRedirect}>
                                             Services
+                                    </li>
+                                    <li onClick={pod}>
+                                            Podcast
                                     </li>
 
                             </ul>
                         </div>
                         <div className="nav-desktop-active">
                         {
-                            cookies.UserLoginKey? <div> <UserProfile/></div>:  <Button
+                            activeCookies? <div> <UserProfile/></div>:  <Button
                             onClick = {getStarted}
                             variant="outlined"
                             className="btn-large primary-color"
                             color="primary"
                             size="large"
-                            id="btn-large-primary-outline-black"
+                            id="btn-large-primary-outline-white"
                             >
                             Get Started
                             </Button>
