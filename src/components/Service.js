@@ -137,6 +137,8 @@ function Service() {
     //disable if no requirement is inputted
     //push requirement
     const saveServiceRequirement = (event) => {
+        setUpdate(!update);
+
         event.preventDefault();
 
         if (requirementInput.length < 3) {
@@ -172,18 +174,20 @@ function Service() {
 
                                 } else {
                                     pushState();
+                                    setUpdate(!update);
                                 }
                            
                              })
                         } else {
                             pushState();
+                            setUpdate(!update);
+
                         }
                     });
               
             }
         }
         
-        setUpdate(!update);
       
     }
  
@@ -438,8 +442,6 @@ function Service() {
                             <MenuItem value="House blessing">House Blessing</MenuItem>
                             <MenuItem value="Car blessing">Car Blessing</MenuItem>
                             <MenuItem value="Burial">Burial</MenuItem>
-                            <MenuItem value="Others">Others</MenuItem>
-
                         </Select>
                         <FormHelperText>{selectError}</FormHelperText>
 
