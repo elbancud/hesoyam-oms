@@ -206,6 +206,17 @@ b {
           align-items: center;
 }
 
+.flex-flow-wrap-x {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: wrap;
+      flex-flow: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .flex-no-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -393,12 +404,20 @@ b {
   margin: 0.5rem;
 }
 
+.m-xy-lg {
+  margin: 1.5rem 2rem;
+}
+
 .m-r-sm {
   margin-right: 1rem;
 }
 
 .m-r-md {
   margin-right: 2rem;
+}
+
+.m-l-sm {
+  margin-left: 12px;
 }
 
 .m-t-sm {
@@ -599,7 +618,7 @@ header .nav-desktop-active {
 
 .header-banner p {
   font-weight: 400;
-  line-height: 1.7;
+  line-height: 28px;
 }
 
 .btn-large {
@@ -652,8 +671,13 @@ header .nav-desktop-active {
 
 .seat-div {
   border-radius: 5px;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   cursor: pointer;
+}
+
+#altar {
+  border: 1px dashed black;
+  padding: 0.8rem 8rem;
 }
 
 #btn-large-primary {
@@ -846,7 +870,7 @@ footer li {
 
 .subtitle p {
   font-size: 18px;
-  line-height: 1.5;
+  line-height: 28px;
   font-weight: 400;
 }
 
@@ -877,6 +901,10 @@ footer li {
   .left-banner {
     display: none;
   }
+}
+
+.text-no-margin {
+  margin-bottom: 0;
 }
 
 .flex-flow-wrap-start {
@@ -912,6 +940,9 @@ footer li {
 @media screen and (max-width: 500px) {
   .banner-graphics {
     display: none;
+  }
+  .m-xy-lg {
+    margin: 1.5rem 0;
   }
 }
 /*# sourceMappingURL=style.css.map */

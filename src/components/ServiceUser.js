@@ -74,7 +74,7 @@ function ServiceUser() {
             <div className="position-relative ">
                     <Container> 
 
-                    <div className="pad-xy-sm position-fixed-top-z-0 full-width height-90" id="secondary-gradient">
+                    <div className="pad-xy-sm position-fixed-top-z-0 full-width height-90 gradient-geometric" id="">
                     </div>
                     <nav className="pad-y-md flex-space-between " >
                         <div className="logo flex-default">
@@ -123,7 +123,7 @@ function ServiceUser() {
                         </div>
                     </nav>
                         
-                        <div className="align-text-center pad-y-lg">
+                        <div className="align-text-center pad-y-md">
                             <h1 className="" id ="dynamic-h1">Our Services</h1>
                             <p><i>This is where you will arrange your appointments in our church services.</i></p>
                         </div>

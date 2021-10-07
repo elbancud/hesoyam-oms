@@ -16,6 +16,7 @@
     "animate.css": "^4.1.1",
     "date-fns": "^2.23.0",
     "firebase": "^8.10.0",
+    "lodash": "^4.17.21",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-big-calendar": "^0.35.0",
@@ -60,7 +61,6 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "repository": {
-   
     "type": "git",
     "url": "git+https://github.com/elbancud/hesoyam-oms-development-stage.git"
   },

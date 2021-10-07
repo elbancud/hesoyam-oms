@@ -18,11 +18,11 @@ import { Snackbar } from '@material-ui/core';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useCookies } from 'react-cookie';
 
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import Switch from '@mui/material/Switch';
 function Service() {
     
     //variables
