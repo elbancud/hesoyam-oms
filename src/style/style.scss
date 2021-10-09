@@ -108,6 +108,10 @@ b {
 .plain-white-accent-bg {
   background-color: #f1f1f1;
 }
+.sucess {
+  color: #31a24c;
+  font-weight: bold;
+}
 .font-light {
   h1,
   h2,
@@ -391,6 +395,12 @@ b {
     margin: 0;
   }
 }
+.z-index-1 {
+  z-index: 100;
+}
+.bold {
+  font-weight: bold;
+}
 .box-small-width {
   min-width: 200px !important;
 }
@@ -556,7 +566,7 @@ header {
 }
 .seat-div {
   border-radius: 5px;
-  padding: 0.5rem 0.5rem;
+  padding: 1.2rem;
   // color: #fff;
   cursor: pointer;
 }
@@ -770,6 +780,9 @@ footer {
   }
 }
 @media screen and (max-width: 500px) {
+  .seat-div {
+    padding: 0.5rem;
+  }
   .banner-graphics {
     display: none;
   }

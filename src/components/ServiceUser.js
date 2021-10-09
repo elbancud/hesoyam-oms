@@ -127,6 +127,7 @@ function ServiceUser() {
                             <h1 className="" id ="dynamic-h1">Our Services</h1>
                             <p><i>This is where you will arrange your appointments in our church services.</i></p>
                         </div>
+                        {/* TODO:image object fit  */}
                         <div>
                                 <div className="flex-flow-wrap-start-center-xy">
                                 {serviceArray ? serviceArray.map((data) => {

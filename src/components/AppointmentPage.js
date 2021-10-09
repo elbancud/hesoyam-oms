@@ -18,8 +18,13 @@ import startOfWeek from "date-fns/startOfWeek";
 import TextField from "@material-ui/core/TextField";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import "react-datepicker/dist/react-datepicker.css";
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import DatePicker from '@mui/lab/DatePicker';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+import TimePicker from '@mui/lab/TimePicker';
+
+// import DatePicker from "react-datepicker";
 
 function AppointmentPage({ service, image }) {
     const [siteTitle, setSiteTitle] = useState("");
@@ -29,7 +34,34 @@ function AppointmentPage({ service, image }) {
     const [activeCookies, setActiveCookes] = useState(false)
     const [serviceArray, setServiceArray] = useState()
     const [dateChosen, setDateChosen] = React.useState(new Date());
+    const [maxCapacity, setMaxCapacity] = useState("");
+    const [appointPeriod, setAppointPeriod] = useState("");
+    const [cancelPeriod, setCancelPeriod] = useState("");
 
+    const [operationDayStart, setOperationDayStart] = useState("");
+    const [operationDayEnd, setOperationDayEnd] = useState("");
+    const [operationTimeEnd, setOperationTimeEnd] = useState("");
+    const [operationTimeStart, setOperationTimeStart] = useState("");
+    const [sessionInterval, setSessionInterval] = useState("");
+    const [timeChosen, setTimeChosen] = React.useState(new Date('2014-08-18T21:11:54'));
+
+    const disableDate = (date) => {
+        const currentDate = new Date()
+        const day = getDay(date);
+       
+        if (operationDayStart === operationDayEnd) {
+            return false
+        } else if(day >= parseInt(operationDayStart,10) && day <= parseInt(operationDayEnd, 10)){
+            return false;
+        } 
+        else {
+            return true;
+            
+        }
+    };
+    const handleChange = (newValue) => {
+        setTimeChosen(newValue);
+    };
     useEffect(() => {
                     const dbRef = firebase.database().ref("generated-data");
                         dbRef.on('value', snapshot => {
@@ -37,10 +69,19 @@ function AppointmentPage({ service, image }) {
                                     setSiteTitle(snapshot.val().savedSiteTitle)
                             });
                        
-        const dbService = firebase.database().ref("services/" + cookies.activeService);
-        dbService.once("value").then(function (snapshot) {
+            const dbService = firebase.database().ref("services/" + cookies.activeService);
+            dbService.once("value").then(function (snapshot) {
+            setMaxCapacity(snapshot.val().maxCapacity)
+            setAppointPeriod(snapshot.val().daysBeforeAppointment)
+            setOperationDayStart(snapshot.val().operationDaysStart)
+            setOperationDayEnd(snapshot.val().operationDaysEnd)
+            setOperationTimeStart(snapshot.val().timeOperationStart)
+            setOperationTimeEnd(snapshot.val().timeOperationEnd)
+            setCancelPeriod(snapshot.val().daysBeforeCancel)
+            setSessionInterval(snapshot.val().sessionInterval)
                 const postSnap = snapshot.val();
                 const serviceArray = [];
+            
                 for (let id in postSnap) {
                     serviceArray.push({id, ...postSnap[id]});
                 }
@@ -60,7 +101,14 @@ function AppointmentPage({ service, image }) {
         getDay,
         locales,
     });
-
+    function handleAppoint() {
+        const date = new Date().getDate() + parseInt(appointPeriod, 10)
+        if (dateChosen.getDate() > date) {
+            alert("success")
+        } else {
+            alert("fail")
+        }
+    }
     const events = [
         {
             title: "Big Meeting",
@@ -79,7 +127,32 @@ function AppointmentPage({ service, image }) {
             end: new Date(2021, 9, 23),
         },
     ];
-
+   
+    function toDay(num) {
+        switch (num) {
+            case 0:
+                return "Sunday"
+                break;
+            case 1:
+                return "Monday"
+                break;
+            case 2:
+                return "Tuesday"
+                break;
+            case 3:
+                return "Wednesday"
+                break;
+            case 4:
+                return "Thursday"
+                break;
+            case 5:
+                return "Friday"
+                break;
+            case 6:
+                return "Saturday"
+                break;
+        }
+    }
      function getStarted() {
         history.push("/genWebLogin")
     }
@@ -93,7 +166,6 @@ function AppointmentPage({ service, image }) {
         history.push("/userPodcast")
     }
     function handleServiceRedirect() {
-
         if (cookies.UserLoginKey) {
             history.push("/userService")
         } else {
@@ -132,7 +204,6 @@ function AppointmentPage({ service, image }) {
                                     <li onClick={pod}>
                                             Podcast
                                     </li>
-
                             </ul>
                         </div>
                         <div className="nav-desktop-active">
@@ -169,7 +240,6 @@ function AppointmentPage({ service, image }) {
                             </div>
                             <div className=" pad-xy-sm flex-no-wrap ">
                                     <img className=" service-img" src="https://images.unsplash.com/photo-1618333604761-4148e9b0f1dd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1228&q=80" />  
-                                    
                             </div>
                     </div>
 
@@ -196,7 +266,7 @@ function AppointmentPage({ service, image }) {
                                 if (data.requirement) {
                                     return (
                                         // side-border-left
-                                        <div className=" flex-default ">
+                                        <div className=" flex-default " key={data.id}>
                                             <CheckIcon className="m-b-sm success-color"/>
                                             <h3  className="pad-x-sm primary-color-text-custom ">{data.requirement}</h3>
                                         </div>
@@ -220,46 +290,72 @@ function AppointmentPage({ service, image }) {
                                     <div className=" ">
                                         <p>In this section, you will now choose your preferred date. In accordance to the constraint: operation days, hours, appointment period and cancellation period.</p>
                                     </div>
+                                    <div className ="m-t-sm ">
+                                    <NotificationsActiveIcon className="m-r-sm" sx={{color: '#fbc02d'}}/>
+                                    </div>
+                                    <div >
+                                        <b><p>Available slots left: {maxCapacity}</p></b>
+                                    </div>
+                                    <div>
+                                        <b><p>Operation days: {toDay(parseInt(operationDayStart,10))} to {toDay(parseInt(operationDayEnd,10))}</p></b>
+                                    </div>
+                                    <div>
+                                        <p>Operation hours: {operationTimeStart} to {operationTimeEnd}</p>
+                                    </div>
+                                    <div>
+                                        <p> Appoinment Period: {appointPeriod} Days before </p>
+                                    </div>
+                                    <div>
+                                        <p> Cancellation period: {cancelPeriod} Days before </p>
+                                    </div>
+                                    <div>
+                                        
+                                        <p> Session intervals: {sessionInterval} </p>
+                                        
+                                    </div>
                     </div>
-                    <div className="pad-xy-sm flex-flow-wrap-start-center-xy ">
+                    <div className={parseInt(maxCapacity,10) === 0? "display-none" : ""}>
+
+                    <div className="pad-xy-sm flex-flow-wrap-start-center-xy " >
                         <div className="m-y-sm flex-default-center-xy">
                          <LocalizationProvider dateAdapter={AdapterDateFns}> 
-                                <div className="m-r-sm">
-                                    <DesktopDatePicker
-                                        label="choose date"
-                                        value={dateChosen}
-                                        minDate={new Date('2017-01-01')}
-                                        onChange={(newValue) => {
-                                            setDateChosen(newValue);
-                                        }}
-                                        renderInput={(params) => <TextField variant="outlined" {...params} />}
-                                        />
+                                    <div className="m-r-sm">
+                                   
+                                        <DesktopDatePicker
+                                           
+                                            shouldDisableDate={disableDate}
+                                            label="choose date"
+                                            value={dateChosen}
+                                            minDate={new Date()}
+                                            onChange={(newValue) => {
+                                                setDateChosen(newValue);
+                                            }}
+                                           
+                                            renderInput={(params) => <TextField variant="outlined" {...params} />}
+                                            />
+
                                 </div>
                                 <div className="m-r-sm">
-                                    <TextField
-                                        // error={timeOpFromState}
-                                        // helperText={timeOpFromError}
-                                        // onChange={e => { setTimeOpFrom(e.target.value) }}
-                                        // value = {timeOpFrom}
-                                        variant="outlined"
-                                        id="time"
-                                        label="Choose time"
-                                        type="time"
-                                        defaultValue="07:30"
-                                        InputLabelProps={{
-                                        shrink: true,
-                                        }}
-                                        inputProps={{
-                                        step: 300, // 5 min
-                                        }}
-                                        sx={{ width: 150 }}
+                                    <TimePicker
+                                                label="Time"
+                                                value={timeChosen}
+                                                shouldDisableTime={(timeValue, clockType) => {
+                                                if (clockType === 'hours' && timeValue < parseInt(operationTimeStart,10)) {
+                                                return true;
+                                                }
+
+                                                return false;
+                                            }}
+                                        onChange={handleChange}
+                                        renderInput={(params) => <TextField variant="outlined" {...params} />}
                                     />
+                                    
                                 </div>
                          </LocalizationProvider>
                         </div>
                         <div>
                             <Button
-                                            // onClick={serviceConstraints}
+                                            onClick={handleAppoint}
                                             // disabled={!daysBeforeCancel}
                                             id="btn-large-secondary"
                                             variant="contained"
@@ -271,6 +367,7 @@ function AppointmentPage({ service, image }) {
                         </Button>
                         </div>
                         
+                    </div>
                     </div>
                     
                 </div>

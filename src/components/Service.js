@@ -15,14 +15,15 @@ import FormHelperText from '@mui/material/FormHelperText';
 import firebase from 'firebase';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
-
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Switch from '@mui/material/Switch';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
+
 function Service() {
     
     //variables
@@ -79,7 +80,13 @@ function Service() {
     const [timeOpTo, setTimeOpto] = useState("");
     const [timeOpToError, setTimeOpToError] = useState("");
     const [enableConstraintBtn,setEnableConstraingtBtn] = useState(true);
+    const [session, setSessions] = useState(0);
 
+    const [sessionIntervalErrorState, setSessionIntervalErrorState] = useState(false);
+    const [sessionInterval, setSessionInterval] = useState("");
+    const [sessionIntervalError, setSessionIntervalError] = useState("");
+
+  
     //display inputted requirements on change event
     //map through objects
     const handleChange = (event) => {
@@ -393,16 +400,27 @@ function Service() {
             setDaysBeforeCancelErrorState(false)
   
         }
-        if (service && !isNaN(parseInt(daysBeforeCancel, 10)) && maxCapacity && !isNaN(parseInt(daysBeforeAppoint, 10)) && timeOpTo && timeOpFrom && operationDaysFrom && maxCapacity && !isNaN(parseInt(maxCapacity,10)))  {
+        if (session === 0) {
+            setSessionIntervalErrorState(true)
+            setSessionIntervalError("Enter session intervals")
+        } else if (!sessionInterval) {
+              setSessionIntervalErrorState(true)
+             setSessionIntervalError("Enter session intervals")
+        } else {
+               setSessionIntervalErrorState(false)
+               setSessionIntervalError("")
+        }
+        if (sessionInterval && !session !== 0 && service && !isNaN(parseInt(daysBeforeCancel, 10)) && maxCapacity && !isNaN(parseInt(daysBeforeAppoint, 10)) && timeOpTo && timeOpFrom && operationDaysFrom && maxCapacity && !isNaN(parseInt(maxCapacity,10)))  {
             const dbRef = firebase.database().ref("services/" + service);
             const serviceConstraints = {
                 maxCapacity: maxCapacity,
                 operationDaysStart: operationDaysFrom,
                 operationDaysEnd: operationDaysTo,
                 timeOperationStart: timeOpFrom,
-                timeOperatonEnd: timeOpTo,
+                timeOperationEnd: timeOpTo,
                 daysBeforeAppointment: daysBeforeAppoint,
-                daysBeforeCancel: daysBeforeCancel
+                daysBeforeCancel: daysBeforeCancel,
+                sessionInterval: session + " " + sessionInterval
             }
             dbRef.update(serviceConstraints).then(() => {
                 setAlertStatus(true)
@@ -416,6 +434,17 @@ function Service() {
 
         }
              
+    }
+    function addSession(getter, setter) {
+        setter(getter + 1);
+    }
+    function minusSession(getter, setter) {
+        setUpdate(!update)
+        if(getter > 0) {
+                setter(getter - 1)
+        }
+      
+
     }
     return (
         <div>
@@ -476,13 +505,13 @@ function Service() {
                                                 label="Service"
                                                 onChange={handleOperationDaysFrom}
                                             >
-                                                <MenuItem value="Sunday">Sunday </MenuItem>
-                                                <MenuItem value="Monday">Monday</MenuItem>
-                                                <MenuItem value="Tuesday">Tuesday</MenuItem>
-                                                <MenuItem value="Wednesday">Wednesday</MenuItem>
-                                                <MenuItem value="Thursday">Thursday</MenuItem>
-                                                <MenuItem value="Friday">Friday</MenuItem>
-                                                <MenuItem value="Saturday">Saturday</MenuItem>
+                                                <MenuItem value="0">Sunday </MenuItem>
+                                                <MenuItem value="1">Monday</MenuItem>
+                                                <MenuItem value="2">Tuesday</MenuItem>
+                                                <MenuItem value="3">Wednesday</MenuItem>
+                                                <MenuItem value="4">Thursday</MenuItem>
+                                                <MenuItem value="5">Friday</MenuItem>
+                                                <MenuItem value="6">Saturday</MenuItem>
                                             </Select>
                                             <FormHelperText>{operationDayFromError}</FormHelperText>
 
@@ -502,13 +531,13 @@ function Service() {
                                                 label="Service"
                                                 onChange={handleOperationDaysTo}
                                             >
-                                                <MenuItem value="Sunday">Sunday </MenuItem>
-                                                <MenuItem value="Monday">Monday</MenuItem>
-                                                <MenuItem value="Tuesday">Tuesday</MenuItem>
-                                                <MenuItem value="Wednesday">Wednesday</MenuItem>
-                                                <MenuItem value="Thursday">Thursday</MenuItem>
-                                                <MenuItem value="Friday">Friday</MenuItem>
-                                                <MenuItem value="Saturday">Saturday</MenuItem>
+                                                <MenuItem value="0">Sunday </MenuItem>
+                                                <MenuItem value="1">Monday</MenuItem>
+                                                <MenuItem value="2">Tuesday</MenuItem>
+                                                <MenuItem value="3">Wednesday</MenuItem>
+                                                <MenuItem value="4">Thursday</MenuItem>
+                                                <MenuItem value="5">Friday</MenuItem>
+                                                <MenuItem value="6">Saturday</MenuItem>
                                             </Select>
                                             <FormHelperText>{operationDayToError}</FormHelperText>
 
@@ -567,7 +596,59 @@ function Service() {
                             </div>
                           
                         </div>
-                        
+                        <div className="m-y-sm ">
+                                <div>
+                                    <h5><b>Sessions Interval</b></h5>
+                                </div>
+                                <div className="flex-default">
+                                    <div className="m-r-sm">
+                                    
+                                    <div className="flex-default">
+                                    <div>
+                                        <Tooltip title="subtract">
+                                            <IconButton onClick={() => { minusSession(session, setSessions) }}>
+                                                <IndeterminateCheckBoxIcon/>
+                                            </IconButton>
+
+                                        </Tooltip>
+                                    </div>
+                                    <div >
+                                        {session}
+                                    </div>
+                                    <div >
+                                        <Tooltip title="add">
+                                            <IconButton onClick={() => { addSession(session, setSessions) }}>
+                                                <AddBoxIcon/>
+                                            </IconButton>
+
+                                        </Tooltip>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="m-r-sm">
+                                
+                                 <Box sx={{ minWidth: 120 }}>
+                                        <FormControl fullWidth error={sessionIntervalErrorState} >
+                                            <InputLabel id="demo-simple-select-label">State</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={sessionInterval}
+                                                label="Service"
+                                                onChange={(event) => setSessionInterval(event.target.value)}
+                                            >
+                                                <MenuItem value="minutes">Minutes </MenuItem>
+                                                <MenuItem value="hours">Hours</MenuItem>
+                                               
+                                            </Select>
+                                            <FormHelperText>{sessionIntervalError}</FormHelperText>
+
+                                        </FormControl>
+                                    </Box>
+                            </div>
+                            </div>
+                          
+                        </div>
                                      
                 </div>
                     <div className="pad-y-sm flex-flow-wrap-start">

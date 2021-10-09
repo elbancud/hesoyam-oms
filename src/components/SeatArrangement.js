@@ -15,6 +15,7 @@ import ViewStreamIcon from '@mui/icons-material/ViewStream';
 import ViewWeekIcon from '@mui/icons-material/ViewWeek';
 import { Group } from '@material-ui/icons';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Switch from '@mui/material/Switch';
 
 function SeatArrangement() {
    
@@ -256,16 +257,16 @@ function SeatArrangement() {
                     <div className="flex-flow-wrap-x ">
                         {seatArray ? seatArray.map((data) => {
                             return(
-                                <div className="m-xy-lg">
+                                <div className="m-xy-lg" key={data.id}>
                                     {
                                             Object.values(data).map(key => {
                                                 if (typeof (key) === "object") {
                                                     return (
-                                                        <div className="flex-default">
+                                                        <div className="flex-default" >
                                                             {Object.values(key).map((child, index) => {
                                                                     if (child.reserved === true) {
                                                                          return (
-                                                                             <div className="seat-div">
+                                                                             <div className="seat-div" key={child}>
                                                                                     <Tooltip title="Click for action">
                                                                                         
                                                                                             <Button variant="contained" id="reserved" disableElevation>
