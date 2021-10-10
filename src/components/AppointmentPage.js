@@ -23,7 +23,7 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import DatePicker from '@mui/lab/DatePicker';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import TimePicker from '@mui/lab/TimePicker';
-
+import axios from 'axios'
 // import DatePicker from "react-datepicker";
 
 function AppointmentPage({ service, image }) {
@@ -101,14 +101,59 @@ function AppointmentPage({ service, image }) {
         getDay,
         locales,
     });
-    function handleAppoint() {
-        const date = new Date().getDate() + parseInt(appointPeriod, 10)
-        if (dateChosen.getDate() > date) {
-            alert("success")
-        } else {
-            alert("fail")
-        }
+    async function handleAppoint() {
+        // const date = new Date().getDate() + parseInt(appointPeriod, 10)
+        // if (dateChosen.getDate() > date) {
+        //     alert("success")
+        // } else {
+        //     alert("fail")
+        // }
+     
+        // const requestOptions = {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         "frame_name": "no-frame",
+        //         "qr_code_text": "https://www.qr-code-generator.com/",
+        //         "image_format": "SVG",
+        //         "background_color": "#ffffff",
+        //         "foreground_color": "#fa6e79",
+        //         "marker_right_inner_color": "#2d7cda",
+        //         "marker_right_outer_color": "#00bfff",
+        //         "marker_left_template": "version13",
+        //         "marker_right_template": "version13",
+        //         "marker_bottom_template": "version13"
+        //     })
+        // }
+        
+        fetch('https://api.qr-code-generator.com/v1/create?access-token=bwC3u0_82C_0iyAU5AR6MJFzNVAm2LiTRUahRITyi9O_0H2cbTOfCcZJp1H7vNR5', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "frame_name": "no-frame",
+                        "qr_code_text": "https://www.qr-code-generator.com/",
+                        "image_format": "SVG",
+                        "background_color": "#ffffff",
+                        "foreground_color": "#fa6e79",
+                        "marker_right_inner_color": "#2d7cda",
+                        "marker_right_outer_color": "#00bfff",
+                        "marker_left_template": "version13",
+                        "marker_right_template": "version13",
+                        "marker_bottom_template": "version13"
+                    })
+            })
+            .then(res => {
+                return res.json()
+            }).then(data => console.log(data)).catch(error => console.log(error))
+                // .then(data => console.log(data));
+          
     }
+        
+    
     const events = [
         {
             title: "Big Meeting",
