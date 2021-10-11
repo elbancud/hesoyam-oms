@@ -21,13 +21,14 @@ import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import DynamicCalendar from "./DynamicCalendar"
 // import DatePicker from "react-datepicker";
+import SeatPlan from "./SeatPlan";
 
 function AppointmentPage({ service, image }) {
     const [siteTitle, setSiteTitle] = useState("");
     const [events, setEvents] = useState();
     const history = useHistory();
     const [cookies] = useCookies(['user']);
-    const [activeCookies, setActiveCookes] = useState(false)
+    const [activeCookies, setActiveCookes] = useState(false);
     const [serviceArray, setServiceArray] = useState()
     const [dateChosen, setDateChosen] = React.useState(new Date());
     const [maxCapacity, setMaxCapacity] = useState("");
@@ -39,12 +40,15 @@ function AppointmentPage({ service, image }) {
     const [operationTimeEnd, setOperationTimeEnd] = useState("");
     const [operationTimeStart, setOperationTimeStart] = useState("");
     const [sessionInterval, setSessionInterval] = useState("");
+    const [sessionIntervalState, setSessionIntervalState] = useState("");
+
     const [timeChosen, setTimeChosen] = React.useState();
 
     const [alertStatus, setAlertStatus] = useState(false);
     const [feedbackVariant, setFeedbackVariant] = useState("");
     const [alertMessage, setAlertMessage] = useState("");
     const [qrLink, setQrLink] = useState("");
+    const [seatState, setSeatState] = useState();
 
     const disableDate = (date) => {
         const currentDate = new Date()
@@ -71,7 +75,6 @@ function AppointmentPage({ service, image }) {
         if (reason === 'clickaway') {
         return;
         }
-
         setAlertStatus(false);
     };
     useEffect(() => {
@@ -90,10 +93,11 @@ function AppointmentPage({ service, image }) {
             setOperationTimeStart(snapshot.val().timeOperationStart)
             setOperationTimeEnd(snapshot.val().timeOperationEnd)
             setCancelPeriod(snapshot.val().daysBeforeCancel)
-            setSessionInterval(snapshot.val().sessionInterval)
+            setSessionIntervalState(snapshot.val().sessionState)
+            setSessionInterval(snapshot.val().sessionIntervalNum)
+            setSeatState(snapshot.val().seatArrangement)
                 const postSnap = snapshot.val();
                 const serviceArray = [];
-            
                 for (let id in postSnap) {
                     serviceArray.push({id, ...postSnap[id]});
                 }
@@ -111,43 +115,62 @@ function AppointmentPage({ service, image }) {
        
          const date = new Date().getDate() + parseInt(appointPeriod, 10)
         //  const db 
-         if (dateChosen.getDate() > date) {
-             const db = firebase.database().ref('events');
-             
-             db.orderByChild("time").equalTo(timeChosen.toString()).once('value').then(snapshot => {
-                 if (snapshot.exists()) {
-                    setAlertStatus(true)
-                    setFeedbackVariant("error")
-                    setAlertMessage("Date is already appointed")
-                 } else {
-                    const dateSpecific = dateChosen.getFullYear() + ", " +  parseInt(dateChosen.getMonth() + 1,10)  +", "+dateChosen.getDate()
-                    const appointmentDetails = {
-                        title: "baptism" + " " + cookies.UserLastName + " "+cookies.UserFirstName,
-                        start: dateSpecific,
-                        end: dateSpecific,
-                        time:timeChosen.toString()
-                    }
-                    const generateQR = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService
-                    const db = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + '/qrLink');
-
-                    db.push(appointmentDetails).then(() => {
-                                            db.push(generateQR)
-                                            setAlertStatus(true)
-                                            setFeedbackVariant("success")
-                                            setAlertMessage("Service date appointed")
-                                            window.location.reload()
-                            }
-                    )
-                    
-                 }
-             })
-
-             
-         } else {
+         if (!timeChosen) {
                 setAlertStatus(true)
                 setFeedbackVariant("error")
-                setAlertMessage("You should be appointing from " + new Date().getMonth()+" " + date +" onwards" )
-        }
+                setAlertMessage("Please choose time" )
+         } else {
+                if (dateChosen.getDate() > date ) {
+                    const db = firebase.database().ref('events');
+                    
+                    db.orderByChild("time").equalTo(timeChosen.toString()).once('value').then(snapshot => {
+                        if (snapshot.exists()) {
+                            setAlertStatus(true)
+                            setFeedbackVariant("error")
+                            setAlertMessage("Date is already appointed")
+                        } else {
+                            const dbUser = firebase.database().ref('user-account-details/' + cookies.UserLoginKey +"/appointments");
+                            dbUser.orderByChild("title").equalTo("baptism" + " " + cookies.UserLastName + " "+cookies.UserFirstName).once('value').then(snap => {
+                                if (snap.exists()) {
+                                    setAlertStatus(true)
+                                    setFeedbackVariant("error")
+                                    setAlertMessage("You already have an active appointment in this service")
+                                } else {
+                                    const dateSpecific = dateChosen.getFullYear() + ", " +  parseInt(dateChosen.getMonth() + 1,10)  +", "+dateChosen.getDate()
+                                    const appointmentDetails = {
+                                        title: "baptism" + " " + cookies.UserLastName + " "+cookies.UserFirstName,
+                                        start: dateSpecific,
+                                        end: dateSpecific,
+                                        time:timeChosen.toString()
+                                    }
+
+                                    const generateQR = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService
+                                    const dbQR = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + '/qrLink');
+                                    const dbEvents = firebase.database().ref('events');
+
+                                    dbQR.push(generateQR);
+                                    dbEvents.push(appointmentDetails);
+                                    dbUser.push(appointmentDetails).then(() => {
+                                                            setAlertStatus(true)
+                                                            setFeedbackVariant("success")
+                                                            setAlertMessage("Service date appointed")
+                                                            window.location.reload()
+                                            }
+                                    )
+                                }
+                            })
+                    
+                            
+                        }
+                    })
+        
+                    
+                } else {
+                        setAlertStatus(true)
+                        setFeedbackVariant("error")
+                        setAlertMessage("You should be appointing from " + new Date().getMonth()+" " + date +" onwards" )
+                }
+         }
      }
   
     function convertTime(hours) {
@@ -395,12 +418,22 @@ function AppointmentPage({ service, image }) {
                     </div>
                     
                 </div>
-                <Container className="m-t-md ">
+                <Container className="m-t-md align-text-center">
+                     <div className="title pad-y-sm">
+                            <h2>Calendar</h2>
+                            <p>Shown in here are the appointed services within the day.</p>
+                        </div>
                     <DynamicCalendar/>
-                    {/* <Calendar localizer={localizer} events={events} startAccessor="start" endAccessor="end" style={{ height: 500, width:"100%"}} /> */}
-
                 </Container>
-
+                {seatState ? <Container className="m-t-md ">
+                     <div className="title pad-y-sm align-text-center">
+                            <h2>Calendar</h2>
+                            <p>Shown in here are the appointed services within the day.</p>
+                        </div>
+                    <SeatPlan/>
+                </Container>: ""
+                }
+                
             </main>
                 <Container className="m-t-md ">
                 <main className="pad-y-md flex-flow-wrap">

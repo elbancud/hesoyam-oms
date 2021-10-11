@@ -20,10 +20,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import Switch from '@mui/material/Switch';
+import Switch from '@material-ui/core/Switch';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
-
+import FormControlLabel from '@mui/material/FormControlLabel';
 function Service() {
     
     //variables
@@ -85,8 +85,11 @@ function Service() {
     const [sessionIntervalErrorState, setSessionIntervalErrorState] = useState(false);
     const [sessionInterval, setSessionInterval] = useState("");
     const [sessionIntervalError, setSessionIntervalError] = useState("");
+    const [switchSeat, setSwitchSeat] = useState(false);
 
-  
+
+    const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
     //display inputted requirements on change event
     //map through objects
     const handleChange = (event) => {
@@ -140,6 +143,10 @@ function Service() {
                                 setTimeOpto(snap.timeOperationEnd)
                                 setDaysAppointBefore(snap.daysBeforeAppointment)
                                 setDaysBeforeCancel(snap.daysBeforeCancel)
+                                setSwitchSeat(snap.seatArrangement)
+                                setSessions(snap.sessionIntervalNum)
+                                setSessionInterval(snap.sessionState)
+          
                     }
                     setServiceArray(serviceArray)
                   })
@@ -155,8 +162,6 @@ function Service() {
     //disable if no requirement is inputted
     //push requirement
     const saveServiceRequirement = (event) => {
-        setUpdate(!update);
-
         event.preventDefault();
 
         if (requirementInput.length < 3) {
@@ -191,14 +196,15 @@ function Service() {
                                     return true
 
                                 } else {
-                                    pushState();
                                     setUpdate(!update);
+                                    
+                                    pushState();
                                 }
                            
                              })
                         } else {
-                            pushState();
                             setUpdate(!update);
+                            pushState();
 
                         }
                     });
@@ -431,7 +437,9 @@ function Service() {
                 timeOperationEnd: timeOpTo,
                 daysBeforeAppointment: daysBeforeAppoint,
                 daysBeforeCancel: daysBeforeCancel,
-                sessionInterval: session + " " + sessionInterval
+                sessionIntervalNum: session,
+                sessionState: sessionInterval,
+                seatArrangement: switchSeat
             }
             dbRef.update(serviceConstraints).then(() => {
                 setAlertStatus(true)
@@ -441,9 +449,7 @@ function Service() {
                 
             })
             const event = firebase.database().ref("events")
-            event.push("events")
-
-            
+            event.update({event:"event"})
 
         }
              
@@ -684,21 +690,33 @@ function Service() {
                                     <div className="m-r-sm">
                                         <TextField type="text" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} error={daysBeforeCancelErrorState} helperText={daysBeforeCancelError} onChange={e => { setDaysBeforeCancel(e.target.value) }} value={daysBeforeCancel} id="outlined-full-width" fullWidth label="Before cancellation" variant="outlined" className="text-input-deafult" />
                                     </div>
-                                    <div className="grid-place-center">
-                                        <Button
-                                            onClick={serviceConstraints}
-                                            disabled={!daysBeforeCancel}
-                                            // id="btn-large-secondary"
-                                            variant="outlined"
-                                            className="btn-large primary-color "
-                                            color="primary"
-                                            size="large"
-                                        >
-                                            Save changes
-                                        </Button>
-                                    </div>
+                                    
                                 </div>
                             </div> 
+                            <div className="m-y-sm grid-place-center ">
+                                <div className="flex-default">
+                                    <FormControlLabel
+                                        control={
+                                            <Switch checked={switchSeat} onChange={event => { setSwitchSeat(event.target.checked) }} name="jason" />
+                                            }
+                                                label="Seat Reservation"
+                                            />
+                                            <div className="grid-place-center">
+                                                <Button
+                                                    onClick={serviceConstraints}
+                                                    disabled={!daysBeforeCancel}
+                                                    // id="btn-large-secondary"
+                                                    variant="outlined"
+                                                    className="btn-large primary-color "
+                                                    color="primary"
+                                                    size="large"
+                                                >
+                                                    Save changes
+                                                </Button>
+                                            </div>
+                                    
+                                </div>
+                            </div>
                     </div>
                 
                 <div className="pad-y-sm">

@@ -9,6 +9,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 // import "react-datepicker/dist/react-datepicker.css";
 import Container from "@material-ui/core/Container";
 import "../style/style.css";
+import DynamicCalendar from './DynamicCalendar';
+
 const locales = {
     "en-US": require("date-fns/locale/en-US"),
 };
@@ -49,7 +51,7 @@ function CalendarTab() {
                             <h2>Calendar</h2>
                             <p>Shown in here are the appointed services within the day.</p>
                         </div>
-                            <Calendar localizer={localizer} events={events} startAccessor="start" endAccessor="end" style={{ height: 500, width:"100%"}} />
+                            <DynamicCalendar/>
                     </Container>
         </main>
     );

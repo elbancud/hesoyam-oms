@@ -34,7 +34,6 @@ function SeatArrangement() {
     //get 
      
     const saveServiceRequirement = (event) => {
-        const dbGrp = firebase.database().ref("seat-arrangement/")
         if (groupNumber === 0 || rowNumber === 0 || columnNumber === 0) {
                 setAlertStatus(true)
                 setFeedbackVariant("error")
@@ -268,7 +267,7 @@ function SeatArrangement() {
                                                                              <div className="seat-div" key={child}>
                                                                                     <Tooltip title="Click for action">
                                                                                         
-                                                                                            <Button variant="contained" id="reserved" disableElevation>
+                                                                                     <Button variant="contained"  id="reserved" disableElevation>
                                                                                                     {index + 1}
                                                                                                 </Button>
                                                                                     </Tooltip>
@@ -279,7 +278,7 @@ function SeatArrangement() {
                                                                                 <div className="seat-div">
                                                                                     <Tooltip title="Click for action">
                                                                                         
-                                                                                            <Button variant="contained" id="available" disableElevation>
+                                                                                            <Button onClick={() => { alert(key) }} variant="contained" id="available" disableElevation>
                                                                                                     {index + 1}
                                                                                                 </Button>
                                                                                     </Tooltip>

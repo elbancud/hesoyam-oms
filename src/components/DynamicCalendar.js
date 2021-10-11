@@ -49,7 +49,6 @@ useEffect(() => {
 
    
      const db = firebase.database().ref("events")
-
         db.once('value', snapshot => {
              const postSnap = snapshot.val();
                 const events = [];
@@ -90,10 +89,7 @@ useEffect(() => {
           <main className=" pad-y-md div align-text-center" >
                     
                     <Container>
-                       <div className="title pad-y-sm">
-                            <h2>Calendar</h2>
-                            <p>Shown in here are the appointed services within the day.</p>
-                        </div>
+                      
                             <Calendar localizer={localizer} events={events} startAccessor="start" endAccessor="end" style={{ height: 500, width:"100%"}} />
                     </Container>
         </main>
