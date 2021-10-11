@@ -13,6 +13,7 @@
     "@mui/material": "^5.0.1",
     "@mui/styled-engine-sc": "^5.0.0",
     "@mui/styles": "^5.0.1",
+    "@syncfusion/ej2-react-calendars": "^19.3.44",
     "animate.css": "^4.1.1",
     "axios": "^0.22.0",
     "date-fns": "^2.23.0",

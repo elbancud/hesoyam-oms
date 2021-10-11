@@ -1,13 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Rakkas&display=swap");
+@import url("https://cdn.syncfusion.com/ej2/material.css");
 * {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Poppins, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Poppins,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   cursor: default;
   background-color: #f8f9fa;
   overflow-x: hidden !important;
@@ -34,23 +36,53 @@ b {
 }
 
 .primary-gradient {
-  background: radial-gradient(100% 244.46% at 0% 0%, #ccff00 0%, #ff027c 100%), radial-gradient(50% 122.23% at 50% 50%, #9aa4ff 0%, #306c00 100%), radial-gradient(100.45% 245.58% at 0% 0%, #000afe 0%, #70ff00 100%), linear-gradient(127.43deg, #7b0007 0%, #8f73ff 100%);
+  background: radial-gradient(100% 244.46% at 0% 0%, #ccff00 0%, #ff027c 100%),
+    radial-gradient(50% 122.23% at 50% 50%, #9aa4ff 0%, #306c00 100%),
+    radial-gradient(100.45% 245.58% at 0% 0%, #000afe 0%, #70ff00 100%),
+    linear-gradient(127.43deg, #7b0007 0%, #8f73ff 100%);
   background-blend-mode: lighten, color-dodge, difference, normal;
 }
 
 .secondary-gradient {
-  background: linear-gradient(115.58deg, #00fc19 0%, #1700a4 100.22%), radial-gradient(92.72% 100% at 50% 0%, #ebffcb 0%, #651200 100%), radial-gradient(92.72% 100% at 50% 0%, #faff00 0%, #820000 100%), radial-gradient(109.21% 213.32% at 100% 0%, #ff4d00 0%, #00c2ff 100%), linear-gradient(127.43deg, #d50000 0%, #7856ff 100%);
+  background: linear-gradient(115.58deg, #00fc19 0%, #1700a4 100.22%),
+    radial-gradient(92.72% 100% at 50% 0%, #ebffcb 0%, #651200 100%),
+    radial-gradient(92.72% 100% at 50% 0%, #faff00 0%, #820000 100%),
+    radial-gradient(109.21% 213.32% at 100% 0%, #ff4d00 0%, #00c2ff 100%),
+    linear-gradient(127.43deg, #d50000 0%, #7856ff 100%);
   background-blend-mode: lighten, overlay, lighten, screen, normal;
 }
 
 .tertiary-gradient {
-  background: radial-gradient(80.99% 100% at 50% 0%, #00ff0a 0%, #36008e 100%), radial-gradient(50% 123.47% at 50% 50%, #efe7c8 0%, #36008e 100%), linear-gradient(301.28deg, #ff006b 0%, #48dd9e 100%), linear-gradient(294.84deg, #5a60e4 0%, #d30000 100%), linear-gradient(52.29deg, #000000 0%, #00ff85 100%), radial-gradient(100% 138.69% at 100% 0%, #0007a5 0%, #ff7a00 100%), radial-gradient(70.41% 100% at 50% 0%, #d5b300 0%, #2200aa 100%);
-  background-blend-mode: screen, screen, lighten, overlay, lighten, difference, normal;
+  background: radial-gradient(80.99% 100% at 50% 0%, #00ff0a 0%, #36008e 100%),
+    radial-gradient(50% 123.47% at 50% 50%, #efe7c8 0%, #36008e 100%),
+    linear-gradient(301.28deg, #ff006b 0%, #48dd9e 100%),
+    linear-gradient(294.84deg, #5a60e4 0%, #d30000 100%),
+    linear-gradient(52.29deg, #000000 0%, #00ff85 100%),
+    radial-gradient(100% 138.69% at 100% 0%, #0007a5 0%, #ff7a00 100%),
+    radial-gradient(70.41% 100% at 50% 0%, #d5b300 0%, #2200aa 100%);
+  background-blend-mode: screen, screen, lighten, overlay, lighten, difference,
+    normal;
 }
 
 .under-garment-gradient {
-  background: linear-gradient(114.95deg, rgba(235, 0, 255, 0.5) 0%, rgba(0, 71, 255, 0) 34.35%), linear-gradient(180deg, #004b5b 0%, #ffa7a7 100%), linear-gradient(244.35deg, #ffb26a 0%, #3676b1 50.58%, #00a3ff 100%), linear-gradient(244.35deg, #ffffff 0%, #004a74 49.48%, #ff0000 100%), radial-gradient(100% 233.99% at 0% 100%, #b70000 0%, #ad00ff 100%), linear-gradient(307.27deg, #219d87 0.37%, #2650ba 50.19%, #2800c6 100%), radial-gradient(100% 140% at 100% 0%, #ff00c7 0%, #006c7a 49.48%, #760000 100%);
-  background-blend-mode: hard-light, overlay, overlay, overlay, difference, difference, normal;
+  background: linear-gradient(
+      114.95deg,
+      rgba(235, 0, 255, 0.5) 0%,
+      rgba(0, 71, 255, 0) 34.35%
+    ),
+    linear-gradient(180deg, #004b5b 0%, #ffa7a7 100%),
+    linear-gradient(244.35deg, #ffb26a 0%, #3676b1 50.58%, #00a3ff 100%),
+    linear-gradient(244.35deg, #ffffff 0%, #004a74 49.48%, #ff0000 100%),
+    radial-gradient(100% 233.99% at 0% 100%, #b70000 0%, #ad00ff 100%),
+    linear-gradient(307.27deg, #219d87 0.37%, #2650ba 50.19%, #2800c6 100%),
+    radial-gradient(
+      100% 140% at 100% 0%,
+      #ff00c7 0%,
+      #006c7a 49.48%,
+      #760000 100%
+    );
+  background-blend-mode: hard-light, overlay, overlay, overlay, difference,
+    difference, normal;
 }
 
 .primary-color-text {
@@ -64,7 +96,7 @@ b {
 .primary-color {
   background-color: #533c9f;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .secondary-color {
@@ -113,11 +145,11 @@ b {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .flex-space-around {
@@ -125,10 +157,10 @@ b {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .flex-end {
@@ -136,8 +168,8 @@ b {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
 }
 
 .flex-end p {
@@ -149,8 +181,8 @@ b {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .flex-default li {
@@ -170,11 +202,11 @@ b {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 #display-flex-column {
@@ -183,8 +215,8 @@ b {
   display: flex;
   -webkit-box-orient: vertical !important;
   -webkit-box-direction: normal !important;
-      -ms-flex-direction: column !important;
-          flex-direction: column !important;
+  -ms-flex-direction: column !important;
+  flex-direction: column !important;
 }
 
 .grid-place-center {
@@ -198,7 +230,7 @@ b {
   top: 40%;
   left: 50%;
   -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
 }
 
 .flex-flow-wrap {
@@ -207,8 +239,8 @@ b {
   display: flex;
   position: relative;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .flex-flow-wrap-x {
@@ -216,10 +248,10 @@ b {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: wrap;
-      flex-flow: wrap;
+  flex-flow: wrap;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .flex-no-wrap {
@@ -227,10 +259,10 @@ b {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: wrap;
-      flex-flow: wrap;
+  flex-flow: wrap;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   width: 100%;
 }
 
@@ -271,21 +303,21 @@ b {
   width: 100%;
   max-width: 300px;
   -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
 
 .off-set-top {
   top: -12rem;
   left: 50%;
   -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .off-set-top-mid {
   top: -8rem;
   left: 50%;
   -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .position-fixed-top {
@@ -326,8 +358,8 @@ b {
   margin: 0 auto;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(150px, 2fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(150px, 2fr));
+  -ms-grid-columns: (minmax(150px, 2fr)) [auto-fit];
+  grid-template-columns: repeat(auto-fit, minmax(150px, 2fr));
   grid-gap: 2rem;
   max-width: 900;
 }
@@ -461,7 +493,7 @@ b {
 
 .box-shadow-light {
   -webkit-box-shadow: 0 0.5rem 1.2rem rgba(165, 172, 182, 0.2) !important;
-          box-shadow: 0 0.5rem 1.2rem rgba(165, 172, 182, 0.2) !important;
+  box-shadow: 0 0.5rem 1.2rem rgba(165, 172, 182, 0.2) !important;
 }
 
 .box {
@@ -469,7 +501,7 @@ b {
   background-color: #fff;
   color: #4a4a6a;
   -webkit-box-shadow: 0 0.5rem 2.2rem rgba(127, 132, 138, 0.2);
-          box-shadow: 0 0.5rem 2.2rem rgba(127, 132, 138, 0.2);
+  box-shadow: 0 0.5rem 2.2rem rgba(127, 132, 138, 0.2);
 }
 
 .box p {
@@ -512,11 +544,11 @@ aside {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   padding: 2rem 0;
 }
 
@@ -573,7 +605,7 @@ aside li:hover {
   bottom: -2rem;
   left: -9rem;
   -webkit-transform: rotate(41.82deg);
-          transform: rotate(41.82deg);
+  transform: rotate(41.82deg);
 }
 
 .position-relative img {
@@ -696,7 +728,7 @@ header .nav-desktop-active {
 #btn-large-primary {
   background-color: #533c9f;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   font-size: 15px;
   color: #fff;
 }
@@ -704,14 +736,14 @@ header .nav-desktop-active {
 #btn-default-primary {
   background-color: #533c9f;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 #btn-large-secondary {
   background-color: #960071;
   padding: 0.6rem 2rem;
   -webkit-box-shadow: none !important;
-          box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 #btn-large-primary-outline {
@@ -781,11 +813,11 @@ header .nav-desktop-active {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   z-index: 1;
 }
 
@@ -803,7 +835,7 @@ header .nav-desktop-active {
   top: 30%;
   left: 50%;
   -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
   width: 90% !important;
   position: absolute;
   max-width: 600px;
@@ -857,7 +889,7 @@ header .nav-desktop-active {
   top: 5%;
   left: 50%;
   -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
   width: 90% !important;
   position: absolute;
   background-color: #fff;
@@ -902,14 +934,14 @@ footer li {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
     max-width: 90%;
     margin: 0 auto;
   }
   .flex-no-wrap {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
   .left-banner {
     display: none;
@@ -925,7 +957,7 @@ footer li {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .flex-flow-wrap-start-center-xy {
@@ -933,20 +965,20 @@ footer li {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 @media screen and (max-width: 1080px) {
   .flex-no-wrap {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
 }
 

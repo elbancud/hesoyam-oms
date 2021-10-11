@@ -13,7 +13,6 @@ import IconButton from '@mui/material/IconButton';
 import Grid4x4Icon from '@mui/icons-material/Grid4x4';
 import ViewStreamIcon from '@mui/icons-material/ViewStream';
 import ViewWeekIcon from '@mui/icons-material/ViewWeek';
-import { Group } from '@material-ui/icons';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Switch from '@mui/material/Switch';
 

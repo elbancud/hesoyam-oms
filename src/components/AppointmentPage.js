@@ -9,26 +9,22 @@ import UserProfile from './UserProfile';
 import { Button } from "@material-ui/core";
 import TopNavGenWeb from './TopNavGenWeb'
 import CheckIcon from '@mui/icons-material/Check';
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import format from "date-fns/format";
 import getDay from "date-fns/getDay";
-import parse from "date-fns/parse";
-import startOfWeek from "date-fns/startOfWeek";
 import TextField from "@material-ui/core/TextField";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-// import "react-datepicker/dist/react-datepicker.css";
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import DatePicker from '@mui/lab/DatePicker';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import TimePicker from '@mui/lab/TimePicker';
-import axios from 'axios'
+import { TimePickerComponent} from '@syncfusion/ej2-react-calendars';
+import { Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+import DynamicCalendar from "./DynamicCalendar"
 // import DatePicker from "react-datepicker";
 
 function AppointmentPage({ service, image }) {
     const [siteTitle, setSiteTitle] = useState("");
-    
+    const [events, setEvents] = useState();
     const history = useHistory();
     const [cookies] = useCookies(['user']);
     const [activeCookies, setActiveCookes] = useState(false)
@@ -43,7 +39,12 @@ function AppointmentPage({ service, image }) {
     const [operationTimeEnd, setOperationTimeEnd] = useState("");
     const [operationTimeStart, setOperationTimeStart] = useState("");
     const [sessionInterval, setSessionInterval] = useState("");
-    const [timeChosen, setTimeChosen] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [timeChosen, setTimeChosen] = React.useState();
+
+    const [alertStatus, setAlertStatus] = useState(false);
+    const [feedbackVariant, setFeedbackVariant] = useState("");
+    const [alertMessage, setAlertMessage] = useState("");
+    const [qrLink, setQrLink] = useState("");
 
     const disableDate = (date) => {
         const currentDate = new Date()
@@ -61,6 +62,17 @@ function AppointmentPage({ service, image }) {
     };
     const handleChange = (newValue) => {
         setTimeChosen(newValue);
+    };
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+    
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+        return;
+        }
+
+        setAlertStatus(false);
     };
     useEffect(() => {
                     const dbRef = firebase.database().ref("generated-data");
@@ -90,112 +102,80 @@ function AppointmentPage({ service, image }) {
         if(cookies.UserLoginKey) {
             setActiveCookes(true)
         }
+        
     }, []);
-    const locales = {
-    "en-US": require("date-fns/locale/en-US"),
-    };
-    const localizer = dateFnsLocalizer({
-        format,
-        parse,
-        startOfWeek,
-        getDay,
-        locales,
-    });
-    async function handleAppoint() {
-        // const date = new Date().getDate() + parseInt(appointPeriod, 10)
-        // if (dateChosen.getDate() > date) {
-        //     alert("success")
-        // } else {
-        //     alert("fail")
-        // }
-     
-        // const requestOptions = {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //         "frame_name": "no-frame",
-        //         "qr_code_text": "https://www.qr-code-generator.com/",
-        //         "image_format": "SVG",
-        //         "background_color": "#ffffff",
-        //         "foreground_color": "#fa6e79",
-        //         "marker_right_inner_color": "#2d7cda",
-        //         "marker_right_outer_color": "#00bfff",
-        //         "marker_left_template": "version13",
-        //         "marker_right_template": "version13",
-        //         "marker_bottom_template": "version13"
-        //     })
-        // }
+ 
+     function handleAppoint() {
+        // this function is to handle appointments
         
-        fetch('https://api.qr-code-generator.com/v1/create?access-token=bwC3u0_82C_0iyAU5AR6MJFzNVAm2LiTRUahRITyi9O_0H2cbTOfCcZJp1H7vNR5', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "frame_name": "no-frame",
-                        "qr_code_text": "https://www.qr-code-generator.com/",
-                        "image_format": "SVG",
-                        "background_color": "#ffffff",
-                        "foreground_color": "#fa6e79",
-                        "marker_right_inner_color": "#2d7cda",
-                        "marker_right_outer_color": "#00bfff",
-                        "marker_left_template": "version13",
-                        "marker_right_template": "version13",
-                        "marker_bottom_template": "version13"
-                    })
-            })
-            .then(res => {
-                return res.json()
-            }).then(data => console.log(data)).catch(error => console.log(error))
-                // .then(data => console.log(data));
-          
-    }
-        
-    
-    const events = [
-        {
-            title: "Big Meeting",
-            allDay: true,
-            start: new Date(2021, 9, 0),
-            end: new Date(2021, 9, 0),
-        },
-        {
-            title: "Vacation",
-            start: new Date(2021, 9, 7),
-            end: new Date(2021, 9, 10),
-        },
-        {
-            title: "Conference",
-            start: new Date(2021, 9, 20),
-            end: new Date(2021, 9, 23),
-        },
-    ];
-   
+       
+         const date = new Date().getDate() + parseInt(appointPeriod, 10)
+        //  const db 
+         if (dateChosen.getDate() > date) {
+             const db = firebase.database().ref('events');
+             
+             db.orderByChild("time").equalTo(timeChosen.toString()).once('value').then(snapshot => {
+                 if (snapshot.exists()) {
+                    setAlertStatus(true)
+                    setFeedbackVariant("error")
+                    setAlertMessage("Date is already appointed")
+                 } else {
+                    const dateSpecific = dateChosen.getFullYear() + ", " +  parseInt(dateChosen.getMonth() + 1,10)  +", "+dateChosen.getDate()
+                    const appointmentDetails = {
+                        title: "baptism" + " " + cookies.UserLastName + " "+cookies.UserFirstName,
+                        start: dateSpecific,
+                        end: dateSpecific,
+                        time:timeChosen.toString()
+                    }
+                    const generateQR = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService
+                    const db = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + '/qrLink');
+
+                    db.push(appointmentDetails).then(() => {
+                                            db.push(generateQR)
+                                            setAlertStatus(true)
+                                            setFeedbackVariant("success")
+                                            setAlertMessage("Service date appointed")
+                                            window.location.reload()
+                            }
+                    )
+                    
+                 }
+             })
+
+             
+         } else {
+                setAlertStatus(true)
+                setFeedbackVariant("error")
+                setAlertMessage("You should be appointing from " + new Date().getMonth()+" " + date +" onwards" )
+        }
+     }
+  
+    function convertTime(hours) {
+        const date = new Date('01/01/2021 ' + hours).getHours()
+        const specificHours = new Date('01/01/2021 ' + hours).getHours() - 12
+        const specificMinutes = new Date('01/01/2021 ' + hours).getMinutes() 
+        if (date < 13) {
+            return new Date('01/01/2021 '+ hours +" AM")
+        } else {
+            return new Date('01/01/2021 '+ specificHours + ":"+specificMinutes+ " PM")
+        }
+   }
     function toDay(num) {
         switch (num) {
             case 0:
                 return "Sunday"
-                break;
             case 1:
                 return "Monday"
-                break;
             case 2:
                 return "Tuesday"
-                break;
             case 3:
                 return "Wednesday"
-                break;
             case 4:
                 return "Thursday"
-                break;
             case 5:
                 return "Friday"
-                break;
             case 6:
                 return "Saturday"
-                break;
         }
     }
      function getStarted() {
@@ -264,7 +244,6 @@ function AppointmentPage({ service, image }) {
                             Get Started
                             </Button>
                         }
-                       
                         </div>
                         <div className="burger-nav">
                             <TopNavGenWeb></TopNavGenWeb>
@@ -284,7 +263,9 @@ function AppointmentPage({ service, image }) {
                                 </div>
                             </div>
                             <div className=" pad-xy-sm flex-no-wrap ">
-                                    <img className=" service-img" src="https://images.unsplash.com/photo-1618333604761-4148e9b0f1dd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1228&q=80" />  
+                                    
+                                    
+                                <img className=" service-img" src="https://images.unsplash.com/photo-1618333604761-4148e9b0f1dd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1228&q=80" />
                             </div>
                     </div>
 
@@ -375,24 +356,22 @@ function AppointmentPage({ service, image }) {
                                             onChange={(newValue) => {
                                                 setDateChosen(newValue);
                                             }}
-                                           
+                                           format='yyyy-MM-dd'
                                             renderInput={(params) => <TextField variant="outlined" {...params} />}
                                             />
 
                                 </div>
-                                <div className="m-r-sm">
-                                    <TimePicker
-                                                label="Time"
+                                    <div className="m-r-sm">
+                                     
+                                    <TimePickerComponent
+                                                placeholder="Choose Time"
                                                 value={timeChosen}
-                                                shouldDisableTime={(timeValue, clockType) => {
-                                                if (clockType === 'hours' && timeValue < parseInt(operationTimeStart,10)) {
-                                                return true;
-                                                }
-
-                                                return false;
-                                            }}
-                                        onChange={handleChange}
-                                        renderInput={(params) => <TextField variant="outlined" {...params} />}
+                                                // format="HH:mm"
+                                                min={convertTime(operationTimeStart)}
+                                                max={convertTime(operationTimeEnd)}
+                                                step={15}
+                                            onChange={(e) => { setTimeChosen(e.target.value) }}
+                                                // renderInput={(params) => <TextField variant="outlined" {...params} />}
                                     />
                                     
                                 </div>
@@ -417,15 +396,35 @@ function AppointmentPage({ service, image }) {
                     
                 </div>
                 <Container className="m-t-md ">
-                    <Calendar localizer={localizer} events={events} startAccessor="start" endAccessor="end" style={{ height: 500, width:"100%"}} />
+                    <DynamicCalendar/>
+                    {/* <Calendar localizer={localizer} events={events} startAccessor="start" endAccessor="end" style={{ height: 500, width:"100%"}} /> */}
 
                 </Container>
 
             </main>
-            <main className="pad-y-md">
-                
-            </main>
-            
+                <Container className="m-t-md ">
+                <main className="pad-y-md flex-flow-wrap">
+                            <div>
+                                {qrLink? <img src={qrLink} alt="qr"/> : ""}
+                            </div>
+                    </main>
+                </Container>
+            {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                <Alert onClose={handleCloseAlert} severity="success">
+                    {alertMessage}
+                </Alert>
+            </Snackbar> :
+            feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                <Alert onClose={handleCloseAlert} severity="warning">
+                    {alertMessage}
+                </Alert>
+              </Snackbar> :
+             <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                <Alert onClose={handleCloseAlert} severity="error">
+                   {alertMessage}
+                </Alert>
+            </Snackbar>
+            }
         </div>
 
     )

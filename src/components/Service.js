@@ -125,18 +125,29 @@ function Service() {
     //usestate for mounting 
 
     useEffect(() => {
-        const dbRef = firebase.database().ref("services/" + service);
-
+        
         if (service) {
+            const dbRef = firebase.database().ref("services/" + service);
                   dbRef.once("value").then(function (snapshot) {
                     const snap = snapshot.val();
                     const serviceArray = [];
                     for (let id in snap) {
-                        serviceArray.push({id, ...snap[id]});
+                        serviceArray.push({ id, ...snap[id] });
+                                setMaxCapacity(snap.maxCapacity)
+                                setOperationDaysFrom(snap.operationDaysStart)
+                                setOperationDaysTo(snap.operationDaysEnd)
+                                setTimeOpFrom(snap.timeOperationStart)
+                                setTimeOpto(snap.timeOperationEnd)
+                                setDaysAppointBefore(snap.daysBeforeAppointment)
+                                setDaysBeforeCancel(snap.daysBeforeCancel)
                     }
                     setServiceArray(serviceArray)
-                    })
+                  })
+                    
         }
+         
+            
+        
        
        
     }, [update])
@@ -427,10 +438,12 @@ function Service() {
                 setFeedbackVariant("success")
                 setAlertMessage("Success! service constraints updated")
                 setUpdate(!update);
-
-              
-
+                
             })
+            const event = firebase.database().ref("events")
+            event.push("events")
+
+            
 
         }
              
