@@ -315,6 +315,9 @@ b {
 .pad-xy-md {
   padding: 3rem;
 }
+.pad-xy-lg {
+  padding: 7rem 0;
+}
 .pad-x-md {
   padding: 0 3rem;
 }
@@ -619,8 +622,10 @@ header {
 }
 //graphics
 .graphics {
+  display: flex;
+  justify-content: center;
   img {
-    width: 100%;
+    max-width: 80%;
   }
 }
 .graphics-offset {

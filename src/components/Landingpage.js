@@ -4,6 +4,10 @@ import { Button } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import TopNavigation from "./TopNavigation.js";
 import uiBanner from "../images/ui-oms.png";
+import work from "../images/Work.gif"
+import seat from "../images/Seat.gif"
+import gift from "../images/Gift.gif"
+
 import virtualCalendar from "../images/virtual-calendar.png";
 import {useHistory} from "react-router-dom";
 
@@ -69,7 +73,7 @@ function Landingpage() {
           </section>
         </Container>
       </header>
-
+{/* 
       <main className="secondary-color pad-xy-sm">
         <div className="title-section light-fonts">
           <h2>You write it, We build it</h2>
@@ -78,67 +82,49 @@ function Landingpage() {
             clicks away
           </p>
         </div>
-      </main>
-      <main id="features">
-          <section className="pad-xy-sm">
+      </main> */}
+      <main className="pad-y-lg " id="features ">
+          <section className="">
             <Container>
                 <div className="flex-no-wrap">
                   <div className="subtitle box-sm">
                     <h1 >Indulge in a virtual appointment system</h1>
-                    <p className="pad-y-sm">Check in your available schedules in a particular service and mark it in the virtual calendar. We</p>
-                    <Button
-                      onClick={redirectToLogin}
-                      variant="contained"
-                      className="btn-large primary-color"
-                      color="secondary"
-                      size="large"
-                      id = "btn-large-primary"
-                    >
-                      Start your website
-                    </Button>
+                    <p className="pad-y-sm">Here we let church goers and church service users to conveniently arrange their appointments with the help of properly managed virtual calendars. </p>
+                   
                   </div>
                   <div className="box-md graphics">
-                    <img src={virtualCalendar} alt="church banner"></img>
+                    <img src={work} alt="church banner"></img>
                   </div>
                 </div>
             </Container>
-          </section>
-          <section className="bg-secondary-opacity">
+        </section>
+        {/* className="bg-secondary-opacity" */}
+          <section className="pad-y-lg ">
             <Container >
-              <div className="flex-no-wrap pad-xy-sm">
+              <div className="flex-no-wrap ">
                 <div className="box-md graphics">
-                    <img src={virtualCalendar} alt="church banner"></img>
+                    <img src={seat} alt="church banner"></img>
                     
                   </div>
                   <div className="subtitle box-sm">
-                    <h1 >Comfort is at the tip of your finger</h1>
-                    <p className="pad-y-sm">Here we let users pick the seat of your choice. Don’t worry QR will be generated for verification.</p>
-                    <Button>
-                      <b className="primary-color-text">Learn More ></b>
-                    </Button>
+                    <h1 >Searching for your comfort is made Easy</h1>
+                    <p className="pad-y-sm">Introducing the seat arrangement reservation where in admins could customize the seat plans mirrored to the church's arrangement and let church goers reserve them.</p>
+                   
                   </div>
                   
                 </div>
             </Container>
         </section>
-        <section className="pad-xy-sm">
+        <section className="">
             <Container>
                 <div className="flex-no-wrap">
                   <div className="subtitle box-sm">
-                    <h1 >Indulge in a virtual appointment system</h1>
-                    <p className="pad-y-sm">Check in your available schedules in a particular service and mark it in the virtual calendar</p>
-                    <Button
-                      variant="outlined"
-                      className="btn-large primary-color"
-                      color="secondary"
-                      size="large"
-                      id="btn-large-primary-outline"
-                    >
-                      Start your website
-                    </Button>
+                    <h1 >The gift of God which lets us hear the words of sermons</h1>
+                    <p className="pad-y-sm">Upload the sessions in a podcast method and let those words be heard to the unreachable ones.</p>
+                
                   </div>
                   <div className="box-md graphics">
-                    <img src={virtualCalendar} alt="church banner"></img>
+                    <img src={gift} alt="church banner"></img>
                   </div>
                 </div>
             </Container>
@@ -163,11 +149,7 @@ function Landingpage() {
                       Yes, Let's go!
             </Button>
             </div>
-            <div className="">
-              <Button>
-                        <b className="primary-color-text">Learn More ></b>
-                </Button>
-              </div>
+            
           </div>
         </div>
       </main> 
