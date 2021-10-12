@@ -85,6 +85,9 @@ b {
 }
 .primary-color-text {
   color: #533c9f;
+  h4 {
+    margin-bottom: 0px !important;
+  }
 }
 .secondary-color-text {
   color: #960071;
@@ -123,6 +126,9 @@ b {
 }
 .error-red {
   color: $error-red;
+}
+.overflow-hidden-x {
+  overflow-x: hidden !important;
 }
 .bg-secondary-opacity {
   background-color: #96007017;
@@ -192,6 +198,7 @@ b {
   flex-flow: wrap;
   align-items: center;
   width: 100%;
+  flex-direction: row;
 }
 #display-block {
   display: block;
@@ -514,8 +521,26 @@ header {
     display: block;
   }
 }
+.banner-graphics {
+  position: relative;
+  width: 50%;
+  img {
+    top: 0;
+    right: 0;
+    position: absolute;
+    width: 110%;
+  }
+}
+.bannner-offset {
+  position: absolute;
+  right: -11rem;
+  top: 15%;
+  z-index: 0;
+  transform: scale(1.2);
+}
 .header-banner {
   padding: 2rem 0;
+  width: 50%;
   h1 {
     font-size: clamp(60px, 10vw, 110px);
     line-height: 1;
@@ -625,7 +650,7 @@ header {
   display: flex;
   justify-content: center;
   img {
-    max-width: 80%;
+    max-width: 70%;
   }
 }
 .graphics-offset {
@@ -739,7 +764,51 @@ footer {
     font-weight: 400;
   }
 }
+.move-left-right {
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  width: 100%;
+  flex-direction: row;
+}
+.move-left {
+  float: left;
+}
+.move-right {
+  float: right;
+}
 @media screen and (max-width: 992px) {
+  // .grid-left-right {
+  //   display: flex;
+  //   flex-wrap: wrap;
+
+  //   // flex-direction: row-reverse !important;
+  // }
+  .header-banner {
+    width: 100%;
+  }
+  .move-left-right :nth-child(1) {
+    order: 2;
+  }
+  .move-left-right :nth-child(2) {
+    order: 1;
+  }
+
+  .flex-reverse {
+    flex-direction: column-reverse;
+  }
+  .graphics {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 2rem 0;
+    img {
+      min-width: 100% !important;
+    }
+  }
+  .pad-y-lg {
+    padding: 1rem 0;
+  }
   .box-sm {
     width: 100%;
   }
@@ -779,16 +848,24 @@ footer {
   justify-content: center;
   align-items: center;
 }
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 1000px) {
   .flex-no-wrap {
     justify-content: center;
+  }
+  .bannner-offset {
+    display: none;
+  }
+}
+@media screen and (min-width: 1030px) {
+  .overflow-hidden-x {
+    overflow-x: visible !important;
   }
 }
 @media screen and (max-width: 500px) {
   .seat-div {
     padding: 0.5rem;
   }
-  .banner-graphics {
+  .bannner-offset {
     display: none;
   }
   .m-xy-lg {
