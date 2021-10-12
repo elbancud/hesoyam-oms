@@ -4,9 +4,7 @@ import Button from "@material-ui/core/Button";
 import "../style/style.css";
 import firebase from 'firebase';
 import Tooltip from '@mui/material/Tooltip';
-import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 function SeatArrangement() {
    
     const [seatArray, setSeatArray] = useState();
@@ -28,24 +26,19 @@ function SeatArrangement() {
         })
 
     }, [])
-    
-
-
+    function reserveSeat(parentIndex, parent, row, col) {
+        const parentId = seatArray[parentIndex].id;
+        const rowId = Object.keys(seatArray[parentIndex])[row]
+        console.log( col)
+        console.log(seatArray)
+        const db = firebase.database().ref("seat-arrangement/" + parentId + "/" + rowId + "/" + col)
+        db.update({reserved:true})
+        
+    }
     return (
         <div>
             <Container className="pad-y-md">
          
-                <div>
-                    <h5>Legends</h5>
-                    <div className="flex-default">
-                        <div className="m-r-sm">
-                            <Chip label="Reserved" sx={{bgcolor:"eeeeee", color:"#34344d"}}/>
-                        </div>
-                        <div className="m-r-sm">
-                            <Chip label="Available" sx={{bgcolor:"#26a69a", color:"#fff"}}/>
-                        </div>
-                    </div>
-                </div>
                 <div className="pad-y-sm">
                     <div className="flex-flow-wrap-x">
                         <div className="">
@@ -57,11 +50,11 @@ function SeatArrangement() {
                         </div>
                     </div>
                     <div className="flex-flow-wrap-x ">
-                        {seatArray ? seatArray.map((data) => {
+                        {seatArray ? seatArray.map((data, parentIndex) => {
                             return(
                                 <div className="m-xy-lg" key={data.id}>
                                     {
-                                            Object.values(data).map(key => {
+                                        Object.values(data).map((key, indexLvl1) => {
                                                 if (typeof (key) === "object") {
                                                     return (
                                                         <div className="flex-default" >
@@ -78,11 +71,12 @@ function SeatArrangement() {
                                                                                 </div> 
                                                                         )
                                                                     } else {
+                                                                       
                                                                             return (
                                                                                 <div className="seat-div">
                                                                                     <Tooltip title="Click for action">
                                                                                         
-                                                                                        <Button onClick={() => { console.log(key) }} variant="contained" id="available" disableElevation>
+                                                                                        <Button onClick={() => {reserveSeat(parentIndex, data.id, indexLvl1, index) }} variant="contained" id="available" disableElevation>
                                                                                                     {index + 1}
                                                                                                 </Button>
                                                                                     </Tooltip>

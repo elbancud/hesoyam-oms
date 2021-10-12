@@ -1,6 +1,6 @@
 //styles
 @import url("https://fonts.googleapis.com/css2?family=Rakkas&display=swap");
-
+@import url("https://cdn.syncfusion.com/ej2/material.css");
 * {
   margin: 0;
   padding: 0;
@@ -82,6 +82,47 @@ b {
     );
   background-blend-mode: hard-light, overlay, overlay, overlay, difference,
     difference, normal;
+}
+.accent-gradient {
+  background: linear-gradient(123deg, #ffffff 0%, #00b2ff 100%),
+    linear-gradient(236deg, #baff99 0%, #005e64 100%),
+    linear-gradient(180deg, #ffffff 0%, #002a5a 100%),
+    linear-gradient(
+      225deg,
+      #0094ff 20%,
+      #bff4ed 45%,
+      #280f34 45%,
+      #280f34 70%,
+      #ff004e 70%,
+      #e41655 85%,
+      #b30753 85%,
+      #b30753 100%
+    ),
+    linear-gradient(
+      135deg,
+      #0e0220 15%,
+      #0e0220 35%,
+      #e40475 35%,
+      #e40475 60%,
+      #48e0e4 60%,
+      #48e0e4 68%,
+      #d7fbf6 68%,
+      #d7fbf6 100%
+    );
+  background-blend-mode: overlay, overlay, overlay, darken, normal;
+}
+.accent-gradient-1 {
+  background: #1488cc; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #2b32b2,
+    #1488cc
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #2b32b2,
+    #1488cc
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .primary-color-text {
   color: #533c9f;
@@ -258,6 +299,15 @@ b {
 }
 .height-90 {
   height: 90%;
+}
+.height-50 {
+  height: 50%;
+}
+.height-60 {
+  height: 60%;
+}
+.height-70 {
+  height: 70%;
 }
 .position-absolute-left {
   position: absolute;
@@ -536,7 +586,7 @@ header {
   right: -11rem;
   top: 15%;
   z-index: 0;
-  transform: scale(1.2);
+  // transform: scale(1.2);
 }
 .header-banner {
   padding: 2rem 0;
@@ -551,7 +601,12 @@ header {
     line-height: 28px;
   }
 }
-
+.fade-text {
+  h5 {
+    font-weight: 400;
+    margin-bottom: 0;
+  }
+}
 //btn customs
 .btn-large {
   padding: 1.5rem 3rem;

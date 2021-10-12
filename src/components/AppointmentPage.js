@@ -22,6 +22,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import DynamicCalendar from "./DynamicCalendar"
 // import DatePicker from "react-datepicker";
 import SeatPlan from "./SeatPlan";
+import Chip from '@mui/material/Chip';
 
 function AppointmentPage({ service, image }) {
     const [siteTitle, setSiteTitle] = useState("");
@@ -427,9 +428,21 @@ function AppointmentPage({ service, image }) {
                 </Container>
                 {seatState ? <Container className="m-t-md ">
                      <div className="title pad-y-sm align-text-center">
-                            <h2>Calendar</h2>
-                            <p>Shown in here are the appointed services within the day.</p>
+                            <h2>Seating arrangement</h2>
+                        <p>Shown in here are the appointed services within the day.</p>
+                        
+                    </div>
+                    <div className="grid-place-center">
+                        <h5>Legends</h5>
+                        <div className="flex-default">
+                            <div className="m-r-sm">
+                                <Chip label="Reserved" sx={{bgcolor:"eeeeee", color:"#34344d"}}/>
+                            </div>
+                            <div className="m-r-sm">
+                                <Chip label="Available" sx={{bgcolor:"#26a69a", color:"#fff"}}/>
+                            </div>
                         </div>
+                    </div>
                     <SeatPlan/>
                 </Container>: ""
                 }

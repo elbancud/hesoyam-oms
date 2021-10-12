@@ -254,18 +254,21 @@ function AdminAccountManagement({ username, email }) {
         })
     }
     return (
-        <div>
-            <main className="m-x-sm pad-y-md main-custom-flex " >
+        <div className='position-relative'>
+            <div className=" position-fixed-top-z-0 full-width height-60 accent-gradient " id=""> </div>
+            <main className="pad-y-md main-custom-flex " >
                 <Container className="pad-y-lg">
-                    <div className="title">
+                     
+                    <div className="title font-light m-b-md">
                         <h2>My Account</h2>
                     </div>
-                    <div className="box box-default-width pad-xy-sm  ">
+                    <div className="box  pad-xy-sm  ">
                             <div className="pad-x-sm">
                             </div>
-                            <div className="subtitle flex-space-between ">
-                                <div>
-                                    <p>USERNAME</p>
+                            <div className="subtitle flex-space-between full-width">
+                                <div className="fade-text">
+
+                                    <h5>USERNAME</h5>
                                     <p><b>{username}</b></p>
                                 </div>
                                 <div>
@@ -281,9 +284,9 @@ function AdminAccountManagement({ username, email }) {
                                     </Button>
                                 </div>
                             </div>
-                            <div className="subtitle flex-space-between m-y-sm">
-                                <div>
-                                    <p>EMAIL</p>
+                            <div className="subtitle flex-space-between m-y-sm full-width">
+                                <div className="fade-text">
+                                    <h5>EMAIL</h5>
                                     <p><b>{cookies.User}</b></p>
                                 
                                 </div>
@@ -302,12 +305,12 @@ function AdminAccountManagement({ username, email }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="box box-default-width pad-xy-sm m-t-sm">
+                        <div className="box full-width pad-xy-sm m-t-sm">
                             
                           
                             <div className="subtitle  m-y-sm">
                                 <div>
-                                    <p><b>Manage password</b></p>
+                                    <h4><b>Manage password</b></h4>
                                     <p>Clicking the button prompts your form for changing password.</p>
                                 
                                 </div>

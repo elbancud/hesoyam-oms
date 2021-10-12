@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Rakkas&display=swap");
+@import url("https://cdn.syncfusion.com/ej2/material.css");
 * {
   margin: 0;
   padding: 0;
@@ -51,6 +52,20 @@ b {
 .under-garment-gradient {
   background: linear-gradient(114.95deg, rgba(235, 0, 255, 0.5) 0%, rgba(0, 71, 255, 0) 34.35%), linear-gradient(180deg, #004b5b 0%, #ffa7a7 100%), linear-gradient(244.35deg, #ffb26a 0%, #3676b1 50.58%, #00a3ff 100%), linear-gradient(244.35deg, #ffffff 0%, #004a74 49.48%, #ff0000 100%), radial-gradient(100% 233.99% at 0% 100%, #b70000 0%, #ad00ff 100%), linear-gradient(307.27deg, #219d87 0.37%, #2650ba 50.19%, #2800c6 100%), radial-gradient(100% 140% at 100% 0%, #ff00c7 0%, #006c7a 49.48%, #760000 100%);
   background-blend-mode: hard-light, overlay, overlay, overlay, difference, difference, normal;
+}
+
+.accent-gradient {
+  background: linear-gradient(123deg, #ffffff 0%, #00b2ff 100%), linear-gradient(236deg, #baff99 0%, #005e64 100%), linear-gradient(180deg, #ffffff 0%, #002a5a 100%), linear-gradient(225deg, #0094ff 20%, #bff4ed 45%, #280f34 45%, #280f34 70%, #ff004e 70%, #e41655 85%, #b30753 85%, #b30753 100%), linear-gradient(135deg, #0e0220 15%, #0e0220 35%, #e40475 35%, #e40475 60%, #48e0e4 60%, #48e0e4 68%, #d7fbf6 68%, #d7fbf6 100%);
+  background-blend-mode: overlay, overlay, overlay, darken, normal;
+}
+
+.accent-gradient-1 {
+  background: #1488cc;
+  /* fallback for old browsers */
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-gradient(linear, left top, right top, from(#2b32b2), to(#1488cc));
+  background: linear-gradient(to right, #2b32b2, #1488cc);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .primary-color-text {
@@ -314,6 +329,18 @@ b {
 
 .height-90 {
   height: 90%;
+}
+
+.height-50 {
+  height: 50%;
+}
+
+.height-60 {
+  height: 60%;
+}
+
+.height-70 {
+  height: 70%;
 }
 
 .position-absolute-left {
@@ -652,8 +679,6 @@ header .nav-desktop-active {
   right: -11rem;
   top: 15%;
   z-index: 0;
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
 }
 
 .header-banner {
@@ -670,6 +695,11 @@ header .nav-desktop-active {
 .header-banner p {
   font-weight: 400;
   line-height: 28px;
+}
+
+.fade-text h5 {
+  font-weight: 400;
+  margin-bottom: 0;
 }
 
 .btn-large {
