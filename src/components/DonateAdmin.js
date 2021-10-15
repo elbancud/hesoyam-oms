@@ -184,11 +184,10 @@ function DonameAdmin() {
                             {
                             donationArray ? donationArray.map((data) => {
                                 return (
-                                    <TableRow key={data.id}>
-                                        <TableCell align="left"> {data.donator} </TableCell>
-                                        <TableCell align="right"> {data.donationAmount} php</TableCell>
-
-                                    </TableRow>
+                                        <TableRow key={data.id}>
+                                            <TableCell align="left"> {data.donator} </TableCell>
+                                            <TableCell align="right"> {data.donationAmount} php</TableCell>
+                                        </TableRow>
                                         )
 
                                     }) : ""

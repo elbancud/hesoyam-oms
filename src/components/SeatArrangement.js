@@ -100,7 +100,6 @@ function SeatArrangement() {
         setAlertStatus(false);
     };
     function registerSeatAdd(getter, setter, variable) {
-        console.log(seatArray)
         setter(getter + 1);
         if (variable === "columnNumber") {
             seatColumn.push({ reserved: false });
@@ -123,7 +122,7 @@ function SeatArrangement() {
             <Container className="pad-y-md">
                 <div className="title pad-y-sm">
                     <h2>Seat Management</h2>
-                    <p>Shown here are rows and columns of your church. At the moment it is static and pre-defined, but the availability is dynamic and referenced from the user's appointments. </p>
+                    <p>Shown here are rows and columns of your church. You can customize the column, rows, and groups of seat plan mirrored to the church's arrangements. </p>
                 </div>
                 <div className="title pad-y-sm">
                     <p>Press plus sign to increase groups, columns, and rows</p>

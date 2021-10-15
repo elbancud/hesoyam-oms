@@ -14,7 +14,7 @@ import { useCookies } from 'react-cookie';
 
 function ReportTab() {
     const [cookies] = useCookies(['user'])
-    const dbRef = firebase.database().ref("account-details/" + cookies.Key);
+    const dbRef = firebase.database().ref("reports");
 
     const [summaryInput, setSummaryInput] = useState("");
     const [descriptionInput, setDescriptionInput] = useState("");

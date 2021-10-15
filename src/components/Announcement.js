@@ -63,8 +63,7 @@ function Announcement() {
             });
     }, [update])
     // validate 
-    //disable if no requirement is inputted
-    //push requirement
+
     const postAnnouncement = (event) => {
         
         if (titleInput.length < 8) {
@@ -88,7 +87,8 @@ function Announcement() {
             setDescriptionInputErrorState(false);
             setDescriptionInputError("")
       
-            if (titleErrorState === false && descriptionInputErrorState === false) {
+        if (titleErrorState === false && descriptionInputErrorState === false && titleInput.length >= 8 && descriptionInput.length >=8) {
+
                
                 const dbRefPush = firebase.database().ref("announcements");
                 dbRefPush.orderByChild('announcementTitle').equalTo(titleInput).once('value').then(snapshot => {
@@ -134,6 +134,7 @@ function Announcement() {
             setEditPostTitleTextFieldState(false)
             setEditPostTitleTextFieldError("")
     }
+ 
     function handleOpenDeleteModal(title, key) {
         setOpenDeleteModal(true)
         setActivePost(title)
@@ -144,7 +145,6 @@ function Announcement() {
         setOpenDeleteModal(false)
     }
     function handleEdit() {
-    
         if (editPostTitleTextFieldInput.length < 8) {
             setEditPostTitleTextFieldState(true)
             setEditPostTitleTextFieldError("Ooops! Seems like you are forgetting to fill all the entries with proper phrases.")
@@ -174,7 +174,7 @@ function Announcement() {
                             setEditPostTitleTextFieldState(false)
                             setEditPostTitleTextFieldError("")
                             
-                            const dbRef = firebase.database().ref("account-details/" + cookies.Key).child(activeKey);
+                            const dbRef = firebase.database().ref("announcements").child(activeKey);
 
                               const update = {
                             announcementTitle: editPostTitleTextFieldInput,
@@ -195,7 +195,7 @@ function Announcement() {
        
     }
     function handleDelete(title) {
-        const dbRef = firebase.database().ref("account-details/" + cookies.Key).child(activeKey);
+        const dbRef = firebase.database().ref("announcements").child(activeKey);
         dbRef.remove().then(() => {
             setAlertStatus(true)
             setFeedbackVariant("success")

@@ -49,9 +49,7 @@ function Themes() {
     };
     const handleClose= () => {
         setAnchorEl(null);
-
     };
-  
     const handleOpenModal = () => {
          setOpenModal(true);
     }
@@ -88,9 +86,7 @@ function Themes() {
                     setAlertMessage("Good job so far!. Visit the page tab to start customizing them.")
                     setAnchorEl(null);
                     setCookie('DesignName',designName);
-
                     return true
-                    
                 }
             })
         });
