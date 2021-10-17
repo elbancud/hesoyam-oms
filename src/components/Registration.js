@@ -41,7 +41,7 @@ const Registration = (props) => {
   const [alertStatus, setAlertStatus] = useState(false);
   const [feedbackVariant, setFeedbackVariant] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
-
+  
   const [cookies, setCookie] = useCookies(['user']);
 
   //get signup
@@ -95,7 +95,6 @@ const Registration = (props) => {
       setError("");
 
     }
-  
     if (passwordInput === "") {
       setPasswordError("Please enter your Password");
       setPasswordErrorState(true);
@@ -111,9 +110,7 @@ const Registration = (props) => {
       setPasswordError("");
       setPasswordErrorState(false);
       setError("");
-
     }
-    
     if (!passwordConfirmInput ) {
       setPasswordConfirmError("Please repeat your Password");
       setPasswordConfirmErrorState(true);
@@ -127,7 +124,7 @@ const Registration = (props) => {
     else {
       setPasswordConfirmError("");
       setPasswordConfirmErrorState(false);
-         const dbRef = firebase.database().ref("account-details");
+          const dbRef = firebase.database().ref("account-details");
           dbRef.orderByChild('username').equalTo(usernameInput).once('value').then(snapshot => {
             if (snapshot.exists()) {
               setUsernameErrorState(true);

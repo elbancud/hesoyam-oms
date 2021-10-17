@@ -334,6 +334,10 @@ function Service() {
             setMaxErrorState(true)
             setMaxError("Please enter Numbers only")
             setEnableConstraingtBtn(false)
+         } else if (parseInt(maxCapacity, 10) < 0) {
+            setMaxErrorState(true)
+            setMaxError("Please enter Positive numbers only")
+            setEnableConstraingtBtn(false)
         }
         else {
             setMaxErrorState(false)
@@ -401,6 +405,10 @@ function Service() {
             setEnableConstraingtBtn(false)
 
             setDaysBeforeErrorAppointState(true)
+        } else if (parseInt(daysBeforeAppoint, 10) < 0) {
+            setDaysBeforeAppointError("Please input positive numbers only")
+            setEnableConstraingtBtn(false)
+            setDaysBeforeErrorAppointState(true)
         } else {
             setDaysBeforeCancelError("")
             setDaysBeforeErrorAppointState(false)
@@ -408,6 +416,10 @@ function Service() {
 
         }
         if (isNaN(parseInt(daysBeforeCancel, 10))) {
+            setDaysBeforeCancelError("Please input numbers only")
+            setEnableConstraingtBtn(false)
+            setDaysBeforeCancelErrorState(true)
+        } else if (parseInt(daysBeforeCancel, 10) < 0) {
             setDaysBeforeCancelError("Please input numbers only")
             setEnableConstraingtBtn(false)
             setDaysBeforeCancelErrorState(true)

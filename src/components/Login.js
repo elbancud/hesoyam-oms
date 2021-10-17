@@ -55,9 +55,8 @@ export default function Login(){
       setError("Please complete the fields");
     } else {
       try {
-        await login(emailInput, passwordInput);
-        const dbAccountDetails = firebase.database().ref("account-details") 
-                  
+          await login(emailInput, passwordInput);
+          const dbAccountDetails = firebase.database().ref("account-details") 
           dbAccountDetails.orderByChild("email").equalTo(emailInput).once('value').then(snapshot => {
             if (snapshot.exists()) {
                 history.push("/adminUI")
@@ -68,6 +67,7 @@ export default function Login(){
                                         dbRef.on('value', snapshot => {
                                             snapshot.forEach(snap => {
                                                 if (emailInput === snap.val().email) {
+                                                  
                                                     setCookie('Key', snap.key);
                                                     }
                                                 });

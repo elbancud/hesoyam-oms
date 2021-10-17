@@ -42,7 +42,6 @@ function SeatArrangement() {
             let group = parseInt(groupNumber -1, 10);
             while (group >= 0) {
                 const dbGrp = firebase.database().ref("seat-arrangement/")
-              
                 const pushedData = dbGrp.push()
                 const key = pushedData.getKey()
                 let rowNumberCounter = parseInt(rowNumber - 1, 10)
@@ -56,12 +55,8 @@ function SeatArrangement() {
                 }
                     group--
                 }
-                
             }
-            
         setUpdate(!update)
-        
-                        
     }
     function handleOpenDeleteModal(id) {
         const dbGrp = firebase.database().ref("seat-arrangement/" + id)

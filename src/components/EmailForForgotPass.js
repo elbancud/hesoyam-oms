@@ -20,7 +20,6 @@ const Login = (props) => {
   
   function handleSubmitEmail(e) {
     e.preventDefault();
-
     if (emailInput === "") {
       setEmailError("Please enter your Email");
       setEmailErrorState(true);
