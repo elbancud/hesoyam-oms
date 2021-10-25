@@ -21,6 +21,7 @@ const Donate = lazy(() => import('./components/Donate'))
 const UserPodcast = lazy(() => import('./components/UserPodcast'))
 const AppointmentPage = lazy(() => import('./components/AppointmentPage'))
 const UserAppointment = lazy(() => import('./components/UserAppointment'))
+const PodcastMobileWebview = lazy(() => import('./components/PodcastMobileWebview'))
 
 function App() {
 
@@ -81,6 +82,9 @@ function App() {
               </Route>
               <Route path="/userAppointment" exact >
                 <UserAppointment/>
+              </Route>
+              <Route path="/PodcastMobileWebview" exact >
+                <PodcastMobileWebview/>
               </Route>
             </Suspense>
 

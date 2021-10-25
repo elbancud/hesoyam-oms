@@ -120,6 +120,8 @@ function UploadBtn({type}) {
                                             setAlertMessage("Audio uploaded.")
                                             setTitleInput('')
                                             setUploadFile('')
+                                            window.location.reload()
+
                                         })
                                     })
                                 })
@@ -158,6 +160,8 @@ function UploadBtn({type}) {
                                     setAlertStatus(true)
                                     setFeedbackVariant("success")
                                     setAlertMessage("That's it right there, image posted")
+                                    window.location.reload()
+
                                 })
                             })
             })
@@ -177,8 +181,8 @@ function UploadBtn({type}) {
                 <div className="pad-y-sm"><p><b>Uploading...</b></p></div>
                 </div>: ""
             }
-                                    <div className=" flex-flow-wrap ">
-                                    <div className="flex-default full-width">
+                                    <div className="  ">
+                                    <div className="flex-default full-width flex-flow-wrap-x">
                                         {type=== "audio" ?
                                             <TextField sx={{maxWidth: 600}} error={titleErrorState} helperText={titleError} onChange={e => { setTitleInput(e.target.value) }} value={titleInput} id="outlined-full-width"  label="Enter Title" variant="outlined" className="text-input-deafult" />
                                             : ""
