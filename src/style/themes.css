@@ -69,6 +69,10 @@ img {
   margin: 0 auto;
 }
 
+.design1-properties .primary-bg-color {
+  background-color: #fff8f2 !important;
+}
+
 .design1-properties #primary-bg-color {
   background-color: #fff8f2 !important;
 }
@@ -84,11 +88,12 @@ img {
 }
 
 .design1-properties h1 {
-  font-size: clamp(24px, 10vw, 48px);
+  font-size: clamp(24px, 10vw, 72px);
 }
 
 .design1-properties h2 {
-  font-size: 32px;
+  font-size: clamp(18px, 2vw, 32px);
+  line-height: 1.7;
 }
 
 .design1-properties h3 {
@@ -110,8 +115,6 @@ img {
 }
 
 .design1-properties main .about-us h2 {
-  font-size: clamp(32px, 5vw, 48px) !important;
-  line-height: 1.2;
   width: 80%;
   max-width: 800px;
   margin: 0 auto;

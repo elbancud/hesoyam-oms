@@ -5,6 +5,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     list: {
@@ -43,9 +44,14 @@ export default function TemporaryDrawer() {
             <Divider />
             <div className="pad-xy-sm">
                 <ul>
-                    <li>Features</li>
-                    <li>Products</li>
-                    <li>About Us</li>
+                       <li ><a href="#features">Features</a></li>
+                       <li><a href="#aboutUs">About Us</a></li>
+                    <Link to="/login">
+                       <li>Sign in</li>
+                    </Link>
+                  
+                
+
 
                 </ul>
             </div>

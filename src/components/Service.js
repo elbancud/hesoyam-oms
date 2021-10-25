@@ -146,17 +146,10 @@ function Service() {
                                 setSwitchSeat(snap.seatArrangement)
                                 setSessions(snap.sessionIntervalNum)
                                 setSessionInterval(snap.sessionState)
-          
                     }
                     setServiceArray(serviceArray)
                   })
-                    
         }
-         
-            
-        
-       
-       
     }, [update])
     // validate 
     //disable if no requirement is inputted
@@ -271,7 +264,7 @@ function Service() {
                                     return true
 
                                 } else {
-                                      const dbRef = firebase.database().ref("account-details/" + service + "/" +activeKey);
+                                      const dbRef = firebase.database().ref("services/" + service + "/" +activeKey);
 
                                             const update = {
                                                     requirement: editRequirementInput
@@ -282,7 +275,7 @@ function Service() {
                                                     setAlertMessage("Success! " + activePost + " post updated")
                                                     setOpenEditModal(false)
                                                 })
-                                    setUpdate(!update);
+                                    return setUpdate(!update);
                                 }
                            
                              })
@@ -354,7 +347,6 @@ function Service() {
             setOperationDaysFromErrorState(false)
             setOperationDayFromError("")
             setEnableConstraingtBtn(true)
-
         }
         if (!operationDaysTo) {
             setOperationDaysToErrorState(true)
@@ -462,6 +454,15 @@ function Service() {
             const event = firebase.database().ref("events")
             event.update({event:"event"})
 
+            if (switchSeat) {
+                const dbSeat = firebase.database().ref("seat-arrangement")
+                const dbRef = firebase.database().ref("services/" + service);
+
+                dbSeat.once('value', snapshot => {
+                    dbRef.update({seatManagement: snapshot.val()})
+                })
+
+            }
         }
              
     }
@@ -469,12 +470,9 @@ function Service() {
         setter(getter + 1);
     }
     function minusSession(getter, setter) {
-        setUpdate(!update)
         if(getter > 0) {
                 setter(getter - 1)
         }
-      
-
     }
     return (
         <div>

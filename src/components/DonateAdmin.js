@@ -21,12 +21,11 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import UploadBtn from './UploadBtn';
 
-function DonameAdmin() {
 
+function DonateAdmin() {
     //variables
-  
-
     const [alertStatus, setAlertStatus] = useState(false);
     const [feedbackVariant, setFeedbackVariant] = useState("");
     const [alertMessage, setAlertMessage] = useState("");
@@ -42,14 +41,12 @@ function DonameAdmin() {
     const [activePost, setActivePost] = useState("");
     const [update, setUpdate] = useState(false);
     const [activeAudioId, setActiveAudioId] = useState("");
+    const [qrArray, setQrArray] = useState('')
 
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-    function readUpload(event) {
-        alert("tanginang yan")
-        setUploadFile(event.target.files[0])
-    }
+
     const handleCloseAlert = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -57,24 +54,8 @@ function DonameAdmin() {
 
         setAlertStatus(false);
     };
-    const Input = styled('input')({
-        display: 'none',
-    });
-    async function qrUpload() {
-        // const id = uuidv4();
-        alert(uploadFile.type)
-        if (uploadFile.size > 25000) {
-                                setAlertStatus(true)
-                                setFeedbackVariant("error")
-                                setAlertMessage("Oopsies, file exceeded maximum size please choose below 25mb")
-        } else if(uploadFile.type !== "jpeg"){
-          
-         
-                
-           
-        }
 
-    }
+  
 
     function handleOpenDeleteModal(title, key, audioId) {
         setOpenDeleteModal(true)
@@ -110,6 +91,12 @@ function DonameAdmin() {
                     donationArray.push({id, ...postSnap[id]});
                 }
                 setDonationArray(donationArray)
+        });
+            const dbQR= firebase.database().ref('qr-e-wallet')
+                dbQR.once("value")
+                .then(function (snapshot) {
+                const snap = snapshot.val().eWalletLink;
+                    setQrArray(snap)
             });
     }, [update])
     return (
@@ -132,41 +119,16 @@ function DonameAdmin() {
                   
                     <div className=" flex-flow-wrap ">
                         <div className="flex-default">
-                            <div className="pad-y-sm position-relative">
-                                    <Tooltip title="Add photo">
-                                        <label htmlFor="icon-button-file">
-                                            <Input required id="icon-button-file" type="file" onChange={readUpload} />
-                                            <IconButton  color="primary" aria-label="upload picture" component="span">
-                                                <ImageIcon  fontSize="large"/>
-                                            </IconButton>
-                                        </label>
-                                    </Tooltip>
-
-                            </div>
-                            <div className="pad-xy-sm">
-                                <Button
-                                    disabled={!uploadFile}
-                                    onClick ={qrUpload}
-                                    id="btn-large-secondary"
-                                    variant="contained"
-                                    className="btn-large primary-color"
-                                    color="secondary"
-                                    size="large"
-                                >
-                                    upload
-                                </Button>
-                            </div>
+                            <UploadBtn type="image"/>
                         </div>
 
-                        {uploadFile ?
-                            <div>
-                                <p>File: </p>
-                                <p><b>{uploadFile? uploadFile.name: ""}</b></p>
-                            </div>: ""
-                        }
                         </div>
                 </div>
-                
+                <div className="pad-xy-md full-width flex-flow-wrap-start-center-xy">
+                    {qrArray ? 
+                        <img src={qrArray} className="imageFixedWH"/>
+                    : ""}
+                </div>
                 <TableContainer className="box">
                     <Table  size="medium" aria-label="a dense table">
                         <TableHead>
@@ -182,7 +144,7 @@ function DonameAdmin() {
                         </TableHead>
                         <TableBody>
                             {
-                            donationArray ? donationArray.map((data) => {
+                                 donationArray ? donationArray.map((data) => {
                                 return (
                                         <TableRow key={data.id}>
                                             <TableCell align="left"> {data.donator} </TableCell>
@@ -264,4 +226,4 @@ function DonameAdmin() {
     )
 }
 
-export default DonameAdmin
+export default DonateAdmin

@@ -1,19 +1,24 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "../style/style.css";
 import "../style/themes.css"
 import { Button } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import uiBanner from "../images/ui-oms.png";
 import firebase from 'firebase';
-import NavUser from "./NavUser";
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
 import Container from "@material-ui/core/Container";
 import RingLoader from "react-spinners/RingLoader";
+import {  Link, useHistory} from 'react-router-dom';
+import TopNavGenWeb from './TopNavGenWeb'
+import { useCookies } from 'react-cookie';
+import UserProfile from './UserProfile';
 
 export default function Donate(){
   //variables
-    const [loadingState, setLoadingState] = useState(false)
+    const history = useHistory();
+
+  const [loadingState, setLoadingState] = useState(false)
   const [alertStatus, setAlertStatus] = useState(false);
   const [feedbackVariant, setFeedbackVariant] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
@@ -25,6 +30,11 @@ export default function Donate(){
   const [amount, setAmount] = useState('');
   const [amountError, setAmountError] = useState('');
   const [amountErrorState, setAmountErrorState] = useState(false);
+  const [siteTitle, setSiteTitle] = useState("");
+  const [cookies] = useCookies(['user']);
+  const [activeCookies, setActiveCookes] = useState(false)
+  const [qrArray, setQrArray] = useState('')
+  
 
   function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -36,34 +46,52 @@ export default function Donate(){
         }
 
         setAlertStatus(false);
-    };
+  };
+  function getStarted() {
+        history.push("/genWebLogin")
+    
+  }
+
   function handleSubmitDonation(e) {
+
     e.preventDefault();
+
     if (!amount) {
+
       setAmountErrorState(true);
       setAmountError("Please input a valid number");
+
     }
     else if (isNaN(parseInt(amount, 10))) {
+
       setAmountErrorState(true);
       setAmountError("Please input a valid number [0-9]");
+
     } else {
+
       setAmountErrorState(false);
       setAmountError("");
+
     }
     if (!usernameInput) {
+
       setUsernameErrorState(true)
       setUsernameError("Please enter your name")
+
     } else {
+
       setUsernameErrorState(false)
       setUsernameError("")
       setLoadingState(true);
       
       if (amountErrorState === false && !isNaN(parseInt(amount, 10)) && usernameErrorState === false) {
+
         const db = firebase.database().ref('user-donations')
         const userDonationData = {
           donator: usernameInput,
           donationAmount: amount
         }
+
         db.push(userDonationData).then(() => {
           setLoadingState(false);
           setAlertStatus(true)
@@ -73,10 +101,53 @@ export default function Donate(){
           setUsernameInput("")
 
         })
+
       }
     }
    
   }
+    function prayerWall() {
+        history.push("/prayerWall")
+    }
+    
+    function donate() {
+        history.push("/donationPage")
+    }
+    
+    function pod() {
+        history.push("/userPodcast")
+    }
+    
+    function handleServiceRedirect() {
+        
+          if (cookies.UserLoginKey) {
+              history.push("/userService")
+              
+          } else {
+              history.push("/genWebLogin")
+              
+          }
+          
+    }
+    useEffect(() => {
+                    const dbRef = firebase.database().ref("generated-data");
+                        dbRef.on('value', snapshot => {
+
+                                    setSiteTitle(snapshot.val().savedSiteTitle)
+                            });
+                       
+    
+                    if(cookies.UserLoginKey) {
+                        setActiveCookes(true)
+                    }
+                    const dbQR= firebase.database().ref('qr-e-wallet')
+                      dbQR.once("value")
+                          .then(function (snapshot) {
+                          const snap = snapshot.val().eWalletLink;
+                              setQrArray(snap)
+                      });
+       
+    }, []);
   return (
       <div>
      {
@@ -91,8 +162,61 @@ export default function Donate(){
 
       <div className="position-absolute full-width">
         <Container>
-            
-            <NavUser/>
+            <header>
+                 <nav className="pad-y-md flex-space-between">
+                        <div className="logo flex-default">
+                            <div className="icon"></div>
+                             <div className="app-name cursor-pointer">
+                                <Link to="/design1">
+                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="nav-desktop-active">
+                            <ul className="flex-default">
+                                  <li>
+                                       <Link to="/prayerWall">
+                                            Prayer Wall
+                                        </Link>
+                                    </li>
+                                   
+                                    <li>
+                                       <Link to="/donationPage">
+                                            Donate
+                                        </Link>
+                                    </li>
+                                    <li onClick={handleServiceRedirect}>
+                                            Services
+                                    </li>
+                                    <li>
+                                       <Link to="/userPodcast">
+                                            Podcast
+                                        </Link>
+                                    </li>
+
+                            </ul>
+                        </div>
+                        <div className="nav-desktop-active">
+                        {
+                            activeCookies? <div> <UserProfile/></div>:  <Button
+                            onClick = {getStarted}
+                            variant="outlined"
+                            className="btn-large primary-color"
+                            color="primary"
+                            size="large"
+                            id="btn-large-primary-outline-black"
+                            >
+                            Get Started
+                            </Button>
+                        }
+                       
+                        </div>
+                        <div className="burger-nav">
+                            <TopNavGenWeb></TopNavGenWeb>
+                        </div>
+                    </nav>
+
+            </header>
         </Container>
 
         </div>
@@ -107,9 +231,15 @@ export default function Donate(){
                     <p>Good will come to those who are generous and lend freely, who conduct their affairs with justice.</p>                    
                 </div>
               </nav>
-              <div className="graphics-offset">
-                <img src={uiBanner} className="rotate" alt="Church"></img>
-              </div>
+              <img src={qrArray} className="qr" alt="qr"/>
+              {/* <div className="graphics-offset">
+                  <img src={qrArray} className="rotate" alt="qr"/>
+                {
+                  qrArray ?
+                  :
+                  <img src={uiBanner} className="rotate" alt="Church"></img>
+                }
+              </div> */}
           </div>
           <div className="full-width">
             <div className="pad-xy-sm width-sm ">

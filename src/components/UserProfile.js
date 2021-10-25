@@ -74,6 +74,10 @@ export default function AccountMenu() {
     setOpenLogoutModal(true)
     
   }
+  const redirectToUserAppoint = () => {
+    history.push("/userAppointment")
+
+  }
   const handleLogout = () => {
      firebase.auth().signOut().then(() => {
             removeCookie("UserLoginKey");
@@ -141,7 +145,7 @@ export default function AccountMenu() {
             </MenuItem>
             
             
-            <MenuItem>
+            <MenuItem onClick = {redirectToUserAppoint}>
                Appointments
             </MenuItem>
             {/* <Divider /> */}

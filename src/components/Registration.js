@@ -189,7 +189,9 @@ const Registration = (props) => {
               <nav className="pad-y-sm pad-y-md ">
                 <div className=" align-text-left pad-xy-md ">
                     <div className="app-name align-text-center">
-                          <h3 className="secondary-color-text">Hesoyam</h3>
+                                <Link to="/">
+                                    <h3 className="secondary-color-text">Hesoyam</h3>
+                                </Link>
                     </div>
                     <h2>Let there be light to open the eyes of the blind</h2>
                 </div>
@@ -208,7 +210,21 @@ const Registration = (props) => {
                     </div>
                     <p className= "error-red" ><b>{error}</b></p>
                   </div>
-              }
+            }
+                 <header>
+                  <div className="app-name m-b-md ">
+                          <nav>
+                              <div className="burger-nav">
+                                <Link to="/">
+                                    <h3 className="secondary-color-text">Hesoyam</h3>
+                                </Link>
+                                
+                              </div>
+                            
+                          </nav>
+
+                    </div>
+                  </header>
                 <h3>Sign up your account</h3>
                 <p>Let’s  get you all set up so you can verify your personal account and started making website</p>
               </div>

@@ -76,7 +76,7 @@ function Landingpage() {
 
       <Container>
 
-      <main className="pad-y-lg " id="features ">
+      <main className="pad-y-lg " id="features">
          <div className="title-section ">
            <h4 className="primary-color-text ">Features</h4>
             <h2>So here's what we promise to deliver</h2>

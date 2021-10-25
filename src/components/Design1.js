@@ -8,6 +8,8 @@ import { useCookies } from 'react-cookie';
 import TopNavGenWeb from './TopNavGenWeb'
 import UserProfile from './UserProfile';
 import Carousel from './Carousel'
+import Container from "@material-ui/core/Container";
+
 function Design1() {
     const [siteTitle, setSiteTitle] = useState("");
     const [headerTitle, setHeaderTitle] = useState("");
@@ -63,13 +65,13 @@ function Design1() {
         
         <div className="design1-properties">
             <header className="primary-bg-color pad-x-md">
+                <Container>
                     <nav className="pad-y-md flex-space-between">
                         <div className="logo flex-default">
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
                                 <Link to="/design1">
                                     <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
-                                    
                                 </Link>
                             </div>
                         </div>
@@ -116,25 +118,30 @@ function Design1() {
                             <TopNavGenWeb></TopNavGenWeb>
                         </div>
                     </nav>
+                    </Container>
+                
                     <div className="align-text-center pad-y-lg">
-                        <h1 className="" id ="dynamic-h1"> {typeof(headerTitle) === 'undefined'? "To God be the glory": headerTitle}</h1>
-                        <p >{typeof(subHeaderTitle) === 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum venenatis nunc, non gravida ligula sodales commodo. Sed lectus mauris, mollis scelerisque diam vel": subHeaderTitle}</p>
-                        <div className="pad-y-sm">
-                             {
-                            activeCookies? <div></div>:  
-                            <Button
-                                onClick = {getStarted}
-                                variant="contained"
-                                className="btn-large primary-color"
-                                color="default"
-                                size="large"
-                                id="btn-large-primary-contained-black"
-                                >
-                                Get Started
-                            </Button>
-                        }
+                        <Container>
+                            <h1 className="" id ="dynamic-h1"> {typeof(headerTitle) === 'undefined'? "To God be the glory": headerTitle}</h1>
+                            <p >{typeof(subHeaderTitle) === 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum venenatis nunc, non gravida ligula sodales commodo. Sed lectus mauris, mollis scelerisque diam vel": subHeaderTitle}</p>
+                            <div className="pad-y-sm">
+                                {
+                                activeCookies? <div></div>:  
+                                <Button
+                                    onClick = {getStarted}
+                                    variant="contained"
+                                    className="btn-large primary-color"
+                                    color="default"
+                                    size="large"
+                                    id="btn-large-primary-contained-black"
+                                    >
+                                    Get Started
+                                </Button>
+                            }
+                                
+                            </div>
                             
-                        </div>
+                        </Container>
                         
                         <div className="m-t-md">
                             <img src="https://images.unsplash.com/photo-1579975096649-e773152b04cb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="church banner"></img>

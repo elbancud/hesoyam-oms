@@ -170,6 +170,7 @@ export default function UserSettings() {
                         db.update({ username: usernameInput })
                         db.update({ lastname: lastNameInput })
                         db.update({ email: emailInput })
+                        
                         firebase.auth().currentUser.updateEmail(emailInput).then(() => {
                             setAlertStatus(true)
                             setFeedbackVariant("success")
@@ -319,7 +320,6 @@ export default function UserSettings() {
                 className="box pad-xy-sm tab-height-adopt"
             >
                 <Tab label="General" {...a11yProps(0)} />
-                <Tab label="Appointments" {...a11yProps(1)} />
                 
             </Tabs>
             <TabPanel value={value} index={0}  className="width-md-no-margin">
@@ -441,9 +441,7 @@ export default function UserSettings() {
                 </div>
             
             </TabPanel>
-            <TabPanel value={value} index={1} className="width-md-no-margin">
-                
-            </TabPanel>
+         
             
             </Box>
             

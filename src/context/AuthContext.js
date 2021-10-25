@@ -11,11 +11,18 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [key, setKey] = useState();
+    const [currentFile, setCurrentFile] = useState("");
     
     function login(email, password) {
         return auth.signInWithEmailAndPassword(email, password)
     }
-       
+
+    function setCurrentfileState(file) {
+        setCurrentFile(file)
+    }
+    function getCurrentfile() {
+        return currentFile
+    }
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user ? user.email : "")
@@ -39,6 +46,8 @@ export function AuthProvider({ children }) {
             currentUser,
             key,
             login,
+            setCurrentfileState,
+            getCurrentfile
         }
     return (
         <AuthContext.Provider value={value}>

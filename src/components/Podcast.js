@@ -7,7 +7,6 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
 import TextField from "@material-ui/core/TextField";
 import IconButton from '@mui/material/IconButton';
-import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import { styled } from '@mui/material/styles';
 import { v4 as uuidv4 } from 'uuid';
 import RingLoader from "react-spinners/RingLoader";
@@ -17,6 +16,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import UploadBtn from './UploadBtn';
+
 
 function Podcast() {
 
@@ -52,6 +53,7 @@ function Podcast() {
     }
     function readUpload(event) {
         setUploadFile(event.target.files[0])
+        event.target.value = null
     }
     const handleCloseAlert = (event, reason) => {
         if (reason === 'clickaway') {
@@ -63,80 +65,7 @@ function Podcast() {
     const Input = styled('input')({
         display: 'none',
     });
-    async function uploadMp3() {
-        const id = uuidv4();
-       
-        if (!titleInput && titleInput.length < 8) {
-            setTitleErrorState(true)
-            seTitleError("Please enter a title: Atleast 3 words or 8 characters")
-        } else {
-            setTitleErrorState(false)
-            seTitleError("")
-        }
-        if (uploadFile.type !== "audio/mpeg") {
-            setAlertStatus(true)
-            setFeedbackVariant("error")
-            setAlertMessage("Oopsies, audio only. Ideally mp3 or mpeg ")
-            setUploadFile('')
-        }
-        else {
-            if (titleInput && titleInput.length > 8 && uploadFile) {
-                const dbRefPush = firebase.database().ref("podcast-audios-upload");
-                await dbRefPush.orderByChild('audioTitle').equalTo(titleInput).once('value').then(snapshot => {
-                    if (snapshot.exists()) {
-                        setAlertStatus(true)
-                        setFeedbackVariant("error")
-                        setAlertMessage("Oopsies, title is already existing try another one")
-                        setTitleErrorState(true)
-                        seTitleError("")
-                        setUploadFile('')
-                    }
-                    else {
-                        dbRefPush.orderByChild('mp3Title').equalTo(uploadFile.name).once('value').then(snapshot => {
-                            if (snapshot.exists()) {
-                                setAlertStatus(true)
-                                setFeedbackVariant("error")
-                                setAlertMessage("Oopsies, audio is already existing try another one")
-                                setUploadFile('')
-                            }
-                            else {
-                                setLoadingState(true);
-                                const storage = firebase.storage().ref('podcast-audios').child(id)
-                                storage.put(uploadFile).then(() => {
-                                    storage.getDownloadURL().then((url) => {
-                                        const audioData = {
-                                            audioTitle: titleInput,
-                                            audioLink: url,
-                                            mp3Title: uploadFile.name,
-                                            audioId: id
-                                        }
-                                        const db = firebase.database().ref('podcast-audios-upload');
-                                        db.push(audioData).then(() => {
-                                            setUpdate(!update)
-                                            setLoadingState(false);
-                                            setAlertStatus(true)
-                                            setFeedbackVariant("success")
-                                            setAlertMessage("Audio uploaded.")
-                                            setTitleInput('')
-                                            setUploadFile('')
-                                        })
-                                    })
-                                })
-                                             
-                            }
-                                            
-                        });
-                    }
-                                    
-                });
-                     
-            }
-         
-                
-           
-        }
 
-    }
     const handleCloseModal = () => {
         setOpenEditModal(false)
         setUpdate(!update);
@@ -252,19 +181,15 @@ function Podcast() {
                 </div>
        
                 <div className="pad-y-sm">
-                  
-                    <div className=" flex-flow-wrap ">
-                        <div className="flex-default">
-                            <div className="pad-y-sm position-relative">
+                    <form encType="multipart/form-data">
+                    
+                    
+                         <UploadBtn type="audio" />
+                        {/* <div className="flex-default">
                             <TextField sx={{maxWidth: 600}} error={titleErrorState} helperText={titleError} onChange={e => { setTitleInput(e.target.value) }} value={titleInput} id="outlined-full-width" fullWidth label="Enter Title" variant="outlined" className="text-input-deafult" />
-                                <div  className="position-absolute-right">
-                                    <label htmlFor="icon-button-file">
-                                        <Input id="icon-button-file" type="file" onChange={readUpload} />
-                                        <IconButton color="primary" aria-label="upload picture" component="span">
-                                            <LibraryMusicIcon />
-                                        </IconButton>
-                                    </label>
-                                </div>
+                            <div className="pad-x-sm">
+                                   
+
                             </div>
                             <div className="pad-xy-sm">
                                 <Button
@@ -286,8 +211,8 @@ function Podcast() {
                                 <p>File: </p>
                                 <p><b>{uploadFile? uploadFile.name: ""}</b></p>
                             </div>: ""
-                        }
-                        </div>
+                        } */}
+                    </form>
                 </div>
                 
                 

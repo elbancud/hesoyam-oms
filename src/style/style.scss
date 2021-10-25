@@ -14,6 +14,9 @@ body {
   background-color: #f8f9fa;
   overflow-x: hidden !important;
 }
+html {
+  scroll-behavior: smooth;
+}
 //variables
 $light-font: #fff;
 $error-red: #cd3d64;
@@ -222,6 +225,7 @@ b {
   top: 40%;
   left: 50%;
   transform: translate(-50%);
+  z-index: 1;
 }
 //flex
 .flex-flow-wrap {
@@ -611,7 +615,9 @@ header {
 .btn-large {
   padding: 1.5rem 3rem;
 }
-
+.iconBtn {
+  font-size: 14px !important;
+}
 .full-width {
   width: 100% !important;
 }
@@ -682,6 +688,12 @@ header {
   border: 1px solid #533c9f;
   color: #533c9f;
 }
+#btn-error-contained {
+  // padding: 0.5rem 3rem;
+  background-color: #c42e2e !important;
+  box-shadow: none !important;
+  color: #fff;
+}
 .cursor-pointer {
   cursor: pointer;
 }
@@ -714,6 +726,10 @@ header {
   img {
     width: 100%;
   }
+}
+.qr {
+  width: 500px;
+  object-fit: contain;
 }
 .theme-img {
   max-width: 400px !important;
@@ -902,6 +918,15 @@ footer {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+.imageFixedWH {
+  max-width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+.qr-150 {
+  max-width: 80px;
+  object-fit: contain;
 }
 @media screen and (max-width: 1000px) {
   .flex-no-wrap {

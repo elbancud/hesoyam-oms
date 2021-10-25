@@ -14,6 +14,10 @@ body {
   overflow-x: hidden !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 a,
 li,
 h1,
@@ -222,6 +226,7 @@ b {
   left: 50%;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
+  z-index: 1;
 }
 
 .flex-flow-wrap {
@@ -706,6 +711,10 @@ header .nav-desktop-active {
   padding: 1.5rem 3rem;
 }
 
+.iconBtn {
+  font-size: 14px !important;
+}
+
 .full-width {
   width: 100% !important;
 }
@@ -787,6 +796,13 @@ header .nav-desktop-active {
   color: #533c9f;
 }
 
+#btn-error-contained {
+  background-color: #c42e2e !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  color: #fff;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -830,6 +846,12 @@ header .nav-desktop-active {
 
 .graphics-offset img {
   width: 100%;
+}
+
+.qr {
+  width: 500px;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .theme-img {
@@ -1076,6 +1098,19 @@ footer li {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.imageFixedWH {
+  max-width: 200px;
+  height: 200px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.qr-150 {
+  max-width: 80px;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 @media screen and (max-width: 1000px) {

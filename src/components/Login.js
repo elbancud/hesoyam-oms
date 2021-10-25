@@ -103,13 +103,16 @@ export default function Login(){
   }
   return (
     <div>
-  
+
       <main className="full-height flex-flow-wrap">
         <div className="pad-xy-md width-sm primary-gradient full-height left-banner position-relative">
             <nav className="pad-y-sm pad-y-md ">
               <div className=" align-text-left pad-xy-md ">
-                  <div className="app-name align-text-center">
-                        <h3 className="secondary-color-text">Hesoyam</h3>
+                  <div className="app-name align-text-center ">
+                        <Link to="/">
+                            <h3 className="secondary-color-text">Hesoyam</h3>
+                        </Link>
+
                     </div>
                    <h2>Welcome back, Ready to keep spreading the words of God?</h2>                    
               </div>
@@ -118,6 +121,8 @@ export default function Login(){
               <img src={uiBanner} className="rotate" alt="church banner"></img>
             </div>
         </div>
+
+
         <div className="full-width">
           <div className="pad-xy-sm width-sm ">
               {error &&
@@ -127,7 +132,21 @@ export default function Login(){
                     </div>
                     <p className= "error-red" ><b>{error}</b></p>
                   </div>
-              }
+            }
+              <header>
+              <div className="app-name m-b-md ">
+                      <nav>
+                          <div className="burger-nav">
+                            <Link to="/">
+                                <h3 className="secondary-color-text">Hesoyam</h3>
+                            </Link>
+                            
+                          </div>
+                        
+                      </nav>
+
+                </div>
+              </header>
               <div className="subtitle ">
                 <h3>Sign in your account</h3>     
               </div>
@@ -177,6 +196,7 @@ export default function Login(){
             </div>
         </div>
       </main>
+
     </div>
   );
 }
