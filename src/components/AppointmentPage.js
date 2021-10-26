@@ -19,13 +19,11 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import DynamicCalendar from "./DynamicCalendar"
-import SeatPlan from "./SeatPlan";
 import Chip from '@mui/material/Chip';
 // import { KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 // import { TimePicker } from '@mui/lab';
 import MobileTimePicker from '@mui/lab/MobileTimePicker';
 import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 
 import Dialog from '@mui/material/Dialog';
@@ -34,8 +32,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { v4 as uuidv4 } from 'uuid';
-import uniqueId from 'lodash/uniqueId';
-import { set } from 'date-fns';
+
 
 function AppointmentPage({ service, image }) {
     const seatRow = ['A','B','C','D','E','F','G','H','I','J','K','L','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']

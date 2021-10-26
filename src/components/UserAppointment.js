@@ -89,17 +89,60 @@ function UserAppointment({ service, image }) {
 
         let fCurrentDate = new Date(currentDate)
         let fMonth = fCurrentDate.getMonth() + 1
-        let fDate = parseInt(fCurrentDate.getDate())  / 30
+        let fDate = parseInt(daysBeforecancel,10)  / 30
         let fCons = Math.floor(fDate)
         let finalDate = 0
-        
+        let today = new Date().getDate()
+        let monthToday = new Date().getMonth()
+        let remainder = parseInt(daysBeforecancel,10)  % 30;
+
         if (fDate <= 1) {
 
-            finalDate = parseInt(fCurrentDate.getDate()) 
-            alert(finalDate)
+            finalDate = parseInt(fCurrentDate.getDate()) - parseInt(daysBeforecancel,10)
+            if (finalDate < 0) {
+
+                //appointment minus days before cancellation
+                //minusing todays month
+
+                finalDate = today - Math.abs(finalDate)
+                fMonth -= 1;
+                if (today < finalDate  && fMonth === monthToday) {
+                    alert("Cancellation period of " + daysBeforecancel + " days is already over. Please contact the admin via email or contact number for further actions");
+
+                } else {
+                    alert("Good to go")
+
+                }
+
+            } else {
+
+                if (finalDate < today) {
+                    alert("You're illegible to cancel this appointment")
+                    
+                } else {
+                    alert("Good to go")
+                }
+            }
         
         } else {
-            // alert(fDate)
+
+            if (remainder === 0) {
+                
+                fMonth -= fDate
+                finalDate = fCurrentDate.getDay()
+                
+                if (monthToday < fMonth ||  today <= finalDate ) {
+                    alert("Cancellation period of " + daysBeforecancel + " days is already over. Please contact the admin via email or contact number for further actions");
+
+                } else {
+                    alert("Good to go")
+
+                }
+
+            } else {
+                
+
+            }
             
         }
     }
@@ -189,8 +232,14 @@ function UserAppointment({ service, image }) {
                          <UserProfile/>
                    
                         </div>
-                        <div className="burger-nav">
-                            <TopNavGenWeb></TopNavGenWeb>
+                        <div className="burger-nav ">
+                            <div className="flex-default">
+                                <div className="pad-x-sm">
+                                    <UserProfile/>
+                                </div>
+                                <TopNavGenWeb></TopNavGenWeb>
+                                
+                            </div>
                         </div>
                     </nav>
            

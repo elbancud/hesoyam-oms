@@ -20,16 +20,11 @@ function UserPodcast() {
     const [podcastArray, setPodcastArray] = useState()
     
     useEffect(() => {
-                    const dbRef = firebase.database().ref("account-details");
+                     const dbRef = firebase.database().ref("generated-data");
                         dbRef.on('value', snapshot => {
-                            snapshot.forEach(snap => {
-                              
-                                  if (snap.val().email === cookies.User) {
-                                    setSiteTitle(snap.val().savedSiteTitle)
-                                }
 
+                                    setSiteTitle(snapshot.val().savedSiteTitle)
                             });
-                        })
                         if(cookies.UserLoginKey) {
                             setActiveCookes(true)
                         }
@@ -41,7 +36,8 @@ function UserPodcast() {
                     podcastArray.push({id, ...postSnap[id]});
                 }
                 setPodcastArray(podcastArray)
-            });
+        });
+        
     }, []);
     function getStarted() {
         history.push("/genWebLogin")
@@ -69,54 +65,61 @@ function UserPodcast() {
             <div className="position-relative font-light">
                     <Container> 
 
-                    <div className="pad-xy-sm position-fixed-top-z-0 full-width under-garment-gradient height-90">
+                    <div className="pad-xy-sm position-fixed-top-z-1 full-width under-garment-gradient height-90">
                     </div>
-                    <nav className="pad-y-md flex-space-between nav-light-font">
-                        <div className="logo flex-default">
-                            <div className="icon"></div>
-                             <div className="app-name cursor-pointer">
-                                <Link to="/design1">
-                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
-                                    
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="nav-desktop-active">
-                            <ul className="flex-default">
-                                    <li onClick={prayerWall}>
-                                            Prayer Wall
-                                    </li>
-                                    <li onClick = {donate}>
-                                            Donate
-                                    </li>
-                                    <li onClick={handleServiceRedirect}>
-                                            Services
-                                    </li>
-                                    <li onClick={pod}>
-                                            Podcast
-                                    </li>
+                    
+                            <nav className="pad-y-md flex-space-between " >
+                                <div className="logo flex-default">
+                                    <div className="icon"></div>
+                                    <div className="app-name cursor-pointer">
+                                        <Link to="/design1">
+                                            <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
+                                            
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="nav-desktop-active">
+                                    <ul className="flex-default">
+                                            <li onClick={prayerWall}>
+                                                    Prayer Wall
+                                            </li>
+                                            <li onClick = {donate}>
+                                                    Donate
+                                            </li>
+                                            <li onClick={handleServiceRedirect}>
+                                                    Services
+                                            </li>
+                                            <li onClick={pod}>
+                                                    Podcast
+                                            </li>
 
-                            </ul>
-                        </div>
-                        <div className="nav-desktop-active">
-                        {
-                            activeCookies? <div> <UserProfile/></div>:  <Button
-                            onClick = {getStarted}
-                            variant="outlined"
-                            className="btn-large primary-color"
-                            color="primary"
-                            size="large"
-                            id="btn-large-primary-outline-white"
-                            >
-                            Get Started
-                            </Button>
-                        }
-                       
-                        </div>
-                        <div className="burger-nav">
-                            <TopNavGenWeb></TopNavGenWeb>
-                        </div>
-                    </nav>
+                                    </ul>
+                                </div>
+                                <div className="nav-desktop-active">
+                                {
+                                    activeCookies? <div> <UserProfile/></div>:  <Button
+                                    onClick = {getStarted}
+                                    variant="outlined"
+                                    className="btn-large primary-color"
+                                    color="primary"
+                                    size="large"
+                                    id="btn-large-primary-outline-white"
+                                    >
+                                    Get Started
+                                    </Button>
+                                }
+                            
+                                </div>
+                                <div className="burger-nav ">
+                                    <div className="flex-default">
+                                        <div className="pad-x-sm">
+                                            <UserProfile/>
+                                        </div>
+                                        <TopNavGenWeb></TopNavGenWeb>
+                                        
+                                    </div>
+                                </div>
+                            </nav>
                         
                         <div className="align-text-center pad-y-lg">
                             <h1 className="" id ="dynamic-h1"> My sheep hear My voice, and I know them, and they follow Me. </h1>
@@ -128,7 +131,7 @@ function UserPodcast() {
                                  return (
                                  <div key={data.id} className="m-xy-md">
                                             
-                                    <div  className="box  width-sm ">
+                                    <div  className="box width-sm ">
                                                 <div className="  pad-xy-sm  ">
                                                     <b><h4 className="m-r-sm">{data.audioTitle}</h4></b>
 

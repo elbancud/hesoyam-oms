@@ -323,7 +323,7 @@ function Service() {
             setMaxErrorState(true)
             setMaxError("Please enter max capacity")
             setEnableConstraingtBtn(false)
-        } else if (isNaN(parseInt(maxCapacity,10))) {
+        } else if (isNaN(maxCapacity)) {
             setMaxErrorState(true)
             setMaxError("Please enter Numbers only")
             setEnableConstraingtBtn(false)
@@ -392,7 +392,7 @@ function Service() {
             setEnableConstraingtBtn(true)
 
         }
-        if (isNaN(parseInt(daysBeforeAppoint, 10))) {
+        if (isNaN(daysBeforeAppoint)) {
             setDaysBeforeAppointError("Please input numbers only")
             setEnableConstraingtBtn(false)
 
@@ -407,7 +407,7 @@ function Service() {
             setEnableConstraingtBtn(true)
 
         }
-        if (isNaN(parseInt(daysBeforeCancel, 10))) {
+        if (isNaN(daysBeforeCancel)) {
             setDaysBeforeCancelError("Please input numbers only")
             setEnableConstraingtBtn(false)
             setDaysBeforeCancelErrorState(true)
@@ -430,7 +430,7 @@ function Service() {
                setSessionIntervalErrorState(false)
                setSessionIntervalError("")
         }
-        if (sessionInterval && !session !== 0 && service && !isNaN(parseInt(daysBeforeCancel, 10)) && maxCapacity && !isNaN(parseInt(daysBeforeAppoint, 10)) && timeOpTo && timeOpFrom && operationDaysFrom && maxCapacity && !isNaN(parseInt(maxCapacity,10)))  {
+        if (parseInt(maxCapacity, 10) >= 0 && parseInt(daysBeforeCancel, 10) >= 0 && parseInt(daysBeforeAppoint, 10) >= 0 && sessionInterval && !session !== 0 && service && !isNaN(daysBeforeCancel) && maxCapacity && !isNaN(daysBeforeAppoint) && timeOpTo && timeOpFrom && operationDaysFrom && maxCapacity && !isNaN(maxCapacity))  {
             const dbRef = firebase.database().ref("services/" + service);
             const serviceConstraints = {
                 maxCapacity: maxCapacity,
@@ -463,6 +463,10 @@ function Service() {
                 })
 
             }
+        } else {
+              setAlertStatus(true)
+                setFeedbackVariant("error")
+                setAlertMessage("Oopsies, Please revisit the errors")
         }
              
     }

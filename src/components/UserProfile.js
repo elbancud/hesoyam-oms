@@ -136,7 +136,7 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-            <MenuItem onClick>
+            <MenuItem onClick = {redirectToUserSetting}>
                 <div className="custom-p">
                   <p><b>{firstName + " " + lastName}</b></p>
                   <p >{email}</p>

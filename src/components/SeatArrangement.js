@@ -14,11 +14,12 @@ import Grid4x4Icon from '@mui/icons-material/Grid4x4';
 import ViewStreamIcon from '@mui/icons-material/ViewStream';
 import ViewWeekIcon from '@mui/icons-material/ViewWeek';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Switch from '@mui/material/Switch';
+import { v4 as uuidv4 } from 'uuid';
 
 function SeatArrangement() {
    
     //variables
+    const seatRow = ['A','B','C','D','E','F','G','H','I','J','K','L','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 
     const [alertStatus, setAlertStatus] = useState(false);
     const [feedbackVariant, setFeedbackVariant] = useState("");
@@ -240,7 +241,7 @@ function SeatArrangement() {
                     <div className="flex-flow-wrap-x">
                         <div className="">
                             <Tooltip title="altar">
-                                    <Button variant="outlined" disabled="true" id="altar" disableElevation>
+                                <Button variant="outlined" disabled={true} id="altar" disableElevation>
                                             Altar
                                     </Button>
                             </Tooltip>
@@ -248,31 +249,49 @@ function SeatArrangement() {
                     </div>
                     <div className="flex-flow-wrap-x ">
                         {seatArray ? seatArray.map((data) => {
+                             const id = uuidv4();
+
                             return(
                                 <div className="m-xy-lg" key={data.id}>
                                     {
-                                            Object.values(data).map(key => {
+                                            Object.values(data).map((key, indexLvl1) => {
+                                            
+                                                const id1 = uuidv4();
+                                                
                                                 if (typeof (key) === "object") {
+                                                    
                                                     return (
-                                                        <div className="flex-default" >
+                                                        
+                                                        <div className="flex-default" key={id1}>
+                                                             
+                                                            
+                                                            <h6>{seatRow[indexLvl1 - 1]}</h6>
                                                             {Object.values(key).map((child, index) => {
+
+                                                                    const id2 = uuidv4();
+
                                                                     if (child.reserved === true) {
                                                                          return (
-                                                                             <div className="seat-div" key={child}>
-                                                                                    <Tooltip title="Click for action">
-                                                                                        
-                                                                                     <Button variant="contained"  id="reserved" disableElevation>
-                                                                                                    {index + 1}
-                                                                                                </Button>
-                                                                                    </Tooltip>
+                                                                             <div className="seat-div" key={id2}>
+                                                                                    
+                                                                                    <span>
+                                                                                        <Tooltip title="Click for action">
+                                                                                                    <Button variant="contained"  id="reserved" disableElevation>
+                                                                                                        {index + 1}
+                                                                                                    </Button>
+                                                                                            
+                                                                                        </Tooltip>
+                                                                                    </span>
                                                                                 </div> 
                                                                         )
                                                                     } else {
+                                                                            const id3 = uuidv4();
+                                                                        
                                                                             return (
-                                                                                <div className="seat-div">
+                                                                                <div className="seat-div" key = {id3}>
                                                                                     <Tooltip title="Click for action">
                                                                                         
-                                                                                            <Button onClick={() => { alert(key) }} variant="contained" id="available" disableElevation>
+                                                                                        <Button  variant="contained" id="available" disableElevation>
                                                                                                     {index + 1}
                                                                                                 </Button>
                                                                                     </Tooltip>

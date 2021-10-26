@@ -28,15 +28,22 @@ import Podcast from './Podcast';
 import SeatArragement from './SeatArrangement';
 import DonateAdmin from './DonateAdmin';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import MenuIcon from '@material-ui/icons/Menu';
+import Button from '@material-ui/core/Button';
+
+import Box from '@mui/material/Box';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+
+
 export default function AdminUI() {
     const [accountTab, setAccountTab] = useState(false);
-    const [dashboardTab, setDashboardTab] = useState(false);
+    const [dashboardTab, setDashboardTab] = useState(true);
     const [theme, setTheme] = useState(false);
     const [webpagesTab, setWebpagesTab] = useState(false);
     
     const [servicesTab, setServicesTab] = useState(false);
     const [calendarTab, setCalendarTab] = useState(false);
-    const [seatsTab, setSeatsTab] = useState(true);
+    const [seatsTab, setSeatsTab] = useState(false);
     const [announcementTab, setAnnouncementTab] = useState(false);
     const [livestreamTab, setLiveStreamTab] = useState(false);
     const [podcastsTab, setPodcastsTab] = useState(false);
@@ -47,7 +54,152 @@ export default function AdminUI() {
     const [userName, setUsername] = useState("");
     const { currentUser } = useAuth();
     
+    const [state, setState] = React.useState({
+        left: false,
+      
+    });
 
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (
+            event &&
+            event.type === 'keydown' &&
+            (event.key === 'Tab' || event.key === 'Shift')
+        ) {
+            return;
+        }
+
+        setState({ ...state, [anchor]: open });
+    };
+    const list = (anchor) => (
+        <Box
+            role="presentation"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+            className=" primary-color"
+        >
+        <div className=" primary-color full-height-percent">
+                    
+                    <aside className=" primary-color" >
+                        <div className="">
+                            <ul className="">
+                                <li className="flex-default pad-x-sm" id={accountTab ? "active" : ""} onClick={() => { activateTab("accountTab", setAccountTab) }}>
+                                    <div className="icon-padding">
+                                        <FaceIcon className="cursor-pointer icon-set-light" />
+                                    </div>
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div className="grid-place-center ">
+                            <ul className="animate__animated animate__bounceIn">
+                                <li className="flex-default pad-x-sm" id={dashboardTab ? "active" : ""} onClick={() => { activateTab("dashboardTab", setDashboardTab) }}>
+                                    <div className="icon-padding">
+                                        <DashboardIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                    <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm  "><b>Dashboard</b></p>
+                                    </div>
+                                </li>
+                                <li className="flex-default pad-x-sm" id={webpagesTab ? "active" : ""} onClick={() => { activateTab("webpagesTab", setWebpagesTab) }}>
+                                    <div className="icon-padding">
+                                        <FormatPaintIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm"><b>Themes</b></p>
+                                    </div>
+                                </li>
+                                <li className="flex-default pad-x-sm" id={theme ? "active" : ""} onClick={() => { activateTab("theme", setWebpagesTab) }}>
+                                    <div className="icon-padding">
+                                        <PageviewIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm"><b>Pages</b></p>
+                                    </div>
+                                </li>
+                                
+                                <li className="flex-default pad-x-sm" id={servicesTab ? "active" : ""} onClick={() => { activateTab("servicesTab", setServicesTab) }}>
+                                    <div className="icon-padding">
+                                        <FavoriteIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm"><b>Services</b></p>
+                                    </div>
+                                </li>
+                                <li className="flex-default pad-x-sm pad-x-sm" id={calendarTab ? "active" : ""} onClick={() => { activateTab("calendarTab", setCalendarTab) }}>
+                                    <div className="icon-padding">
+                                        <EventAvailableIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm"><b>Calendar</b></p>
+                                    </div>
+                                </li>
+                                <li className="flex-default pad-x-sm" id={seatsTab ? "active" : ""} onClick={() => { activateTab("seatsTab", setSeatsTab) }}>
+                                    <div className="icon-padding">
+                                        <AirlineSeatReclineNormalIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm"><b>Seats</b></p>
+                                    </div>
+                                </li>
+                                <li className="flex-default pad-x-sm" id={announcementTab ? "active" : ""} onClick={() => { activateTab("announcementTab", setAnnouncementTab) }}>
+                                    <div className="icon-padding">
+                                        <AnnouncementIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm"><b>Announcements</b></p>
+                                    </div>
+                                </li>
+                                <li className="flex-default pad-x-sm" id={livestreamTab ? "active" : ""} onClick={() => { activateTab("liveStreamTab", setLiveStreamTab) }}>
+                                    <div className="icon-padding">
+                                        <LiveTvIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm"><b>Livestream</b></p>
+                                    </div>
+                                </li>
+                                <li className="flex-default pad-x-sm" id={podcastsTab ? "active" : ""} onClick={() => { activateTab("podcastsTab", setPodcastsTab) }}>
+                                    <div className="icon-padding">
+                                        <MicIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm"><b>Podcast</b></p>
+                                    </div>
+                                </li>
+                                <li className="flex-default pad-x-sm" id={reportsTab ? "active" : ""} onClick={() => { activateTab("reportsTab", setReportsTab) }}>
+                                    <div className="icon-padding">
+                                        <BugReportIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm"><b>Report</b></p>
+                                    </div>
+                                </li>
+                                <li className="flex-default pad-x-sm" id={donateTab ? "active" : ""} onClick={() => { activateTab("donateTab", setDonateTab) }}>
+                                    <div className="icon-padding">
+                                        <AccountBalanceWalletIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm"><b>Donations</b></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        
+                        </div>
+                        <div >
+                            <ul className="">
+                                <li className="pad-x-sm" >
+                                    <div className="icon-padding">
+                                        <ArrowForwardIosIcon className="cursor-pointer icon-set-light" />
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </aside>
+
+                    </div>
+      
+        </Box>
+    );
     function activateTab(tabName,setTabname) {
         if (tabName === "accountTab") {
             setAccountTab(true);
@@ -226,10 +378,17 @@ export default function AdminUI() {
         }
     }
     return (
+      
         <div className="flex-default-align-default ">
             <div className="position-relative">
+                <header>
+                <nav>
+                
+                <div className="burger-nav-admin">
+                
                 <div className=" primary-color full-height-percent">
-                    <aside className=" primary-color ">
+                    
+                    <aside className=" primary-color" >
                         <div className="">
                             <ul className="">
                                 <li className="flex-default pad-x-sm" id={accountTab ? "active" : ""} onClick={() => { activateTab("accountTab", setAccountTab) }}>
@@ -346,11 +505,44 @@ export default function AdminUI() {
                         </div>
                     </aside>
 
+                    </div>
+                    
+                    
                 </div>
-
+                  
+            </nav>
+        </header>
+            
             </div>
-                <div className="full-width">
-                
+                <div className="full-width margin-left-responsive">
+                    <header>
+                            <nav>
+                                <div className="pad-xy-sm">
+                            
+                                <div className="burger-nav">
+                                    <div>
+                                    {['left'].map((anchor) => (
+                                        <React.Fragment key={anchor}>
+                                        <Button onClick={toggleDrawer(anchor, true)}>
+                                            <MenuIcon />
+                                        </Button>
+                                        <SwipeableDrawer
+                                            anchor={anchor}
+                                            open={state[anchor]}
+                                            onClose={toggleDrawer(anchor, false)}
+                                            onOpen={toggleDrawer(anchor, true)}
+                                        >
+                                            {list(anchor)}
+                                        </SwipeableDrawer>
+                                        </React.Fragment>
+                                    ))}
+                                    </div>
+                                    
+                                </div>
+                            
+                            </div>   
+                        </nav>
+                    </header>
                     <main className="display-none" id={dashboardTab ? "display-block" : ""}>
                         <Dashboard/>
                     </main>
@@ -387,7 +579,7 @@ export default function AdminUI() {
                 <main className="display-none" id={donateTab? "display-block":""}>
                         <DonateAdmin/>
                     </main>
-                </div>
+            </div>
         </div>
     )
 }

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -22,8 +23,23 @@ img {
   border-radius: 0;
   border: 1px solid #000;
   padding: 1rem 3rem;
-  color: white;
+  color: #f9f9f9;
   background-color: #000;
+}
+
+#btn-large-primary-outline-white {
+  border-radius: 0;
+  border: 1px solid #fff;
+  padding: 1rem 3rem;
+  color: #fff;
+}
+
+#btn-large-primary-contained-white {
+  border-radius: 0;
+  border: 1px solid #fff;
+  padding: 1rem 3rem;
+  color: #060606;
+  background-color: #fff;
 }
 
 .plain-white-color-bg {
@@ -115,7 +131,7 @@ img {
 }
 
 .design1-properties main .about-us h2 {
-  width: 80%;
+  width: 90%;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -126,6 +142,119 @@ img {
 }
 
 .design1-properties main .contact-us p {
+  font-size: clamp(18px, 10vw, 24px) !important;
+  line-height: 1.5;
+  max-width: 450px;
+}
+
+.design3-properties {
+  font-family: "Playfair Display SC", serif;
+  color: #ffffff !important;
+}
+
+.design3-properties p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.design3-properties h1,
+.design3-properties h2,
+.design3-properties h3,
+.design3-properties h4,
+.design3-properties h5,
+.design3-properties h6,
+.design3-properties li {
+  color: #ffffff !important;
+  letter-spacing: 1.05px !important;
+}
+
+.design3-properties p {
+  color: #ffffffb3 !important;
+  letter-spacing: 1.05px !important;
+}
+
+.design3-properties .side-border-left {
+  border-left: 5px solid #a5d8ff;
+}
+
+.design3-properties .width-90 {
+  max-width: 90% !important;
+  margin: 5rem auto;
+}
+
+.design3-properties .carousel {
+  color: #000 !important;
+}
+
+.design3-properties .text-custom-width p,
+.design3-properties .text-custom-width h2 {
+  max-width: 400px;
+  line-height: 28px !important;
+}
+
+.design3-properties .service-img {
+  border-radius: 5px;
+  max-width: 90% !important;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin: 0 auto;
+}
+
+.design3-properties .primary-bg-color {
+  background-color: #000000 !important;
+}
+
+.design3-properties #primary-bg-color {
+  background-color: #fff8f2 !important;
+}
+
+.design3-properties #secondary-gradient {
+  background: linear-gradient(125.95deg, #c700bf 10.95%, #7da900 100%), linear-gradient(341.1deg, #00c2ff 7.52%, #4e00b1 77.98%), linear-gradient(222.34deg, #a90000 12.99%, #00ffe0 87.21%), linear-gradient(130.22deg, #8fa600 18.02%, #5a31ff 100%);
+  background-blend-mode: screen, color-dodge, color-dodge, normal;
+}
+
+.design3-properties .gradient-geometric {
+  background: linear-gradient(125deg, #ffffff 0%, #000000 100%), linear-gradient(200deg, #ffd9e8 0%, #ffd9e8 50%, #de95ba calc(50% + 1px), #de95ba 60%, #7f4a88 calc(60% + 1px), #7f4a88 75%, #4a266a calc(75% + 1px), #4a266a 100%), linear-gradient(113deg, #ffd9e8 0%, #ffd9e8 40%, #de95ba calc(40% + 1px), #de95ba 50%, #7f4a88 calc(50% + 1px), #7f4a88 70%, #4a266a calc(70% + 1px), #4a266a 100%);
+  background-blend-mode: overlay, overlay, normal;
+}
+
+.design3-properties h1 {
+  font-size: clamp(24px, 10vw, 72px);
+}
+
+.design3-properties h2 {
+  font-size: clamp(18px, 5vw, 46px);
+  line-height: 1.7;
+}
+
+.design3-properties h3 {
+  line-height: 1.5;
+}
+
+.design3-properties p {
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 2;
+}
+
+.design3-properties .events p {
+  line-height: 1.5;
+}
+
+.design3-properties main .about-us {
+  text-align: center;
+}
+
+.design3-properties main .about-us h2 {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.design3-properties main .contact-us h3 {
+  font-size: clamp(18px, 10vw, 36px) !important;
+  line-height: 1.2;
+}
+
+.design3-properties main .contact-us p {
   font-size: clamp(18px, 10vw, 24px) !important;
   line-height: 1.5;
   max-width: 450px;

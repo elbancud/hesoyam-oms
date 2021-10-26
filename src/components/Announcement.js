@@ -354,7 +354,7 @@ function Announcement() {
                             <div className="modal-footer plain-white-accent-bg flex-end pad-x-md ">
                                 <div className="flex-default pad-y-sm">
                                     <Button
-                                    onClick={handleCloseModal}>
+                                            onClick={handleCloseModal}>
                                             <b className="primary-color-text pad-x-sm">Cancel</b>
                                     </Button>
                                     <Button

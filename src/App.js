@@ -22,6 +22,7 @@ const UserPodcast = lazy(() => import('./components/UserPodcast'))
 const AppointmentPage = lazy(() => import('./components/AppointmentPage'))
 const UserAppointment = lazy(() => import('./components/UserAppointment'))
 const PodcastMobileWebview = lazy(() => import('./components/PodcastMobileWebview'))
+const Design3 = lazy(() => import('./components/Design3'))
 
 function App() {
 
@@ -41,17 +42,21 @@ function App() {
               <Route path="/design1" exact >
                 <Design1 />
               </Route>
+
               <Route path="/" exact >
                 <Landingpage />
               </Route>
+
               <Route path="/registration" exact >
                 <Registration />
               </Route>
+
               <PrivateRoute path="/adminUI" exact component={AdminUI} />
 
               <Route path="/login" exact >
                 <Login />
               </Route>
+
               <Route path="/emailForgetPass" exact >
                 <EmailForForgetPass />
               </Route>
@@ -59,33 +64,47 @@ function App() {
               <Route path="/genWebLogin" exact >
                 <GeneratedWebLogin />
               </Route>
+
               <Route path="/genWebRegistration" exact >
                 <GeneratedWebRegistration />
               </Route>
+
               <Route path="/prayerWall" exact >
                 <PrayerWall />
               </Route>
+
               <Route path="/userService" exact >
                 <ServiceUser />
               </Route>
+
               <Route path="/userSettings" exact >
                 <UserSettings />
               </Route>
+
               <Route path="/donationPage" exact >
                 <Donate />
               </Route>
+
               <Route path="/userPodcast" exact >
                 <UserPodcast />
               </Route>
+
               <Route path="/appointmentPage" exact >
                 <AppointmentPage/>
               </Route>
+
               <Route path="/userAppointment" exact >
                 <UserAppointment/>
               </Route>
-              <Route path="/PodcastMobileWebview" exact >
+
+              <Route path="/podcastMobileWebview" exact >
                 <PodcastMobileWebview/>
               </Route>
+
+              <Route path="/design3" exact >
+                <Design3/>
+              </Route>
+
             </Suspense>
 
           </Switch>

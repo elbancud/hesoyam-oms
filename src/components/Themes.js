@@ -17,6 +17,9 @@ import firebase from '../firebase';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
 import { useCookies } from 'react-cookie';
+import Container from "@material-ui/core/Container";
+import Design3 from './Design3';
+import Design2 from './Design2';
 
 function Themes() {
 
@@ -62,47 +65,48 @@ function Themes() {
         setWebSizeCustom(size);
     }
     function registerTheme(designName) {
-     
-        
-        const dbRefWithKey = firebase.database().ref("account-details/" + cookies.Key);
-        dbRefWithKey.on('value', snapshot => {
-            snapshot.forEach(snap => {
-             
-                if (snap.hasChild("designName")) {
+
+        const dbRefWithKey = firebase.database().ref("themeChosen");
+        dbRefWithKey.on("value", snap => {
+            if (snap.hasChild("designName") || snap.val().designName !== designName) {
                     setAlertStatus(true);
                     setFeedbackVariant("warning");
-                    setAlertMessage("Hold on! didn't you already have chosen a theme?, kindly visit the pages tab")
-                    setAnchorEl(null);
-                    setCookie('DesignName',designName);
-                    
-                    return true
-                } else {
-                    const pushThemeSelection = {
+                    setAlertMessage("Hold on! didn't you already have chosen a theme?, kindly visit the pages tab or try another theme to customize")
+                    setAnchorEl(null);    
+                    return true;  
+            } else {
+                     const pushThemeSelection = {
                         designName: designName
                     }
-                    dbRefWithKey.push(pushThemeSelection)
+                    dbRefWithKey.update(pushThemeSelection)
                     setAlertStatus(true)
                     setFeedbackVariant("success")
                     setAlertMessage("Good job so far!. Visit the page tab to start customizing them.")
                     setAnchorEl(null);
-                    setCookie('DesignName',designName);
-                    return true
-                }
-            })
-        });
+                    return true;  
+                    
+            }
+        })
+     
         
                             
     }
     return (
-        <div>
-            
+        <div >
+
+            {/* <div className=" position-fixed-top-z-0 full-width height-50 blue-bg" id=""> </div> */}
             <main className="m-x-sm pad-y-md  " >
                     
-                    <div className="title pad-y-sm">
-                        <h2>Themes</h2>
-                        <p>Select and activate your preferred themes here then customize them in the pages tab.</p>
-                    </div>
-                     <div className=" flex-no-wrap flex-default-center-xy">
+                <Container>
+                        <div className="pad-y-sm"></div>
+                        {/* font-light */}
+                        <div className="title m-t-md ">
+                            <h2>Themes</h2>
+                            <p>Select and activate your preferred themes here then customize them in the pages tab.</p>
+                        </div>
+                    
+                </Container>
+                     <div className=" flex-no-wrap flex-default-center-xy m-t-md">
                         <div className="box box-default-width m-xy-md theme-img">
                             <img src={design1} alt = "design 1"></img>
                             <div className="modal-footer plain-white-color-bg  pad-x-sm ">
@@ -129,6 +133,8 @@ function Themes() {
                                             className="btn-large primary-color"
                                             color="secondary"
                                             size="large"
+                                            onClick={(event) => { handleClickMenu(event,"design2") }}
+                                            
                                     >
                                     <MoreHorizIcon />
                                     
@@ -145,6 +151,7 @@ function Themes() {
                                             className="btn-large primary-color"
                                             color="secondary"
                                             size="large"
+                                            onClick={(event) => { handleClickMenu(event,"design3") }}
                                     >
                                     <MoreHorizIcon />
                                     
@@ -243,13 +250,14 @@ function Themes() {
                             </div>
                             <div className="tertiary-color ">
                                 <div  className={webSizeCustom}>
-                                    {designPage === "design1"? <Design1/>:""}
+                                    {designPage === "design1"? <Design1/>:designPage === "design2"? <Design2/> :<Design3/>}
                                 </div>
                             
                             </div>
                         </div>
                     </Fade>
             </Modal>
+
              {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={4000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="success">
                     {alertMessage}

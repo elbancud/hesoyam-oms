@@ -86,11 +86,11 @@ useEffect(() => {
 }, [])
 
     return (
-          <main className=" pad-y-md div align-text-center" >
+          <main className=" align-text-center" >
                     
                     <Container>
                       
-                            <Calendar localizer={localizer} events={events} startAccessor="start" endAccessor="end" style={{ height: 500, width:"100%"}} />
+                            <Calendar localizer={localizer} events={events} startAccessor="start" endAccessor="end" style={{ height: 350, width:"100%", margin: "0 auto"}} />
                     </Container>
         </main>
     );

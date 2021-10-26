@@ -163,8 +163,14 @@ function PrayerWall() {
                         }
                        
                         </div>
-                        <div className="burger-nav">
-                            <TopNavGenWeb></TopNavGenWeb>
+                        <div className="burger-nav ">
+                            <div className="flex-default">
+                                <div className="pad-x-sm">
+                                    <UserProfile/>
+                                </div>
+                                <TopNavGenWeb></TopNavGenWeb>
+                                
+                            </div>
                         </div>
                     </nav>
                     <Container>
