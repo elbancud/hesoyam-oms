@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -7,6 +7,9 @@ import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
 import {   useHistory} from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import firebase from "../firebase"
+import { yellow } from '@mui/material/colors';
+
 
 const useStyles = makeStyles({
     list: {
@@ -22,10 +25,21 @@ export default function TemporaryDrawer() {
 
     const history = useHistory();
     const classes = useStyles();
+    const [activePage, setActivePage] = useState("")
+
     const [state, setState] = React.useState({
         top: false,
 
     });
+
+    useEffect(() => {
+
+        const db = firebase.database().ref("themeChosen")
+        db.on("value", snap => {
+
+            setActivePage(snap.val().designName)
+        })
+    }, [])
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -91,7 +105,7 @@ export default function TemporaryDrawer() {
             {['top'].map((anchor) => (
                 <React.Fragment key={anchor}>
                     <Button onClick={toggleDrawer(anchor, true)}>
-                        <MenuIcon />
+                        <MenuIcon color={activePage === "design1"? "primary": activePage === "design2" ? "primary" : yellow[400] }/>
                     </Button>
                     <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
                         {list(anchor)}

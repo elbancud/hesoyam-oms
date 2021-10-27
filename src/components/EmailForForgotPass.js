@@ -3,49 +3,81 @@ import "../style/style.css";
 import { Button } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import uiBanner from "../images/ui-oms.png";
-import {   useHistory} from 'react-router-dom';
 import ErrorIcon from '@material-ui/icons/Error';
 import validator from 'validator';
 import firebase from 'firebase';
+import { useCookies } from 'react-cookie';
+import MuiAlert from '@material-ui/lab/Alert';
+import { Snackbar } from '@material-ui/core';
+import {Link, useHistory} from 'react-router-dom';
 
 
 const Login = (props) => {
   //variables
   const history = useHistory();
   const [error, setError] = useState('');
-
+  const [cookies, setCookie] = useCookies(['user']);
   const [emailInput, setEmailInput] = useState('');
   const [emailError, setEmailError] = useState('');
   const [emailErrorState, setEmailErrorState] = useState(false);
-  
+
+  const [alertStatus, setAlertStatus] = useState(false);
+  const [feedbackVariant, setFeedbackVariant] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+             return;
+        }
+
+        setAlertStatus(false);
+    };
+    
   function handleSubmitEmail(e) {
+
     e.preventDefault();
+
     if (emailInput === "") {
+
       setEmailError("Please enter your Email");
       setEmailErrorState(true);
       setError("Please complete the fields");
+
     } else if (!validator.isEmail(emailInput)) {
+
       setEmailError("Please enter a valid email");
       setEmailErrorState(true);
       setError("Please enter a valid email");
+
     } else {
+
         firebase.auth().sendPasswordResetEmail(emailInput)
         .then(() => {
-            alert("success");
+            setAlertStatus(true)
+            setFeedbackVariant("success")
+            setAlertMessage("Success! new password link is sent to  " + emailInput )
             
+            setError("");
+            setEmailErrorState("");
+            setEmailErrorState(false);
+            history.push("/login");
+
+            setCookie("EmailForget", emailInput)
         })
         .catch((error) => {
-        
+            setAlertStatus(true)
+            setFeedbackVariant("error")
+            setAlertMessage(error.message)
         });
 
-        setError("");
-        setEmailErrorState("");
-        setEmailErrorState(false);
-        history.push("/login");
+        
     }
    
        
-    
+  
   }
   return (
     <div>
@@ -54,17 +86,21 @@ const Login = (props) => {
         <div className="pad-xy-md width-sm tertiary-gradient full-height left-banner position-relative">
             <nav className="pad-y-sm pad-y-md ">
               <div className=" align-text-left pad-xy-md ">
-                  <div className="app-name align-text-center">
-                        <h3 className="secondary-color-text">Hesoyam</h3>
+                  <div className="app-name align-text-center ">
+                        <Link to="/">
+                            <h3 className="secondary-color-text">Hesoyam</h3>
+                        </Link>
+
                     </div>
-                   <h2>Trouble remembering your password? Say less, We got you covered</h2>                    
-                    
+                        <h2>Trouble remembering your password? Say less, We got you covered</h2>                    
+                   
               </div>
             </nav>
-            <div className="graphics">
-              <img src={uiBanner} className="rotate" alt="church banners"></img>
+            <div className="graphics-offset">
+              <img src={uiBanner} className="rotate" alt="church banner"></img>
             </div>
         </div>
+       
         <div className="full-width">
           <div className="pad-xy-sm width-sm ">
               {error &&
@@ -76,7 +112,10 @@ const Login = (props) => {
                   </div>
               }
               <div className="subtitle ">
-                <h3>Forgot password</h3>     
+                <h3>Forgot password</h3>   
+                <p>
+                    Please enter your registered Email so we can send you a link
+                </p>  
               </div>
               <form autoComplete="off" onSubmit={handleSubmitEmail}>
                 <div className="pad-y-sm">
@@ -103,6 +142,22 @@ const Login = (props) => {
             </div>
         </div>
       </main>
+       {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                <Alert onClose={handleCloseAlert} severity="success">
+                    {alertMessage}
+                </Alert>
+            </Snackbar> :
+            feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                <Alert onClose={handleCloseAlert} severity="warning">
+                    {alertMessage}
+                </Alert>
+              </Snackbar> :
+             <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                <Alert onClose={handleCloseAlert} severity="error">
+                   {alertMessage}
+                </Alert>
+            </Snackbar>
+            }
     </div>
   );
 }

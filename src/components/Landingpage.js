@@ -7,7 +7,7 @@ import uiBanner from "../images/ui-oms.png";
 import work from "../images/Work.gif"
 import seat from "../images/Seat.gif"
 import gift from "../images/Gift.gif"
-import {useHistory} from "react-router-dom";
+import {useHistory, Link} from "react-router-dom";
 
 function Landingpage() {
 
@@ -24,7 +24,9 @@ function Landingpage() {
             <div className="logo flex-default">
                 <div className="icon"></div>
                 <div className="app-name">
-                    <h3>Hesoyam</h3>
+                    <Link to="/">
+                            <h3 className="secondary-color-text">Hesoyam</h3>
+                    </Link>
                 </div>
             </div>
             <div className="nav-desktop-active">

@@ -38,6 +38,7 @@ function Design1() {
                                     setNumber(snapshot.val().savedNumber)
                           
                         })
+                        
                     if(cookies.UserLoginKey) {
                         setActiveCookes(true)
                     }
@@ -46,8 +47,14 @@ function Design1() {
                     dbLive.once("value", (snap) => {
                         setLiveUrl(snap.val().liveUrl)
                         // alert(liveUrl)
+                        if (snap.val().timestamp !== new Date()) {
+                            setLiveUrl("")
+                        } else {
+                            setLiveUrl(snap.val().liveUrl)
+                        }
 
                     })
+                    
     }, []);
 
     function getStarted() {

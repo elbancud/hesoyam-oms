@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Container from "@material-ui/core/Container";
 import embed from "../images/live-embed.JPG"
 import TextField from "@material-ui/core/TextField";
@@ -27,7 +27,14 @@ function LivestreamTab() {
         } else {
             
         const db = firebase.database().ref("liveUrl")
-        db.update({ liveUrl: url }).then(() => {
+        const today = new Date()
+        
+        let livestreamDetails = {
+            liveUrl: url,
+            timestamp: today,
+        }
+            
+        db.update(livestreamDetails).then(() => {
             setAlertStatus(true)
             setFeedbackVariant("success")
             setAlertMessage("Success! You can now view the Live on generated website")

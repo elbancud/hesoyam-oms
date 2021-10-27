@@ -23,6 +23,7 @@ const AppointmentPage = lazy(() => import('./components/AppointmentPage'))
 const UserAppointment = lazy(() => import('./components/UserAppointment'))
 const PodcastMobileWebview = lazy(() => import('./components/PodcastMobileWebview'))
 const Design3 = lazy(() => import('./components/Design3'))
+const NewPassword = lazy(() => import('./components/NewPassword'))
 
 function App() {
 
@@ -103,6 +104,10 @@ function App() {
 
               <Route path="/design3" exact >
                 <Design3/>
+              </Route>
+
+              <Route path="/newPassword" exact >
+                <NewPassword/>
               </Route>
 
             </Suspense>
