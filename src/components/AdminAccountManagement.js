@@ -194,7 +194,7 @@ function AdminAccountManagement({ username, email }) {
     function handleResetPassword(e) {
           auth.signInWithEmailAndPassword(cookies.User, passwordCurrentInput)
               .then(user => {
-                setPasswordCurrentError("");
+                 setPasswordCurrentError("");
                  setPasswordCurrentErrorState(false);
                  
             }).catch(error => {

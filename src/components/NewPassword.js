@@ -111,7 +111,7 @@ function NewPassword() {
       setPasswordConfirmErrorState(true);
       setError("Passwords do not match");
     }
-    else if(password && validator.isStrongPassword(passwordInput, {
+    else if(passwordInput && validator.isStrongPassword(passwordInput, {
       minLength: 8, minLowercase: 1,
       minUppercase: 1, minNumbers: 1
     }) && passwordConfirmInput && passwordConfirmInput === passwordInput) {
