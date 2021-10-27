@@ -15,11 +15,10 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
 import { useCookies } from 'react-cookie';
 
-export default function NewPassword() {
+function NewPassword() {
 
   //useRef gives acces to an id
 
-  
   const [passwordInput, setPasswordInput] = useState('');
   const [passwordConfirmInput, setPasswordConfirmInput] = useState('');
   
@@ -84,15 +83,7 @@ export default function NewPassword() {
   };
   function handleSubmit(e) {
     e.preventDefault();
-    // auth.signInWithEmailAndPassword(cookies.EmailForget, passwordCurrentInput)
-    //   .then(user => {
-    //     setPasswordCurrentError("");
-    //     setPasswordCurrentErrorState(false);
-                 
-    //   }).catch(error => {
-    //     setPasswordCurrentError("Incorrect password");
-    //     setPasswordCurrentErrorState(true);
-    //   })
+
     
     if (passwordInput === "") {
       setPasswordError("Please enter your Password");
@@ -124,24 +115,25 @@ export default function NewPassword() {
       setPasswordConfirmError("");
       setPasswordConfirmErrorState(false);
       firebase.auth().confirmPasswordReset(code, passwordConfirmInput)
-      .then(function() {
+        .then(function () {
           setAlertStatus(true)
           setFeedbackVariant("success")
           setAlertMessage("Keep it to yourself chief! password updated.")
 
           history.push("/")
           removeCookie("EmailForget");
-      })
-      .catch(function(error) {
+        })
+        .catch(function (error) {
           setAlertStatus(true)
           setFeedbackVariant("success")
           setAlertMessage(error.message)
 
-      })
+        })
    
     }
+  }
     return (
-      
+      <div>
       <main className=" full-height flex-flow-wrap">
         <div className="pad-xy-md width-sm secondary-gradient full-height left-banner position-relative">
           <nav className="pad-y-sm pad-y-md ">
@@ -240,8 +232,8 @@ export default function NewPassword() {
             </Snackbar>
         }
       </main>
-       
+       </div>
     );
   }
 
-}
+export default NewPassword;
