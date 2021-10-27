@@ -63,9 +63,11 @@ const Login = (props) => {
             setError("");
             setEmailErrorState("");
             setEmailErrorState(false);
-            history.push("/login");
-
-            setCookie("EmailForget", emailInput)
+            setTimeout(() => {
+               history.push("/login");
+               setCookie("EmailForget", emailInput)
+            
+          }, 2000);
         })
         .catch((error) => {
             setAlertStatus(true)

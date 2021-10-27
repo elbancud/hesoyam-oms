@@ -83,7 +83,7 @@ function NewPassword() {
   };
   function handleSubmit(e) {
     e.preventDefault();
-
+    alert(code)
     
     if (passwordInput === "") {
       setPasswordError("Please enter your Password");
@@ -111,21 +111,29 @@ function NewPassword() {
       setPasswordConfirmErrorState(true);
       setError("Passwords do not match");
     }
-    else {
+    else if(password && validator.isStrongPassword(passwordInput, {
+      minLength: 8, minLowercase: 1,
+      minUppercase: 1, minNumbers: 1
+    }) && passwordConfirmInput && passwordConfirmInput === passwordInput) {
+
       setPasswordConfirmError("");
       setPasswordConfirmErrorState(false);
+
       firebase.auth().confirmPasswordReset(code, passwordConfirmInput)
         .then(function () {
           setAlertStatus(true)
           setFeedbackVariant("success")
           setAlertMessage("Keep it to yourself chief! password updated.")
 
-          history.push("/")
+          setTimeout(() => {
+            history.push("/")
+            
+          }, 2000);
           removeCookie("EmailForget");
         })
         .catch(function (error) {
           setAlertStatus(true)
-          setFeedbackVariant("success")
+          setFeedbackVariant("error")
           setAlertMessage(error.message)
 
         })
