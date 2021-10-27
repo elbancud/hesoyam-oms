@@ -51,17 +51,18 @@ function NewPassword() {
    name = name.replace(/[\[\]]/g, '\\$&');
    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
       results = regex.exec(url);
+    
    if (!results) return null;
    if (!results[2]) return '';
    return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  // document.addEventListener('DOMContentLoaded', () => {
 
-    const actionCode = getParameterByName('oobCode');
+  //   const actionCode = getParameterByName('oobCode');
  
-      setCode(actionCode)
-  }, false);
+  //     setCode(actionCode)
+  // }, false);
 
   
   //button event for registration
@@ -82,8 +83,9 @@ function NewPassword() {
     setAlertStatus(false);
   };
   function handleSubmit(e) {
+
     e.preventDefault();
-    alert(code)
+    const actionCode = getParameterByName('oobCode');
     
     if (passwordInput === "") {
       setPasswordError("Please enter your Password");
@@ -119,7 +121,7 @@ function NewPassword() {
       setPasswordConfirmError("");
       setPasswordConfirmErrorState(false);
 
-      firebase.auth().confirmPasswordReset(code, passwordConfirmInput)
+      firebase.auth().confirmPasswordReset(actionCode, passwordConfirmInput)
         .then(function () {
           setAlertStatus(true)
           setFeedbackVariant("success")
