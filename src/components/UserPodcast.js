@@ -132,7 +132,7 @@ function UserPodcast() {
                                  <div key={data.id} className="m-xy-md">
                                             
                                     <div  className="box width-sm ">
-                                                <div className="  pad-xy-sm  ">
+                                                <div className="pad-xy-sm">
                                                     <b><h4 className="m-r-sm">{data.audioTitle}</h4></b>
 
                                                     <div>

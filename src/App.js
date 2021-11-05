@@ -24,6 +24,9 @@ const UserAppointment = lazy(() => import('./components/UserAppointment'))
 const PodcastMobileWebview = lazy(() => import('./components/PodcastMobileWebview'))
 const Design3 = lazy(() => import('./components/Design3'))
 const NewPassword = lazy(() => import('./components/NewPassword'))
+const Design2 = lazy(() => import('./components/Design2'))
+const PageNotFound = lazy(() => import('./components/PageNotFound'))
+
 
 function App() {
 
@@ -106,9 +109,16 @@ function App() {
                 <Design3/>
               </Route>
 
+              <Route path="/design2" exact >
+                <Design2/>
+              </Route>
+
               <Route path="/newPassword" exact >
                 <NewPassword/>
               </Route>
+
+               {/* <Route component = {PageNotFound}>
+              </Route>  */}
 
             </Suspense>
 

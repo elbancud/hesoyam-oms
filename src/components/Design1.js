@@ -11,37 +11,45 @@ import Carousel from './Carousel'
 import Container from "@material-ui/core/Container";
 
 function Design1() {
+    
     const [siteTitle, setSiteTitle] = useState("");
     const [headerTitle, setHeaderTitle] = useState("");
     const [subHeaderTitle, setSubHeaderTitle] = useState("");
+   
     const [aboutUsMain, setAboutUsMain] = useState("");
     const [aboutUsSub, setAboutUsSub] = useState("");
     const [location, setLocation] = useState("");
+   
     const [siteEmailData, setSiteEmailData] = useState("");
     const [number, setNumber] = useState("");
     const history = useHistory();
+   
     const [cookies] = useCookies(['user']);
     const [activeCookies, setActiveCookes] = useState(false)
+
+    const [contact1, setContact1] = useState();
+    const [contact2, setContact2] = useState();
+    const [contact3, setContact3] = useState();
+
     // const [activatedPage, setActivatePage] = useState("")
     useEffect(() => {
                     const dbRef = firebase.database().ref("generated-data");
                         dbRef.on('value', snapshot => {
-                            console.log(snapshot)
+                            
                                     setSiteTitle(snapshot.val().savedSiteTitle)
+                                    
                                     setHeaderTitle(snapshot.val().savedHeaderTitle)
                                     setSubHeaderTitle(snapshot.val().savedSubHeaderTitle)
                                     setAboutUsMain(snapshot.val().savedAboutMainText)
+                                    
                                     setAboutUsSub(snapshot.val().savedAboutSubText)
                                     setLocation(snapshot.val().savedLocation)
                                     setSiteEmailData(snapshot.val().savedSiteEmail)
                                     setNumber(snapshot.val().savedNumber)
-                            // snapshot.forEach(snap => {
-                              
-                            //     //  if (snap.hasChild("designName")) {
-                            //     //     setActivatePage(snap.val().designName);
-                            //     // }
                                     
-                            // });
+                                    setContact1(snapshot.val().contactPerson1)
+                                    setContact2(snapshot.val().contactPerson2)
+                                    setContact3(snapshot.val().contactPerson3)
                         })
                     if(cookies.UserLoginKey) {
                         setActiveCookes(true)
@@ -62,9 +70,10 @@ function Design1() {
     }
    
     return (
-        
-        <div className="design1-properties">
-            <header className="primary-bg-color pad-x-md">
+        <div className="design1-properties ">
+            <div className="primary-bg-color">
+
+            <header className="pad-x-md">
                 <Container>
                     <nav className="pad-y-md flex-space-between">
                         <div className="logo flex-default">
@@ -155,7 +164,7 @@ function Design1() {
                         </div>
                     </div>
                 </header>
-                <main className="pad-y-lg plain-white-color-bg">
+                <main className="pad-y-lg ">
                     <div className="align-text-center">
                         <p><b>News, Events, and Announcements</b></p>
                     </div>
@@ -180,7 +189,7 @@ function Design1() {
                     </div>
 
                 </main>
-                <main className="pad-y-lg plain-white-color-bg " id="contactUs">
+                <main className="pad-y-lg  " id="contactUs">
                     <div className="pad-xy-sm">
                         <div className="align-text-center">
                             <p><b>Contact Us</b></p>
@@ -201,16 +210,17 @@ function Design1() {
                            
                             <div className="box-default-width pad-x-md">
                                 <h3>Contact Personel</h3>
-                                <p>Surname, First Name</p>
-                                <p>Surname, First Name</p>
-                                <p>Surname, First Name</p>
-                            
+                                <p className="pad-y-sm"> { typeof(contact1) === 'undefined'? "example@gmail.com": contact1}</p>
+                                <p className="pad-y-sm"> { typeof(contact2) === 'undefined'? "#12345678910": contact2}</p>
+                                <p className="pad-y-sm"> { typeof(contact3) === 'undefined'? "Juan Dela Cruz": contact3}</p>
                             </div>
                         </div>
                     
                     </div>
 
                 </main>
+            </div>
+
         </div>
     )
 }

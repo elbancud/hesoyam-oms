@@ -27,11 +27,11 @@ function LivestreamTab() {
         } else {
             
         const db = firebase.database().ref("liveUrl")
-        const today = new Date()
-        
+            
+            
         let livestreamDetails = {
             liveUrl: url,
-            timestamp: today,
+            timestamp: new Date(),
         }
             
         db.update(livestreamDetails).then(() => {

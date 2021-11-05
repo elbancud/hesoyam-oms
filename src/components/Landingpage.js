@@ -114,9 +114,9 @@ function Landingpage() {
                     
                   </div>
                   
-                </div>
+              </div>
             </Container>
-        </section>
+          </section>
         <section className="">
             <Container>
                 <div className="flex-no-wrap">

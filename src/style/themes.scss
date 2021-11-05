@@ -35,13 +35,16 @@ img {
   color: rgb(6, 6, 6);
   background-color: #fff;
 }
-
+.primary-bg-image {
+  background-image: url("https://images.unsplash.com/photo-1588541389843-868adb1998a2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1331&q=80");
+  background-repeat: no-repeat;
+}
 .plain-white-color-bg {
   background-color: #fff;
 }
 
 .primary-bg-color-off-white {
-  background-color: #fff8f2;
+  background-color: #f5f2ef;
 }
 .primary-color-text-custom {
   color: #6c50ca;
@@ -71,7 +74,6 @@ img {
     object-fit: contain;
     margin: 0 auto;
   }
-
   font-family: "Inter", sans-serif;
 
   .primary-bg-color {

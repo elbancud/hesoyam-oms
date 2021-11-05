@@ -11,6 +11,7 @@ import firebase from '../firebase';
 
 
 function AccordionSideTab() {
+
   const [typing, setTyping] = useState(false);
   const [siteTitle, setSiteTitle] = useState("");
   const [headerTitle, setHeaderTitle] = useState("");
@@ -20,6 +21,11 @@ function AccordionSideTab() {
   const [location, setLocation] = useState("");
   const [number, setNumber] = useState("");
   const [siteEmail, setSiteEmail] = useState("");
+
+  const [contactPerson1, setContactPerson1] = useState("");
+  const [contactPerson2, setContactPerson2] = useState("");
+  const [contactPerson3, setContactPerson3] = useState("");
+
 
   const [expanded, setExpanded] = React.useState(false);
 
@@ -47,6 +53,12 @@ function AccordionSideTab() {
       dbRef.update({ savedNumber: number });
     }if (siteEmail !== "") {
       dbRef.update({ savedSiteEmail: siteEmail });
+    }if (contactPerson1 !== "") {
+      dbRef.update({ contactPerson1: contactPerson1 });
+    }if (contactPerson2 !== "") {
+      dbRef.update({ contactPerson2: contactPerson2 });
+    }if (contactPerson3 !== "") {
+      dbRef.update({ contactPerson3: contactPerson3 });
     }
     
     
@@ -60,7 +72,9 @@ function AccordionSideTab() {
     setLocation("")
     setNumber("")
     setSiteEmail("")
-
+    setContactPerson1("")
+    setContactPerson2("")
+    setContactPerson3("")
     setTyping(false);
 
   }
@@ -216,60 +230,42 @@ function AccordionSideTab() {
               <i>Input your organization's details here.</i>
             </Typography>
              <div className="m-t-sm">
-                    <Typography variant="subtitle2">Location</Typography>
+                  <Typography variant="subtitle2">Location</Typography>
                <TextField value={location} onChange={(e) => { setLocation(e.target.value); setTyping(true)}}  id="outlined-full-width" fullWidth label="Location" size="small" variant="outlined" className="text-input-deafult full-width"/>
 
              </div>
              <div className="pad-y-sm ">
-                      <Typography variant="subtitle2">Contact Details</Typography>
+                    <Typography variant="subtitle2">Contact Details</Typography>
                       
-               <TextField value={number} onChange={(e) => { setNumber(e.target.value); setTyping(true)}}  id="outlined-full-width" fullWidth label="Contact Number" size="small" variant="outlined" className="text-input-deafult full-width"/>
-                        <div className="pad-l-t">
-                 
+                    <TextField value={number} onChange={(e) => { setNumber(e.target.value); setTyping(true)}}  id="outlined-full-width" fullWidth label="Contact Number" size="small" variant="outlined" className="text-input-deafult full-width"/>
+                    <div className="pad-l-t">
                     </div>
-               <TextField value={siteEmail} onChange={(e) => { setSiteEmail(e.target.value); setTyping(true) }}  id="outlined-full-width" fullWidth label="Email" size="small" variant="outlined" className="text-input-deafult full-width" />
+                    
+                     <TextField value={siteEmail} onChange={(e) => { setSiteEmail(e.target.value); setTyping(true) }}  id="outlined-full-width" fullWidth label="Email" size="small" variant="outlined" className="text-input-deafult full-width" />
 
                   
 
              </div>
              <div className="">
-                    <Typography variant="subtitle2">Contact Personnel</Typography>
-                    <TextField fullWidth id="outlined-full-width"  label="Fullname" size="small" variant="outlined" className="text-input-deafult full-width"/>
+                    <Typography  Typography variant="subtitle2">Contact Personnel</Typography>
+                    
+                    <div className="pad-l-t">
+                    </div>
+                    <TextField value={contactPerson1} onChange={(e) => { setContactPerson1(e.target.value); setTyping(true)}}  id="outlined-full-width" fullWidth label="Contact Person 1" size="small" variant="outlined" className="text-input-deafult full-width"/>
+
+                    <div className="pad-l-t">
+                    </div>
+                    <TextField value={contactPerson2} onChange={(e) => { setContactPerson2(e.target.value); setTyping(true)}}  id="outlined-full-width" fullWidth label="Contact Person 2" size="small" variant="outlined" className="text-input-deafult full-width"/>
+
+                    <div className="pad-l-t">
+                    </div>
+                    <TextField value={contactPerson3} onChange={(e) => { setContactPerson3(e.target.value); setTyping(true)}}  id="outlined-full-width" fullWidth label="Contact Person 3" size="small" variant="outlined" className="text-input-deafult full-width"/>
 
              </div>
            </div>
         </AccordionDetails>
        </Accordion>
-        <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')} className="box-shadow-light ">
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <Typography variant="subtitle2">Colors and backgrounds</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-            vitae egestas augue. Duis vel est augue.
-          </Typography>
-        </AccordionDetails>
-       </Accordion>
-       <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')} className="box-shadow-light ">
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <Typography variant="subtitle2">Fonts</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-            vitae egestas augue. Duis vel est augue.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+      
     </div>
   );
 }

@@ -71,8 +71,14 @@ function Themes() {
             if (snap.hasChild("designName") || snap.val().designName !== designName) {
                     setAlertStatus(true);
                     setFeedbackVariant("warning");
-                    setAlertMessage("Hold on! didn't you already have chosen a theme?, kindly visit the pages tab or try another theme to customize")
+                    setAlertMessage("You already have chosen a theme, but theme is updated.")
                     setAnchorEl(null);    
+                    
+                     const pushThemeSelection = {
+                        designName: designName
+                    }
+                    dbRefWithKey.update(pushThemeSelection)
+                    
                     return true;  
             } else {
                      const pushThemeSelection = {

@@ -401,7 +401,8 @@ function Service() {
             setDaysBeforeAppointError("Please input positive numbers only")
             setEnableConstraingtBtn(false)
             setDaysBeforeErrorAppointState(true)
-        } else {
+        } 
+        else {
             setDaysBeforeCancelError("")
             setDaysBeforeErrorAppointState(false)
             setEnableConstraingtBtn(true)
@@ -415,7 +416,12 @@ function Service() {
             setDaysBeforeCancelError("Please input numbers only")
             setEnableConstraingtBtn(false)
             setDaysBeforeCancelErrorState(true)
-        } else {
+        } else if (parseInt(daysBeforeCancel, 10) >= parseInt(daysBeforeAppoint)  ) {
+            setDaysBeforeCancelError("This input should'nt be equal or greater than days before appointment")
+            setEnableConstraingtBtn(false)
+            setDaysBeforeCancelErrorState(true)
+         }
+        else {
             setDaysBeforeCancelError("")
             setDaysBeforeCancelErrorState(false)
   

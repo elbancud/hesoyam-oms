@@ -5,6 +5,8 @@ import "../style/style.css";
 import firebase from 'firebase';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
+import Skeleton from '@mui/material/Skeleton';
+
 function SeatArrangement() {
    
     const [seatArray, setSeatArray] = useState();
@@ -38,18 +40,11 @@ function SeatArrangement() {
     return (
         <div>
          
-                <div className="pad-y-sm">
-                    <div className="flex-flow-wrap-x">
-                        <div className="">
-                            <Tooltip title="altar">
-                                    <Button variant="outlined" disabled="true" id="altar" disableElevation>
-                                            Altar
-                                    </Button>
-                            </Tooltip>
-                        </div>
-                    </div>
+                <div className="">
+                 
                     <div className="flex-flow-wrap-x ">
                         {seatArray ? seatArray.map((data, parentIndex) => {
+                            if(parentIndex === 0) {
                             return(
                                 <div className="m-xy-md" key={data.id}>
                                     {
@@ -97,8 +92,8 @@ function SeatArrangement() {
                                 </div>
                                 
                             )
-
-                            }) : "No registered rows, groups , and columns yet "}
+                            }           
+                            }) : <Skeleton animation="wave"  variant="rectangular" width={500} height={250} />}
                     </div>
                 </div>
         

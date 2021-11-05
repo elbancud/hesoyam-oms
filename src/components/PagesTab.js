@@ -4,7 +4,11 @@ import design2 from '../images/Design2-SerifFlex.JPG';
 import design3 from '../images/Design3-DarkModeSerif.JPG';
 import { Button } from "@material-ui/core";
 import { useHistory } from 'react-router-dom';
+
 import Design1 from './Design1';
+import Design2 from './Design2';
+import Design3 from './Design3';
+
 import firebase from '../firebase';
 import EditIcon from '@material-ui/icons/Edit';
 import AccordionSideTab from './AccordionSideTab';
@@ -99,15 +103,15 @@ function PageTab() {
             </Container>
         
             <main className={customizeTheme ? "display-block" : "display-none"}>
-                <div className="flex-default-align-default  pad-x-sm">
+                <div className="flex-flow-wrap-x pad-x-sm">
                     <div className="position-relative box-default-width">
-                        <div className=" position-fixed-top box-default-width position-absolute"> 
+                        <div className="  box-default-width "> 
                             <AccordionSideTab/>
                         </div>
                     </div>
                     <Container>
                         <div>
-                            {activatePage === "design1"? <Design1/> : ""}
+                            {activatePage === "design1"? <Design1/> : activatePage === "design2"? <Design2/> : <Design3/>}
                         </div>
 
                     </Container>

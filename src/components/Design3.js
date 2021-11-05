@@ -12,6 +12,7 @@ import Container from "@material-ui/core/Container";
 import ReactPlayer from "react-player"
 
 function Design1() {
+    
     const [siteTitle, setSiteTitle] = useState("");
     const [headerTitle, setHeaderTitle] = useState("");
     const [subHeaderTitle, setSubHeaderTitle] = useState("");
@@ -47,11 +48,11 @@ function Design1() {
                     dbLive.once("value", (snap) => {
                         setLiveUrl(snap.val().liveUrl)
                         // alert(liveUrl)
-                        if (snap.val().timestamp !== new Date()) {
-                            setLiveUrl("")
-                        } else {
-                            setLiveUrl(snap.val().liveUrl)
-                        }
+                        // if (new Date(snap.val().timestamp).getDay() !== (new Date().getDay() + 1)) {
+                        //     setLiveUrl("")
+                        // } else {
+                        //     setLiveUrl(snap.val().liveUrl)
+                        // }
 
                     })
                     
@@ -69,6 +70,7 @@ function Design1() {
 
         }
     }
+
     function getStarted() {
         history.push("/genWebLogin")
     }
@@ -188,9 +190,9 @@ function Design1() {
                     <div className="align-text-center">
                         <p><b>News, Events, and Announcements</b></p>
                     </div>
-                    <div className=" pad-y-md carousel">
+                    {/* <div className=" pad-y-md carousel">
                         <Carousel />
-                    </div>
+                    </div> */}
 
                 </main>
                 
