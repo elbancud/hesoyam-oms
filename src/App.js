@@ -5,6 +5,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import { CookiesProvider } from "react-cookie";
 import RingLoader from "react-spinners/RingLoader";
+import dashboardWebView from "./components/DashboardWebView"
 
 const Design1 = lazy(() => import('./components/Design1'))
 const EmailForForgetPass = lazy(() => import('./components/EmailForForgotPass'))
@@ -26,7 +27,6 @@ const Design3 = lazy(() => import('./components/Design3'))
 const NewPassword = lazy(() => import('./components/NewPassword'))
 const Design2 = lazy(() => import('./components/Design2'))
 const PageNotFound = lazy(() => import('./components/PageNotFound'))
-const DashboardWebView = lazy(() => import('./components/DashboardWebView'))
 
 function App() {
 
@@ -118,7 +118,7 @@ function App() {
               </Route>
 
               <Route path="/dashboardWebView" exact >
-                <DashboardWebView/>
+                <dashboardWebView/>
               </Route>
                {/* <Route component = {PageNotFound}>
               </Route>  */}
