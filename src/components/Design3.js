@@ -10,6 +10,7 @@ import UserProfile from './UserProfile';
 import Carousel from './Carousel'
 import Container from "@material-ui/core/Container";
 import ReactPlayer from "react-player"
+import Skeleton from '@mui/material/Skeleton';
 
 function Design1() {
     
@@ -26,6 +27,10 @@ function Design1() {
     const [activeCookies, setActiveCookes] = useState(false)
     const [liveUrl, setLiveUrl] = useState("")
     // const [activatedPage, setActivatePage] = useState("")
+
+    const [contact1, setContact1] = useState();
+    const [contact2, setContact2] = useState();
+    const [contact3, setContact3] = useState();
     useEffect(() => {
                     const dbRef = firebase.database().ref("generated-data");
                         dbRef.on('value', snapshot => {
@@ -37,6 +42,10 @@ function Design1() {
                                     setLocation(snapshot.val().savedLocation)
                                     setSiteEmailData(snapshot.val().savedSiteEmail)
                                     setNumber(snapshot.val().savedNumber)
+                                    
+                                     setContact1(snapshot.val().contactPerson1)
+                                    setContact2(snapshot.val().contactPerson2)
+                                    setContact3(snapshot.val().contactPerson3)
                           
                         })
                         
@@ -46,13 +55,12 @@ function Design1() {
                     
                     const dbLive = firebase.database().ref("liveUrl")
                     dbLive.once("value", (snap) => {
-                        setLiveUrl(snap.val().liveUrl)
-                        // alert(liveUrl)
-                        // if (new Date(snap.val().timestamp).getDay() !== (new Date().getDay() + 1)) {
-                        //     setLiveUrl("")
-                        // } else {
-                        //     setLiveUrl(snap.val().liveUrl)
-                        // }
+                        if (new Date(snap.val().timestamp).getDay() !== (new Date().getDay() + 1)) {
+                             setLiveUrl(snap.val().liveUrl)
+                        } else {
+                            setLiveUrl("")
+
+                        }
 
                     })
                     
@@ -101,7 +109,7 @@ function Design1() {
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
                                 <Link to="/design3">
-                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
+                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle }</h3>
                                 </Link>
                             </div>
                         </div>
@@ -151,9 +159,9 @@ function Design1() {
                 
                     <div className="align-text-center pad-y-lg">
                         <Container>
-                            <h1  id ="dynamic-h1"> {typeof(headerTitle) === 'undefined'? "To God be the glory": headerTitle}</h1>
+                            <h1  id ="dynamic-h1"> {typeof(headerTitle) === 'undefined'? "To God be the glory": headerTitle ? headerTitle : <Skeleton animation="wave"  variant="rectangular" width='100%' height={100} sx={{ borderRadius: '5px', bgcolor:'grey.900'}} />}</h1>
                             
-                            <p className="pad-y-md">{typeof(subHeaderTitle) === 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum venenatis nunc, non gravida ligula sodales commodo. Sed lectus mauris, mollis scelerisque diam vel": subHeaderTitle}</p>
+                            <p className="pad-y-md">{typeof(subHeaderTitle) === 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum venenatis nunc, non gravida ligula sodales commodo. Sed lectus mauris, mollis scelerisque diam vel": subHeaderTitle ? subHeaderTitle : <Skeleton animation="wave"  variant="rectangular" width='100%' height={100} sx={{ borderRadius: '5px', bgcolor:'grey.900'}} />}</p>
                             <div className="pad-y-sm">
                                 {
                                 activeCookies? <div></div>:  
@@ -190,9 +198,9 @@ function Design1() {
                     <div className="align-text-center">
                         <p><b>News, Events, and Announcements</b></p>
                     </div>
-                    {/* <div className=" pad-y-md carousel">
+                    <div className=" pad-y-md carousel">
                         <Carousel />
-                    </div> */}
+                    </div>
 
                 </main>
                 
@@ -209,12 +217,12 @@ function Design1() {
                                         <h2 >
                                             
                                             
-                                            { typeof(aboutUsMain) === 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipi scing elit. VivamLorem ipsum dolor sit amet, consectetur adipiscing ": aboutUsMain}
+                                            { typeof(aboutUsMain) === 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipi scing elit. VivamLorem ipsum dolor sit amet, consectetur adipiscing ": aboutUsMain ? aboutUsMain : <Skeleton animation="wave"  variant="rectangular" width='100%' height={100} sx={{ borderRadius: '5px', bgcolor:'grey.900'}} />}
                                         </h2>
                                     </div>
                                     
                                     
-                                    <p className="pad-y-sm"> { typeof(aboutUsSub) === 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipi scing elit. VivamLorem ipsum dolor sit amet, consectetur adipiscing ": aboutUsSub}</p>
+                                    <p className="pad-y-sm"> { typeof(aboutUsSub) === 'undefined'? "Lorem ipsum dolor sit amet, consectetur adipi scing elit. VivamLorem ipsum dolor sit amet, consectetur adipiscing ": aboutUsSub ? aboutUsSub : <Skeleton animation="wave"  variant="rectangular" width='100%' height={100} sx={{ borderRadius: '5px', bgcolor:'grey.900'}} /> }</p>
                                     
                                 </div>
                             
@@ -234,21 +242,23 @@ function Design1() {
 
                             <div className="box-default-width  ">
                                 <h3>Location</h3>
-                                <p className="pad-y-sm"> { typeof(location) === 'undefined'? "Novaliches Chapter: #123123 St. Anthony St. Brgy. Holy Spirit Quezon City": location}</p>
+                                <p className="pad-y-sm"> { typeof(location) === 'undefined'? "Novaliches Chapter: #123123 St. Anthony St. Brgy. Holy Spirit Quezon City": location ? location : <Skeleton animation="wave"  variant="rectangular" width='100%' height={100} sx={{ borderRadius: '5px', bgcolor:'grey.900'}} /> }</p>
                             
                             </div>
 
                             <div className="box-default-width  ">
                                 <h3>Contacts</h3>
-                                  <p className="pad-y-sm"> { typeof(number) === 'undefined'? "#12345678910": number}</p>
-                                  <p className="pad-y-sm"> { typeof(siteEmailData) === 'undefined'? "example@gmailcom": siteEmailData}</p>
+                                  <p className="pad-y-sm"> { typeof(number) === 'undefined'? "#12345678910": number ? number : <Skeleton animation="wave"  variant="rectangular" width='100%' height={50} sx={{ borderRadius: '5px', bgcolor:'grey.900'}} /> }</p>
+                                  <p className="pad-y-sm"> { typeof(siteEmailData) === 'undefined'? "example@gmailcom": siteEmailData ? siteEmailData : <Skeleton animation="wave"  variant="rectangular" width='100%' height={50} sx={{ borderRadius: '5px', bgcolor:'grey.900'}} /> }</p>
                             </div>
                            
                             <div className="box-default-width ">
-                                <h3>Contact Personel</h3>
-                                <p>Surname, First Name</p>
-                                <p>Surname, First Name</p>
-                                <p>Surname, First Name</p>
+                                <h3>Contacts Personnel</h3>
+
+                                <p className="pad-y-sm"> { typeof(contact1) === 'undefined'? "example@gmail.com": contact1 ? contact1 : <Skeleton animation="wave"  variant="rectangular" width='100%' height={50} sx={{ borderRadius: '5px', bgcolor:'grey.900'}} /> }</p>
+                                <p className="pad-y-sm"> { typeof(contact2) === 'undefined'? "#12345678910": contact2 ? contact2 : <Skeleton animation="wave"  variant="rectangular" width='100%' height={50} sx={{ borderRadius: '5px', bgcolor:'grey.900'}} /> }</p>
+                                <p className="pad-y-sm"> { typeof(contact3) === 'undefined'? "Juan Dela Cruz": contact3 ? contact3 : <Skeleton animation="wave"  variant="rectangular" width='100%' height={50} sx={{ borderRadius: '5px', bgcolor:'grey.900'}} /> }</p>
+
                             
                             </div>
                         </div>

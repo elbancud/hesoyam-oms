@@ -100,7 +100,7 @@ b {
 }
 
 .secondary-color-text {
-  color: #960071;
+  color: #960071 !important;
 }
 
 .primary-color {
@@ -141,6 +141,16 @@ b {
 .font-light h4,
 .font-light li {
   color: #f1f1f1;
+}
+
+#font-dark h1,
+#font-dark h2,
+#font-dark p,
+#font-dark h3,
+#font-dark h4,
+#font-dark li {
+  color: #271b4b !important;
+  line-height: 2;
 }
 
 .error-red {
@@ -644,6 +654,18 @@ b {
   min-width: 200px !important;
 }
 
+.width-70 {
+  max-width: 70%;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.shadow-default {
+  -webkit-box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+
 .box-default-width {
   max-width: 400px;
 }
@@ -661,7 +683,12 @@ b {
 }
 
 .box-default-width-accordion {
-  max-width: 300px !important;
+  width: 300px;
+}
+
+.accordion-btn {
+  left: 7%;
+  top: 0.7rem;
 }
 
 .aside-labels {
@@ -932,6 +959,13 @@ header .burger-nav-admin {
 
 #btn-error-contained {
   background-color: #c42e2e !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  color: #fff;
+}
+
+#btn-disabled-contained {
+  background-color: #e4e4e4 !important;
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
   color: #fff;
@@ -1294,6 +1328,13 @@ footer li {
   }
   .m-xy-lg {
     margin: 1.5rem 0;
+  }
+}
+
+@media screen and (max-width: 1660px) {
+  .box-default-width-accordion {
+    width: 90%;
+    margin: 0 auto;
   }
 }
 /*# sourceMappingURL=style.css.map */

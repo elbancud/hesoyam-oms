@@ -3,7 +3,6 @@ import "../style/style.css";
 import "../style/themes.css"
 import { Button } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
-import uiBanner from "../images/ui-oms.png";
 import firebase from 'firebase';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
@@ -13,10 +12,11 @@ import {  Link, useHistory} from 'react-router-dom';
 import TopNavGenWeb from './TopNavGenWeb'
 import { useCookies } from 'react-cookie';
 import UserProfile from './UserProfile';
+import Skeleton from '@mui/material/Skeleton';
 
 export default function Donate(){
   //variables
-    const history = useHistory();
+  const history = useHistory();
 
   const [loadingState, setLoadingState] = useState(false)
   const [alertStatus, setAlertStatus] = useState(false);
@@ -34,6 +34,7 @@ export default function Donate(){
   const [cookies] = useCookies(['user']);
   const [activeCookies, setActiveCookes] = useState(false)
   const [qrArray, setQrArray] = useState('')
+    const [activeDesign, setActiveDesign] = useState("")
   
 
   function Alert(props) {
@@ -146,10 +147,14 @@ export default function Donate(){
                           const snap = snapshot.val().eWalletLink;
                               setQrArray(snap)
                       });
-       
+       const dbTheme = firebase.database().ref("themeChosen")
+            dbTheme.on('value', snap => {
+                setActiveDesign(snap.val().designName)      
+            })
     }, []);
   return (
-      <div>
+      <div className={activeDesign === "design1" ? "design1-properties" : activeDesign === "design2" ? "design2-properties" : "design3-properties"}>
+
      {
                 loadingState? <div className="middle-fix" >
                 <div className="flex-default-center-xy">
@@ -167,31 +172,24 @@ export default function Donate(){
                         <div className="logo flex-default">
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
-                                <Link to="/design1">
+                                <Link to={activeDesign === "design1" ? "/design1" : activeDesign === "design2" ? "/design2" :"/design3"}>
                                     <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
                                 </Link>
                             </div>
                         </div>
-                        <div className="nav-desktop-active">
+                        <div className="nav-desktop-active" id={activeDesign === "design3" ? "font-dark" : ""}>
                             <ul className="flex-default">
-                                  <li>
-                                       <Link to="/prayerWall">
+                                  <li onClick={prayerWall}>
                                             Prayer Wall
-                                        </Link>
                                     </li>
-                                   
-                                    <li>
-                                       <Link to="/donationPage">
+                                    <li onClick = {donate}>
                                             Donate
-                                        </Link>
                                     </li>
                                     <li onClick={handleServiceRedirect}>
                                             Services
                                     </li>
-                                    <li>
-                                       <Link to="/userPodcast">
+                                    <li onClick={pod}>
                                             Podcast
-                                        </Link>
                                     </li>
 
                             </ul>
@@ -229,7 +227,7 @@ export default function Donate(){
         
       <div className="">
         <main className="full-height flex-flow-wrap ">
-          <div className="  pad-xy-md width-sm primary-bg-color-off-white full-height left-banner position-relative">
+          <div className="  pad-xy-md width-sm primary-bg-color  full-height left-banner position-relative">
               <nav className="pad-y-sm pad-y-md ">
                 <div className=" align-text-left pad-xy-md ">
                 
@@ -237,20 +235,31 @@ export default function Donate(){
                     <p>Good will come to those who are generous and lend freely, who conduct their affairs with justice.</p>                    
                 </div>
               </nav>
-              <img src={qrArray} className="qr" alt="qr"/>
-              {/* <div className="graphics-offset">
-                  <img src={qrArray} className="rotate" alt="qr"/>
-                {
-                  qrArray ?
-                  :
-                  <img src={uiBanner} className="rotate" alt="Church"></img>
-                }
-              </div> */}
+              {
+                qrArray? 
+                <img src={qrArray} className="qr" alt="qr"/> : <Skeleton animation="wave"  variant="rectangular" width={500} height={400} sx={{ borderRadius: '5px', bgcolor: 'grey.900' }} />
+              }
+           
           </div>
           <div className="full-width">
+            
             <div className="pad-xy-sm width-sm ">
+              <div >
                 
-                <div className="subtitle ">
+                
+              </div>
+              <div className="subtitle" id={activeDesign === "design3" ? "font-dark" : ""}>
+                  <header className="">
+                    <div className="app-name m-b-md ">
+                          <nav>
+                              <div className="burger-nav ">
+                                  <img src={qrArray} className="qr-100 grid-place-center" alt="qr"/>
+                              </div>
+                            
+                          </nav>
+
+                    </div>
+                </header>
                   <h3>Donate</h3>     
                   <p>We are grateful for your donation, it will help us to further our goals. Do you mind if we get your information just the basic ones. We will make sure your identity is secured. </p>
                 </div>

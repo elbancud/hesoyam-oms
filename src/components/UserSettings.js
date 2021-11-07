@@ -19,6 +19,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { auth } from '../firebase';
+import TopNavGenWeb from './TopNavGenWeb'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,6 +54,8 @@ function a11yProps(index) {
 }
 
 export default function UserSettings() {
+  const [activeCookies, setActiveCookes] = useState(false)
+
     const [value, setValue] = React.useState(0);
     const [cookies, setCookies] = useCookies(['user'])
     const [siteTitle, setSiteTitle] = useState("")
@@ -88,9 +91,21 @@ export default function UserSettings() {
     const [passwordConfirmErrorState, setPasswordConfirmErrorState] = useState(false);
     const [showPasswordState, setShowPasswordState] = useState(false);
     const [passwordEnable, setPasswordEnable] = useState(true);
+    const [activeDesign, setActiveDesign] = useState("")
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    function prayerWall() {
+        history.push("/prayerWall")
+    }
+    
+    function donate() {
+        history.push("/donationPage")
+    }
+    
+    function pod() {
+        history.push("/userPodcast")
+    }
     function handleServiceRedirect() {
         if (cookies.UserLoginKey) {
             history.push("/userService")
@@ -106,7 +121,9 @@ export default function UserSettings() {
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-    
+      function getStarted() {
+        history.push("/genWebLogin")
+    }
     const handleCloseAlert = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -115,18 +132,19 @@ export default function UserSettings() {
         setAlertStatus(false);
     };
     useEffect(() => {
-        const dbRef = firebase.database().ref("account-details");
-        dbRef.on('value', snapshot => {
-            snapshot.forEach(snap => {
-                              
-                if (snap.val().email === cookies.User) {
-                    setSiteTitle(snap.val().savedSiteTitle)
-                }
-            });
-        })
+        const dbRef = firebase.database().ref("generated-data");
+                        dbRef.on('value', snapshot => {
+
+                                    setSiteTitle(snapshot.val().savedSiteTitle)
+                            });
         setUsernameInput(cookies.UserFirstName)
         setEmailInput(cookies.UserEmail)
         setLastNameInput(cookies.UserLastName)
+
+        const dbTheme = firebase.database().ref("themeChosen")
+            dbTheme.on('value', snap => {
+                setActiveDesign(snap.val().designName)      
+            })
     }, []);
     const setTextFieldEnable = () => {
         setTextField(false)
@@ -267,45 +285,52 @@ export default function UserSettings() {
     <div className="position-relative">
         <div className="design1-properties">
               <div className="position-absolute " id="primary-bg-color">
-                  
             </div>
         </div>
         <Container>
             <header>
-                 <nav className="pad-y-sm flex-space-between">
+                 <nav className="pad-y-md flex-space-between">
                         <div className="logo flex-default">
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
-                                <Link to="/design1">
-                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
-                                    
+                                <Link to="/design3">
+                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle }</h3>
                                 </Link>
                             </div>
                         </div>
                         <div className="nav-desktop-active">
                             <ul className="flex-default">
-                                  <li>
-                                       <Link to="/prayerWall">
-                                            Prayer Wall
-                                        </Link>
-                                    </li>
-                                    
-                                    <li>
-                                       <Link to="/donate">
-                                            Donate
-                                        </Link>
-                                    </li>
-                                    <li onClick={handleServiceRedirect}>
-                                            Services
-                                    </li>
+                                            <li onClick={prayerWall}>
+                                                    Prayer Wall
+                                            </li>
+                                            <li onClick = {donate}>
+                                                    Donate
+                                            </li>
+                                            <li onClick={handleServiceRedirect}>
+                                                    Services
+                                            </li>
+                                            <li onClick={pod}>
+                                                    Podcast
+                                            </li>
 
                             </ul>
                         </div>
-                        <div> <UserProfile /></div>
-              
-                     
-                      
+                        <div className="nav-desktop-active">
+                          {
+                              <UserProfile />
+                          }
+                        </div>
+                        <div className="burger-nav ">
+                            <div className="flex-default">
+                                <div className="pad-x-sm">
+                                    <UserProfile/>
+                                </div>
+                                <TopNavGenWeb></TopNavGenWeb>
+                                
+                            </div>
+                        </div>
                     </nav>
+
             </header>
         
             <Box

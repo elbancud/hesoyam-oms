@@ -17,6 +17,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 export default function AccountMenu() {
+
     const [openLogoutModal, setOpenLogoutModal] = useState(false);
     const history = useHistory();
     const [firstName, setFirstName] = useState("");
@@ -24,7 +25,10 @@ export default function AccountMenu() {
     const [email, setEmail] = useState("");
     const [cookies,setCookies, removeCookie] = useCookies(["user"]);
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [activeDesign, setActiveDesign] = useState("")
+    
     const open = Boolean(anchorEl);
+    
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -37,6 +41,10 @@ export default function AccountMenu() {
               setLastName(cookies.UserLastName ? cookies.UserLastName: "")
               setEmail(cookies.UserEmail ? cookies.UserEmail : "")
 
+            const dbTheme = firebase.database().ref("themeChosen")
+            dbTheme.on('value', snap => {
+                setActiveDesign(snap.val().designName)      
+            })
             
     }, []);
 
@@ -86,7 +94,16 @@ export default function AccountMenu() {
             removeCookie("UserEmail");
             
             setOpenLogoutModal(false)
-            history.push("/design1")
+           if (activeDesign === "design1") {
+                history.push("/design1")
+                
+              } else if (activeDesign === "design2") {
+                history.push("/design2")
+                
+              } else {
+                history.push("/design3")
+                
+              }
             window.location.reload();
         })
    }

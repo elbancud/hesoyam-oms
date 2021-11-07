@@ -18,6 +18,7 @@ function UserPodcast() {
     const [cookies] = useCookies(['user']);
     const [activeCookies, setActiveCookes] = useState(false)
     const [podcastArray, setPodcastArray] = useState()
+    const [activeDesign, setActiveDesign] = useState("")
     
     useEffect(() => {
                      const dbRef = firebase.database().ref("generated-data");
@@ -37,6 +38,10 @@ function UserPodcast() {
                 }
                 setPodcastArray(podcastArray)
         });
+          const dbTheme = firebase.database().ref("themeChosen")
+            dbTheme.on('value', snap => {
+            })
+
         
     }, []);
     function getStarted() {
@@ -72,7 +77,8 @@ function UserPodcast() {
                                 <div className="logo flex-default">
                                     <div className="icon"></div>
                                     <div className="app-name cursor-pointer">
-                                        <Link to="/design1">
+                                        <Link to={activeDesign === "design1" ? "/design1" : activeDesign === "design2" ? "/design2" :"/design3"}>
+
                                             <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
                                             
                                         </Link>
@@ -132,7 +138,7 @@ function UserPodcast() {
                                  <div key={data.id} className="m-xy-md">
                                             
                                     <div  className="box width-sm ">
-                                                <div className="pad-xy-sm">
+                                                <div className="pad-xy-sm" id="font-dark">
                                                     <b><h4 className="m-r-sm">{data.audioTitle}</h4></b>
 
                                                     <div>

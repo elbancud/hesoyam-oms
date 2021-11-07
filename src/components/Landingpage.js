@@ -8,7 +8,7 @@ import work from "../images/Work.gif"
 import seat from "../images/Seat.gif"
 import gift from "../images/Gift.gif"
 import {useHistory, Link} from "react-router-dom";
-
+import demo from "../images/Hesoyam_DEMO.gif"
 function Landingpage() {
 
   const history = useHistory();
@@ -59,16 +59,18 @@ function Landingpage() {
               <p className="pad-y-sm">
                 How awesome would it be to generate a website and automate the church operation system within seconds?.  We are mirrored to your church activities, but here we take it to another step. 
               </p>
-              <Button
-                onClick={redirectToLogin}
-                variant="contained"
-                className="btn-large primary-color"
-                color="secondary"
-                size="large"
-                id = "btn-large-primary"
-              >
-                Explore
-              </Button>
+              <a href="#features">
+                <Button
+                  variant="contained"
+                  className="btn-large primary-color"
+                  color="secondary"
+                  size="large"
+                  id = "btn-large-primary"
+                >
+                  Explore
+                </Button>
+
+              </a>
             </div>
             {/* <div className="banner-graphics">
             </div> */}
@@ -141,6 +143,9 @@ function Landingpage() {
             What does it take to generate your church online? Literally a few
             clicks away
           </p>
+          <div className= "m-y-md ">
+            <img src={demo} className="width-70 shadow-default" alt="operating management system"></img>
+          </div>
         </div>
       </main>
       {/* egistration sections */}
@@ -157,7 +162,8 @@ function Landingpage() {
                       className="btn-large primary-color"
                       color="secondary"
                       size="large"
-                      id = "btn-large-primary"
+                      id="btn-large-primary"
+                      onClick={redirectToLogin}
                     >
                       Yes, Let's go!
             </Button>

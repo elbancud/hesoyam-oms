@@ -244,7 +244,7 @@ function Themes() {
                                     </Button>
                                 </div>
                             </div>
-                                <Button
+                                {/* <Button
                                         id="btn-large-secondary"    
                                         variant="contained"
                                         className="btn-large primary-color"
@@ -252,7 +252,10 @@ function Themes() {
                                         size="large"
                                     >
                                         Try and customize
-                                    </Button>
+                                    </Button> */}
+                            <div>
+                                
+                            </div>
                             </div>
                             <div className="tertiary-color ">
                                 <div  className={webSizeCustom}>

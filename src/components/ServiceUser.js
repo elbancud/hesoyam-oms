@@ -22,6 +22,7 @@ function ServiceUser() {
     const [cookies,setCookies] = useCookies(['user']);
     const [activeCookies, setActiveCookes] = useState(false)
     const [serviceArray, setServiceArray] = useState()
+    const [activeDesign, setActiveDesign] = useState("")
     
     useEffect(() => {
                     const dbRef = firebase.database().ref("generated-data");
@@ -42,6 +43,10 @@ function ServiceUser() {
         if(cookies.UserLoginKey) {
             setActiveCookes(true)
         }
+          const dbTheme = firebase.database().ref("themeChosen")
+            dbTheme.on('value', snap => {
+                setActiveDesign(snap.val().designName)      
+            })
     }, []);
     function getStarted() {
         history.push("/genWebLogin")
@@ -80,7 +85,8 @@ function ServiceUser() {
                         <div className="logo flex-default">
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
-                                <Link to="/design1">
+                                <Link to={activeDesign === "design1" ? "/design1" : activeDesign === "design2" ? "/design2" :"/design3"}>
+
                                     <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
                                     
                                 </Link>

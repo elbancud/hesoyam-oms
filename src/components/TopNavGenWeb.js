@@ -91,9 +91,7 @@ export default function TemporaryDrawer() {
                                     <li onClick={pod} className="cursor-pointer">
                                             Podcast
                                     </li>
-                                    <li onClick={getStarted} className="cursor-pointer">
-                                            Get started
-                                    </li>
+                                   
                 </ul>
             </div>
         </div>
@@ -105,7 +103,7 @@ export default function TemporaryDrawer() {
             {['top'].map((anchor) => (
                 <React.Fragment key={anchor}>
                     <Button onClick={toggleDrawer(anchor, true)}>
-                        <MenuIcon color={activePage === "design1"? "primary": activePage === "design2" ? "primary" : yellow[400] }/>
+                        <MenuIcon sx={{ color: 'grey.900' }}/>
                     </Button>
                     <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
                         {list(anchor)}

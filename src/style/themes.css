@@ -67,6 +67,10 @@ img {
   font-family: "Inter", sans-serif;
 }
 
+.design1-properties .secondary-color-text {
+  color: #960071 !important;
+}
+
 .design1-properties .side-border-left {
   border-left: 5px solid #a5d8ff;
 }
@@ -155,6 +159,10 @@ img {
 .design3-properties {
   font-family: "Playfair Display SC", serif;
   color: #ffffff !important;
+}
+
+.design3-properties .secondary-color-text {
+  color: #960071 !important;
 }
 
 .design3-properties p {

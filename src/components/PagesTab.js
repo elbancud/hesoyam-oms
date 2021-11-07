@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import AccordionSideTab from './AccordionSideTab';
 import Container from "@material-ui/core/Container";
 import ForwardIcon from '@mui/icons-material/Forward';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 
 function PageTab() {
@@ -42,6 +43,10 @@ function PageTab() {
     }
     function handleCustomize() {
         setCustomizeTheme(true);
+    }
+    function closeAccordion() {
+                setCustomizeTheme(false);
+
     }
     return (
         <div>
@@ -104,8 +109,18 @@ function PageTab() {
         
             <main className={customizeTheme ? "display-block" : "display-none"}>
                 <div className="flex-flow-wrap-x pad-x-sm">
-                    <div className="position-relative box-default-width">
-                        <div className="  box-default-width "> 
+                    <div className="position-relative m-y-sm">
+                        <div className="  ">
+                            <div className="position-absolute accordion-btn ">
+                                <Button
+                                    className="btn-large primary-color"
+                                    color="default"
+                                    size="large"
+                                    onClick={closeAccordion}
+                                >
+                                    <HighlightOffIcon />
+                                </Button>
+                            </div>
                             <AccordionSideTab/>
                         </div>
                     </div>

@@ -42,6 +42,8 @@ function UserAppointment({ service, image }) {
     const [currentTime, setCurrentTime] = useState("")
     const [currentDate, setCurrentDate] = useState("")
     const [daysBeforecancel, setDaysBeforeCancel] = useState(0)
+    const [update, setUpdate] = useState(false)
+    const [seatDb, setSeatDb] = useState("")
 
     const handleClose = () => {
         setOpen(false);
@@ -63,7 +65,7 @@ function UserAppointment({ service, image }) {
     //open dialog box
     //set variables depending on table data
 
-    function handleCancel(id, service, date, time) {
+    function handleCancel(id, service, date, time, seatDb) {
 
         let titleHanlder = service + " " + cookies.UserLastName + " " + cookies.UserFirstName
         let fTime = new Date(time).getHours() + ":" + new Date(time).getMinutes()
@@ -72,7 +74,7 @@ function UserAppointment({ service, image }) {
         setCurrentTime(fTime)
         setServiceDetails(titleHanlder)
         setCurrentDate(date)
-
+        setSeatDb(seatDb)
         const dbService = firebase.database().ref("services/" + service);
         
         dbService.once("value").then(function (snapshot) {
@@ -84,7 +86,16 @@ function UserAppointment({ service, image }) {
         setOpen(true);
 
     }
-
+    function remove() {
+        const db = firebase.database().ref("user-account-details/" + cookies.UserLoginKey+"/appointments/" + currentId)
+        db.remove().then(() => {
+                    setAlertStatus(true);
+                    setFeedbackVariant("success");
+                    setAlertMessage("Success! appointment cancelled.")
+        })
+        setUpdate(!update)
+        setOpen(false)
+    }
     function cancelAppointment() {
 
         let fCurrentDate = new Date(currentDate)
@@ -100,27 +111,30 @@ function UserAppointment({ service, image }) {
 
             finalDate = parseInt(fCurrentDate.getDate()) - parseInt(daysBeforecancel,10)
             if (finalDate < 0) {
-
                 //appointment minus days before cancellation
                 //minusing todays month
 
                 finalDate = today - Math.abs(finalDate)
                 fMonth -= 1;
                 if (today < finalDate  && fMonth === monthToday) {
-                    alert("Cancellation period of " + daysBeforecancel + " days is already over. Please contact the admin via email or contact number for further actions");
-
+                    setAlertStatus(true);
+                    setFeedbackVariant("error");
+                    setAlertMessage("Cancellation period of " + daysBeforecancel + " days is already over. Please contact the admin via email or contact number for further actions")
                 } else {
-                    alert("Good to go")
+                    remove();
 
                 }
 
             } else {
 
                 if (finalDate < today) {
-                    alert("You're illegible to cancel this appointment")
-                    
+                    setAlertStatus(true);
+                    setFeedbackVariant("error");
+                    setAlertMessage("Cancellation period of " + daysBeforecancel + " days is already over. Please contact the admin via email or contact number for further actions")
+
                 } else {
-                    alert("Good to go")
+                    remove();
+
                 }
             }
         
@@ -132,10 +146,12 @@ function UserAppointment({ service, image }) {
                 finalDate = fCurrentDate.getDay()
                 
                 if (monthToday < fMonth ||  today <= finalDate ) {
-                    alert("Cancellation period of " + daysBeforecancel + " days is already over. Please contact the admin via email or contact number for further actions");
+                    setAlertStatus(true);
+                    setFeedbackVariant("error");
+                    setAlertMessage("Cancellation period of " + daysBeforecancel + " days is already over. Please contact the admin via email or contact number for further actions")
 
                 } else {
-                    alert("Good to go")
+                   remove();
 
                 }
 
@@ -168,7 +184,7 @@ function UserAppointment({ service, image }) {
                 setUserDetails(userDetails)
         })
        
-    }, []);
+    }, [update]);
  
     function prayerWall() {
         history.push("/prayerWall")
@@ -268,6 +284,20 @@ function UserAppointment({ service, image }) {
                         <TableBody>
                             {
                             userDetails ? userDetails.map((data) => {
+                                
+                              
+                                let currentDate = new Date().getDate()
+                                let currentYear = new Date().getFullYear()
+                                let currentMonth = new Date().getMonth()
+                                let appointmentDate = new Date(data.end)
+                                let btnState = false
+                                
+                                if (parseInt(currentMonth,10) <= parseInt(appointmentDate.getMonth(),10) && parseInt(currentYear,10) <= parseInt(appointmentDate.getFullYear(),10)) {
+                                    if (parseInt(currentDate, 10) < parseInt(appointmentDate.getDate(), 10)) {
+                                        btnState = true
+                                    }
+                                }
+
                                 return (
                                         <TableRow key={data.id}>
                                             
@@ -286,7 +316,7 @@ function UserAppointment({ service, image }) {
                                              </TableCell>
                                             
                                             <TableCell align="left"> 
-                                                    <Button size="small" variant="contained" id="btn-error-contained" color="error" onClick={()=> {handleCancel(data.id, data.title, data.end, data.time)}}>cancel</Button>
+                                                <Button disabled={parseInt(new Date(data.end).getFullYear(),10) <= parseInt(new Date().getFullYear(),10)  &&  parseInt(new Date(data.end).getMonth(),10) < parseInt(new Date().getMonth(),10) } size="small" variant="contained" id= { parseInt(new Date(data.end).getFullYear(),10) <= parseInt(new Date().getFullYear(),10)  &&  parseInt(new Date(data.end).getMonth(),10) < parseInt(new Date().getMonth(),10) ? "btn-disabled-contained" : "btn-error-contained"} color="success" onClick={()=> {handleCancel(data.id, data.title, data.end, data.time, data.seatDb)}}>cancel</Button>
                                              </TableCell>
                                             
                                             
@@ -329,17 +359,17 @@ function UserAppointment({ service, image }) {
             
 
             
-            {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+            {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={6000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="success">
                     {alertMessage}
                 </Alert>
             </Snackbar> :
-            feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+            feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={6000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="warning">
                     {alertMessage}
                 </Alert>
               </Snackbar> :
-             <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+             <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={6000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="error">
                    {alertMessage}
                 </Alert>

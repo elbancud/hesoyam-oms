@@ -53,6 +53,9 @@ img {
   color: #4caf50;
 }
 .design1-properties {
+  .secondary-color-text {
+    color: #960071 !important;
+  }
   .side-border-left {
     border-left: 5px solid #a5d8ff;
   }
@@ -164,6 +167,9 @@ img {
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
 
 .design3-properties {
+  .secondary-color-text {
+    color: #960071 !important;
+  }
   font-family: "Playfair Display SC", serif;
   color: #ffffff !important;
   p {

@@ -2,7 +2,6 @@ import React,{useState,useEffect} from 'react';
 import "../style/style.css";
 import { Button } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
-import uiBanner from "../images/ui-oms.png";
 import {Link, useHistory} from 'react-router-dom';
 import ErrorIcon from '@material-ui/icons/Error';
 import validator from 'validator';
@@ -15,25 +14,25 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar } from '@material-ui/core';
 import { useCookies } from 'react-cookie';
 import "../style/themes.css";
+import mtg from '../images/MTQ.png'
 
 
 const GeneratedWebRegistration = (props) => {
-      const [siteTitle, setSiteTitle] = useState("");
-      const [activatePage, setActivatePage] = useState("");
-      const history = useHistory();
+    const [activatePage, setActivatePage] = useState("");
+    const history = useHistory();
+  const [activeDesign, setActiveDesign] = useState("")
+
     useEffect(() => {
-                    const dbRef = firebase.database().ref("account-details");
-                        dbRef.on('value', snapshot => {
-                            snapshot.forEach(snap => {
-                                if (snap.val().email === cookies.User) {
-                                    setSiteTitle(snap.val().savedSiteTitle)
-                                    
-                                }
-                                 if (snap.hasChild("designName")) {
-                                    setActivatePage(snapshot.val().designName);
-                                }
-                            });
+                   
+                      const dbRefGen = firebase.database().ref("generated-data");
+                        dbRefGen.on('value', snapshot => {
+                                    setSiteTitle(snapshot.val().savedSiteTitle)
+                                   
                         })
+                        const dbTheme = firebase.database().ref("themeChosen")
+            dbTheme.on('value', snap => {
+                setActiveDesign(snap.val().designName)      
+            })
     }, []);
   //useRef gives acces to an id
   const [usernameInput, setUsernameInput] = useState('');
@@ -66,6 +65,7 @@ const GeneratedWebRegistration = (props) => {
 
   const [cookies, setCookie] = useCookies(['user']);
 
+  const [siteTitle, setSiteTitle] = useState("");
 
 
   function showPassword(e) {
@@ -214,22 +214,46 @@ const GeneratedWebRegistration = (props) => {
   return (
       <div >
 
+
       <main className=" full-height flex-flow-wrap">
-              <div className= "pad-xy-md width-sm  primary-bg-color-off-white full-height left-banner position-relative" >
+        <div className={activeDesign === "design1" ? "design1-properties position-relative" : activeDesign === "design2 " ? "design2-properties position-relative" : "design3-properties position-relative"}>
+
+              <div className= "pad-xy-md width-sm  primary-bg-color full-height left-banner position-relative" >
               <nav className="pad-y-sm pad-y-md ">
                 <div className=" align-text-left pad-xy-md ">
                     <div className="app-name align-text-center">
-                          <h3 className="secondary-color-text">{siteTitle}</h3>
+                        <Link to={activeDesign === "design1" ? "/design1" : activeDesign === "design2" ? "/design2" :"/design3"}>
+
+                              <h3 className="secondary-color-text cursorPointer" >{siteTitle}</h3>
+                          </Link>
+                              
                     </div>
                     <h2>Let there be light to open the eyes of the blind</h2>
                 </div>
               </nav>
-              <div className="graphics-offset">
-                <img src={uiBanner} className="rotate" alt ="login banner"></img>
+              <div className="">
+                <img src={mtg} alt ="login banner"></img>
               </div>
         </div>
+        </div>
+
         <div className="full-width">
-          <div className="pad-xy-sm width-sm ">
+            <header>
+                <div className="app-name m-b-md ">
+                        <nav>
+                            <div className="burger-nav">
+                                <Link to={activeDesign === "design1" ? "/design1" : activeDesign === "design2" ? "/design2" :"/design3"}>
+
+                                  <h3 className="secondary-color-text">{siteTitle}</h3>
+                              </Link>
+                              
+                            </div>
+                          
+                        </nav>
+
+                  </div>
+              </header>
+          <div className="pad-xy-sm width-sm " >
           <div className="subtitle pad-y-sm">
               {error &&
                   <div className="flex-default">

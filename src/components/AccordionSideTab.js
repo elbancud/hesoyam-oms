@@ -5,7 +5,6 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button } from "@material-ui/core";
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import TextField from '@material-ui/core/TextField';
 import firebase from '../firebase';
 
@@ -84,14 +83,9 @@ function AccordionSideTab() {
      <div className="box-default-width-accordion">
        <div className="modal-footer plain-white-color-bg  pad-x-sm ">
            <div className="flex-space-between pad-y-sm full-width box-default-width-accordion">
-             <Button
+           <div>
              
-                className="btn-large primary-color"
-                color="default"
-                size="large"
-                >
-                <HighlightOffIcon />
-                </Button>
+            </div>
            <Button
                   onClick={saveChanges}
                   disabled={!typing}

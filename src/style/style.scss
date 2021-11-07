@@ -149,7 +149,7 @@ b {
   }
 }
 .secondary-color-text {
-  color: #960071;
+  color: #960071 !important;
 }
 .primary-color {
   background-color: #533c9f;
@@ -182,6 +182,17 @@ b {
   h4,
   li {
     color: #f1f1f1;
+  }
+}
+#font-dark {
+  h1,
+  h2,
+  p,
+  h3,
+  h4,
+  li {
+    color: #271b4b !important;
+    line-height: 2;
   }
 }
 .error-red {
@@ -571,6 +582,15 @@ b {
 .box-small-width {
   min-width: 200px !important;
 }
+.width-70 {
+  max-width: 70%;
+  width: 90%;
+  margin: 0 auto;
+}
+.shadow-default {
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
 .box-default-width {
   max-width: 400px;
 }
@@ -584,7 +604,12 @@ b {
   height: 295px !important;
 }
 .box-default-width-accordion {
-  max-width: 300px !important;
+  width: 300px;
+}
+
+.accordion-btn {
+  left: 7%;
+  top: 0.7rem;
 }
 //main components; sections, etc
 .aside-labels {
@@ -815,6 +840,11 @@ header {
 #btn-error-contained {
   // padding: 0.5rem 3rem;
   background-color: #c42e2e !important;
+  box-shadow: none !important;
+  color: #fff;
+}
+#btn-disabled-contained {
+  background-color: #e4e4e4 !important;
   box-shadow: none !important;
   color: #fff;
 }
@@ -1095,5 +1125,11 @@ footer {
   }
   .m-xy-lg {
     margin: 1.5rem 0;
+  }
+}
+@media screen and (max-width: 1660px) {
+  .box-default-width-accordion {
+    width: 90%;
+    margin: 0 auto;
   }
 }

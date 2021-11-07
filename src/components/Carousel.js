@@ -12,7 +12,7 @@ import "../style/themes.css"
 function Carousel() {
     const [announcementArray, setAnnouncementArray] = useState();
     const [activeItemIndex, setActiveItemIndex] = useState(0);
-
+    const [activeDesign, setActiveDesign] = useState("")
     useEffect(() => {
 
         const dbRef = firebase.database().ref("announcements" );
@@ -25,6 +25,11 @@ function Carousel() {
                 }
                 setAnnouncementArray(announcementArray)
             });
+        
+        const dbTheme = firebase.database().ref("themeChosen")
+            dbTheme.on('value', snap => {
+                setActiveDesign(snap.val().designName)      
+            })
     }, [])
   
     return (
@@ -55,7 +60,7 @@ function Carousel() {
                                  <div key={data.id} className="box m-xy-sm">
                                     <div className ="flex-space-between ">   
                                         <div className="box-default-width">
-                                            <div className="  pad-xy-sm text-custom-width ">
+                                            <div className="  pad-xy-sm text-custom-width " id = {activeDesign === "design3" ? "font-dark": ""}>
                                                 <div >
                                                     <b><h2>{data.announcementTitle}</h2></b>
                                                 </div>

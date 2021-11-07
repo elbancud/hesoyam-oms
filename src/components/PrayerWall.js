@@ -27,13 +27,15 @@ function PrayerWall() {
     const [update, setUpdate] = useState(false);
 
     const [prayerArray, setPrayerArray] = useState();
+    const [activeDesign, setActiveDesign] = useState("")
 
     useEffect(() => {
                     const dbRef = firebase.database().ref("generated-data");
                         dbRef.on('value', snapshot => {
 
                                     setSiteTitle(snapshot.val().savedSiteTitle)
-                            });
+                        });
+        
          const dbRefPrayers = firebase.database().ref("prayerWallPosts");
             dbRefPrayers.once("value")
                 .then(function (snapshot) {
@@ -44,7 +46,11 @@ function PrayerWall() {
                     }
                     setPrayerArray(prayerArray)
                 });
-                    
+        
+            const dbTheme = firebase.database().ref("themeChosen")
+            dbTheme.on('value', snap => {
+                setActiveDesign(snap.val().designName)      
+            })
     }, [update]);
   
     function getStarted() {
@@ -118,14 +124,17 @@ function PrayerWall() {
         }
     }
     return (
-        <div className="design1-properties">
-       
-            <header className="primary-bg-color pad-x-md">
+        <div className={activeDesign === "design1" ? "design1-properties position-relative" : activeDesign === "design2 " ? "design2-properties position-relative" : "design3-properties position-relative"}>
+            <div className="pad-xy-sm position-fixed-top-z-1 full-width primary-bg-color  height-60">
+            </div>
+
+            <header className="pad-x-md">
                      <nav className="pad-y-md flex-space-between " >
                         <div className="logo flex-default">
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
-                                <Link to="/design1">
+                                <Link to={activeDesign === "design1" ? "/design1" : activeDesign === "design2" ? "/design2" :"/design3"}>
+
                                     <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
                                     
                                 </Link>
@@ -179,16 +188,17 @@ function PrayerWall() {
                             <p >This page is a wall on which prayers are inscribed. Please be reminded to keep courtesy, pour it to God. Rest assured that identity is hidden.</p>
                         </div>
                     <div className="pad-y-md width-sm flex-default-align-default ">
-                                <TextField error={titleErrorState} helperText={titleError} onChange={e => { setTitleInput(e.target.value) }} value={titleInput} id="outlined-full-width" fullWidth label="Enter post" variant="outlined" className="text-input-deafult" />
+                                <TextField   error={titleErrorState} helperText={titleError} onChange={e => { setTitleInput(e.target.value) }} value={titleInput} id="outlined-full-width" fullWidth label="Enter post" variant="outlined" className="text-input-deafult m-x-sm" />
+                                    
                             
                         
                             {/* <TextField multiline rows={4} error={descriptionInputErrorState} helperText={descriptionInputError} onChange={e => { setDescriptionInput(e.target.value) }} value={descriptionInput} id="outlined-full-width" fullWidth label="Description" variant="outlined" type="text" className="text-input-deafult" /> */}
                                 <Button
                                     onClick={postPrayer}
                                     variant="contained"
-                                    className="btn-large primary-color"
                                     color="default"
                                     size="large"
+                                    
                                     id="btn-large-primary-contained-black"
                                 >
                                 post
@@ -221,7 +231,7 @@ function PrayerWall() {
                                     <div className="m-y-sm "  key={data.id}>
                                         <div className="box width-sm">
                                                     <div className="pad-xy-sm ">
-                                                        <div className="">
+                                                        <div className="" id={activeDesign === "design3" ? "font-dark" : ""}>
                                                             <p>{data.postInput}</p>
                                                         </div>
                                                     
