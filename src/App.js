@@ -26,7 +26,6 @@ const Design3 = lazy(() => import('./components/Design3'))
 const NewPassword = lazy(() => import('./components/NewPassword'))
 const Design2 = lazy(() => import('./components/Design2'))
 const PageNotFound = lazy(() => import('./components/PageNotFound'))
-DashboardWebView
 const DashboardWebView = lazy(() => import('./components/DashboardWebView'))
 
 function App() {
