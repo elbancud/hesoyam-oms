@@ -667,7 +667,7 @@ b {
 }
 
 .box-default-width {
-  max-width: 400px;
+  width: 400px !important;
 }
 
 .box-default-width-force {

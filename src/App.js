@@ -6,6 +6,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { CookiesProvider } from "react-cookie";
 import RingLoader from "react-spinners/RingLoader";
 import DashboardWebView from "./components/DashboardWebView"
+import PodcastMobileWebview from "./components/PodcastMobileWebview"
 
 const Design1 = lazy(() => import('./components/Design1'))
 const EmailForForgetPass = lazy(() => import('./components/EmailForForgotPass'))
@@ -22,11 +23,9 @@ const Donate = lazy(() => import('./components/Donate'))
 const UserPodcast = lazy(() => import('./components/UserPodcast'))
 const AppointmentPage = lazy(() => import('./components/AppointmentPage'))
 const UserAppointment = lazy(() => import('./components/UserAppointment'))
-const PodcastMobileWebview = lazy(() => import('./components/PodcastMobileWebview'))
 const Design3 = lazy(() => import('./components/Design3'))
 const NewPassword = lazy(() => import('./components/NewPassword'))
 const Design2 = lazy(() => import('./components/Design2'))
-const PageNotFound = lazy(() => import('./components/PageNotFound'))
 
 function App() {
 
@@ -101,10 +100,7 @@ function App() {
                 <UserAppointment/>
               </Route>
 
-              <Route path="/podcastMobileWebview" exact >
-                <PodcastMobileWebview/>
-              </Route>
-
+              
               <Route path="/design3" exact >
                 <Design3/>
               </Route>
@@ -123,6 +119,10 @@ function App() {
 
               <Route path="/dashboardWebView" exact >
                 <DashboardWebView/>
+              </Route>
+
+              <Route path="/podcastMobileWebview" exact >
+                <PodcastMobileWebview/>
               </Route>
             </Suspense>
           </Switch>
