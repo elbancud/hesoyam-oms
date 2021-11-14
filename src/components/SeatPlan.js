@@ -10,7 +10,6 @@ function SeatArrangement() {
 
     const [seatArray, setSeatArray] = useState();
 
-
     //get 
 
     useEffect(() => {
@@ -30,8 +29,6 @@ function SeatArrangement() {
     function reserveSeat(parentIndex, parent, row, col) {
         const parentId = seatArray[parentIndex].id;
         const rowId = Object.keys(seatArray[parentIndex])[row]
-        console.log(col)
-        console.log(seatArray)
         const db = firebase.database().ref("seat-arrangement/" + parentId + "/" + rowId + "/" + col)
         db.update({ reserved: true })
 

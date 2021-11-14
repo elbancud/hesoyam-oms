@@ -82,6 +82,11 @@ b {
   background-color: #191258;
 }
 
+.gradient-geometric {
+  background: linear-gradient(125deg, #ffffff 0%, #000000 100%), linear-gradient(200deg, #ffd9e8 0%, #ffd9e8 50%, #de95ba calc(50% + 1px), #de95ba 60%, #7f4a88 calc(60% + 1px), #7f4a88 75%, #4a266a calc(75% + 1px), #4a266a 100%), linear-gradient(113deg, #ffd9e8 0%, #ffd9e8 40%, #de95ba calc(40% + 1px), #de95ba 50%, #7f4a88 calc(50% + 1px), #7f4a88 70%, #4a266a calc(70% + 1px), #4a266a 100%);
+  background-blend-mode: overlay, overlay, normal;
+}
+
 .accent-gradient-1 {
   background: #1488cc;
   /* fallback for old browsers */
@@ -155,6 +160,7 @@ b {
 
 .error-red {
   color: #cd3d64;
+  font-weight: bold;
 }
 
 .page-not-found {
@@ -445,6 +451,14 @@ b {
 
 .height-50 {
   height: 50%;
+}
+
+.height-400 {
+  height: 400px;
+}
+
+.height-500 {
+  height: 500px;
 }
 
 .height-60 {
@@ -1191,6 +1205,9 @@ footer li {
 }
 
 @media screen and (max-width: 992px) {
+  .height-400 {
+    height: 450px;
+  }
   .main-custom-flex .pad-x-md {
     padding: 0;
   }

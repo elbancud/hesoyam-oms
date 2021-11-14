@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import "../style/style.css";
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -30,10 +30,13 @@ import DonateAdmin from './DonateAdmin';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
-
+import Tooltip from '@mui/material/Tooltip';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-
+import AdminAppointCancel from './AdminAppointCancel';
+import Zoom from '@mui/material/Zoom';
 
 export default function AdminUI() {
     const [accountTab, setAccountTab] = useState(false);
@@ -49,11 +52,28 @@ export default function AdminUI() {
     const [podcastsTab, setPodcastsTab] = useState(false);
     const [reportsTab, setReportsTab] = useState(false);
     const [donateTab, setDonateTab] = useState(false);
+    const [notification, setNotification] = useState(false);
 
     const [user, setUser] = useState(null);
     const [userName, setUsername] = useState("");
     const { currentUser } = useAuth();
-    
+    const [notifCount, setNotifCount] = useState(0)
+
+    useEffect(() => {
+        const dbUser = firebase.database().ref("overallEvents");
+        let count = 0;
+        dbUser.once('value').then((snapshot) => {
+            snapshot.forEach(snap => {
+                if(snap.hasChild("reason")) {
+                    count++;
+                    setNotifCount(parseInt(count));
+                }
+            }
+
+            )
+        })
+    }, [])
+
     const [state, setState] = React.useState({
         left: false,
       
@@ -93,13 +113,25 @@ export default function AdminUI() {
                         
                         <div className="grid-place-center ">
                             <ul className="animate__animated animate__bounceIn">
-                                <li className="flex-default pad-x-sm" id={dashboardTab ? "active" : ""} onClick={() => { activateTab("dashboardTab", setDashboardTab) }}>
-                                    <div className="icon-padding">
-                                        <DashboardIcon className="cursor-pointer icon-set-light"/>
-                                    </div>
-                                    <div className="pad-x-sm light-fonts ">
-                                        <p className="m-b-sm  "><b>Dashboard</b></p>
-                                    </div>
+                                    <li className="flex-default pad-x-sm" id={dashboardTab ? "active" : ""} onClick={() => { activateTab("dashboardTab", setDashboardTab) }}>
+                                        <div className="icon-padding">
+                                                <DashboardIcon className="cursor-pointer icon-set-light"/>
+
+                                        </div>
+                                        <div className="pad-x-sm light-fonts ">
+                                            <p className="m-b-sm  "><b>Dashboard</b></p>
+                                        </div>
+                                </li>
+                                <li className="flex-default pad-x-sm" id={notification ? "active" : ""} onClick={() => { activateTab("notification", setNotification) }}>
+                                        <div className="icon-padding">
+                                                <Badge badgeContent={parseInt(notifCount)} color="primary">
+                                                    <NotificationsIcon color="action" />
+                                                </Badge>
+
+                                        </div>
+                                        <div className="pad-x-sm light-fonts ">
+                                            <p className="m-b-sm  "><b>Notifications</b></p>
+                                        </div>
                                 </li>
                                 <li className="flex-default pad-x-sm" id={webpagesTab ? "active" : ""} onClick={() => { activateTab("webpagesTab", setWebpagesTab) }}>
                                     <div className="icon-padding">
@@ -213,6 +245,9 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setTheme(false);
+            setDonateTab(false);
+            setNotification(false);
+
             const dbRef = firebase.database().ref("account-details");
             dbRef.on('value', snapshot => {
                 snapshot.forEach(snap => {
@@ -236,6 +271,8 @@ export default function AdminUI() {
             setReportsTab(false);
             setTheme(false);
             setDonateTab(false);
+            setNotification(false);
+
         } else if (tabName === "theme") {
             setAccountTab(false);
             setDashboardTab(false);
@@ -249,6 +286,8 @@ export default function AdminUI() {
             setPodcastsTab(false);
             setReportsTab(false);
             setDonateTab(false);
+            setNotification(false);
+
 
         }else if (tabName === "webpagesTab") {
             setAccountTab(false);
@@ -263,6 +302,8 @@ export default function AdminUI() {
             setReportsTab(false);
             setTheme(false);
             setDonateTab(false);
+            setNotification(false);
+
 
         }else if (tabName === "servicesTab") {
             setAccountTab(false);
@@ -277,6 +318,8 @@ export default function AdminUI() {
             setReportsTab(false);
             setTheme(false);
             setDonateTab(false);
+            setNotification(false);
+
 
         }else if (tabName === "calendarTab") {
             setAccountTab(false);
@@ -291,6 +334,8 @@ export default function AdminUI() {
             setReportsTab(false);
             setTheme(false);
             setDonateTab(false);
+            setNotification(false);
+
 
         }else if (tabName === "seatsTab") {
             setAccountTab(false);
@@ -305,6 +350,8 @@ export default function AdminUI() {
             setReportsTab(false);
             setTheme(false);
             setDonateTab(false);
+            setNotification(false);
+
 
         }else if (tabName === "announcementTab") {
             setAccountTab(false);
@@ -319,6 +366,8 @@ export default function AdminUI() {
             setReportsTab(false);
             setTheme(false);
             setDonateTab(false);
+            setNotification(false);
+
 
         }else if (tabName === "liveStreamTab") {
             setAccountTab(false);
@@ -333,6 +382,8 @@ export default function AdminUI() {
             setReportsTab(false);
             setTheme(false);
             setDonateTab(false);
+            setNotification(false);
+
 
         }else if (tabName === "podcastsTab") {
             setAccountTab(false);
@@ -347,6 +398,8 @@ export default function AdminUI() {
             setReportsTab(false);
             setTheme(false);
             setDonateTab(false);
+            setNotification(false);
+
 
         } else if(tabName === "reportsTab"){
             setAccountTab(false);
@@ -375,6 +428,23 @@ export default function AdminUI() {
             setReportsTab(false);
             setTheme(false);
             setDonateTab(true);
+            setNotification(false);
+
+        }
+        else if (tabName === "notification") {
+            setAccountTab(false);
+            setDashboardTab(false);
+            setWebpagesTab(false);
+            setServicesTab(false);
+            setCalendarTab(false);
+            setSeatsTab(false);
+            setAnnouncementTab(false);
+            setLiveStreamTab(false);
+            setPodcastsTab(false);
+            setReportsTab(false);
+            setTheme(false);
+            setDonateTab(false);
+            setNotification(true);
         }
     }
     return (
@@ -402,6 +472,8 @@ export default function AdminUI() {
                         
                         <div className="grid-place-center ">
                             <ul className="animate__animated animate__bounceIn">
+                                <Tooltip title="Dashboard" placement="right-start" TransitionComponent={Zoom}>
+                                
                                 <li className="flex-default pad-x-sm" id={dashboardTab ? "active" : ""} onClick={() => { activateTab("dashboardTab", setDashboardTab) }}>
                                     <div className="icon-padding">
                                         <DashboardIcon className="cursor-pointer icon-set-light"/>
@@ -410,6 +482,22 @@ export default function AdminUI() {
                                         <p className="m-b-sm  "><b>Dashboard</b></p>
                                     </div>
                                 </li>
+                                </Tooltip>
+                                <Tooltip title="Notifications" placement="right-start" TransitionComponent={Zoom}>
+                                
+                                <li className="flex-default pad-x-sm" id={notification ? "active" : ""} onClick={() => { activateTab("notification", setNotification) }}>
+                                        <div className="icon-padding">
+                                                <Badge badgeContent={parseInt(notifCount)} color="primary">
+                                                    <NotificationsIcon color="action" />
+                                                </Badge>
+
+                                        </div>
+                                       
+                                </li>
+                                </Tooltip>
+
+                                <Tooltip title="Themes" placement="right-start" TransitionComponent={Zoom}>
+                                
                                 <li className="flex-default pad-x-sm" id={webpagesTab ? "active" : ""} onClick={() => { activateTab("webpagesTab", setWebpagesTab) }}>
                                     <div className="icon-padding">
                                         <FormatPaintIcon className="cursor-pointer icon-set-light"/>
@@ -418,14 +506,18 @@ export default function AdminUI() {
                                         <p className="m-b-sm"><b>Themes</b></p>
                                     </div>
                                 </li>
-                                <li className="flex-default pad-x-sm" id={theme ? "active" : ""} onClick={() => { activateTab("theme", setWebpagesTab) }}>
-                                    <div className="icon-padding">
-                                        <PageviewIcon className="cursor-pointer icon-set-light"/>
-                                    </div>
-                                     <div className="pad-x-sm light-fonts aside-labels">
-                                        <p className="m-b-sm"><b>Pages</b></p>
-                                    </div>
-                                </li>
+                                </Tooltip>
+                                <Tooltip title="Pages" placement="right-start" TransitionComponent={Zoom}>
+                                    <li className="flex-default pad-x-sm" id={theme ? "active" : ""} onClick={() => { activateTab("theme", setWebpagesTab) }}>
+                                        <div className="icon-padding">
+                                            <PageviewIcon className="cursor-pointer icon-set-light"/>
+                                        </div>
+                                        <div className="pad-x-sm light-fonts aside-labels">
+                                            <p className="m-b-sm"><b>Pages</b></p>
+                                        </div>
+                                    </li>
+                                </Tooltip>
+                                <Tooltip title="Services" placement="right-start" TransitionComponent={Zoom}>
                                 
                                 <li className="flex-default pad-x-sm" id={servicesTab ? "active" : ""} onClick={() => { activateTab("servicesTab", setServicesTab) }}>
                                     <div className="icon-padding">
@@ -435,6 +527,9 @@ export default function AdminUI() {
                                         <p className="m-b-sm"><b>Services</b></p>
                                     </div>
                                 </li>
+                                </Tooltip>
+                                <Tooltip title="Calendar" placement="right-start" TransitionComponent={Zoom}>
+
                                 <li className="flex-default pad-x-sm pad-x-sm" id={calendarTab ? "active" : ""} onClick={() => { activateTab("calendarTab", setCalendarTab) }}>
                                     <div className="icon-padding">
                                         <EventAvailableIcon className="cursor-pointer icon-set-light"/>
@@ -443,6 +538,9 @@ export default function AdminUI() {
                                         <p className="m-b-sm"><b>Calendar</b></p>
                                     </div>
                                 </li>
+                                </Tooltip>
+                                <Tooltip title="Seats" placement="right-start" TransitionComponent={Zoom}>
+
                                 <li className="flex-default pad-x-sm" id={seatsTab ? "active" : ""} onClick={() => { activateTab("seatsTab", setSeatsTab) }}>
                                     <div className="icon-padding">
                                         <AirlineSeatReclineNormalIcon className="cursor-pointer icon-set-light"/>
@@ -451,6 +549,9 @@ export default function AdminUI() {
                                         <p className="m-b-sm"><b>Seats</b></p>
                                     </div>
                                 </li>
+                                </Tooltip>
+
+                                <Tooltip title="Announcements" placement="right-start" TransitionComponent={Zoom}>
                                 <li className="flex-default pad-x-sm" id={announcementTab ? "active" : ""} onClick={() => { activateTab("announcementTab", setAnnouncementTab) }}>
                                     <div className="icon-padding">
                                         <AnnouncementIcon className="cursor-pointer icon-set-light"/>
@@ -459,38 +560,52 @@ export default function AdminUI() {
                                         <p className="m-b-sm"><b>Announcements</b></p>
                                     </div>
                                 </li>
-                                <li className="flex-default pad-x-sm" id={livestreamTab ? "active" : ""} onClick={() => { activateTab("liveStreamTab", setLiveStreamTab) }}>
-                                    <div className="icon-padding">
-                                        <LiveTvIcon className="cursor-pointer icon-set-light"/>
-                                    </div>
-                                     <div className="pad-x-sm light-fonts aside-labels">
-                                        <p className="m-b-sm"><b>Livestream</b></p>
-                                    </div>
-                                </li>
-                                <li className="flex-default pad-x-sm" id={podcastsTab ? "active" : ""} onClick={() => { activateTab("podcastsTab", setPodcastsTab) }}>
-                                    <div className="icon-padding">
-                                        <MicIcon className="cursor-pointer icon-set-light"/>
-                                    </div>
-                                     <div className="pad-x-sm light-fonts aside-labels">
-                                        <p className="m-b-sm"><b>Podcast</b></p>
-                                    </div>
-                                </li>
-                                <li className="flex-default pad-x-sm" id={reportsTab ? "active" : ""} onClick={() => { activateTab("reportsTab", setReportsTab) }}>
-                                    <div className="icon-padding">
-                                        <BugReportIcon className="cursor-pointer icon-set-light"/>
-                                    </div>
-                                     <div className="pad-x-sm light-fonts aside-labels">
-                                        <p className="m-b-sm"><b>Report</b></p>
-                                    </div>
-                                </li>
-                                <li className="flex-default pad-x-sm" id={donateTab ? "active" : ""} onClick={() => { activateTab("donateTab", setDonateTab) }}>
-                                    <div className="icon-padding">
-                                        <AccountBalanceWalletIcon className="cursor-pointer icon-set-light"/>
-                                    </div>
-                                     <div className="pad-x-sm light-fonts aside-labels">
-                                        <p className="m-b-sm"><b>Donations</b></p>
-                                    </div>
-                                </li>
+                                </Tooltip>
+
+                                <Tooltip title="Livestream" placement="right-start" TransitionComponent={Zoom}>
+                                    <li className="flex-default pad-x-sm" id={livestreamTab ? "active" : ""} onClick={() => { activateTab("liveStreamTab", setLiveStreamTab) }}>
+                                        <div className="icon-padding">
+                                            <LiveTvIcon className="cursor-pointer icon-set-light"/>
+                                        </div>
+                                        <div className="pad-x-sm light-fonts aside-labels">
+                                            <p className="m-b-sm"><b>Livestream</b></p>
+                                        </div>
+                                    </li>
+                                </Tooltip>
+
+                                <Tooltip title="Podcast" placement="right-start" TransitionComponent={Zoom}>
+                                    <li className="flex-default pad-x-sm" id={podcastsTab ? "active" : ""} onClick={() => { activateTab("podcastsTab", setPodcastsTab) }}>
+                                        <div className="icon-padding">
+                                            <MicIcon className="cursor-pointer icon-set-light"/>
+                                        </div>
+                                        <div className="pad-x-sm light-fonts aside-labels">
+                                            <p className="m-b-sm"><b>Podcast</b></p>
+                                        </div>
+                                    </li>
+                                </Tooltip>
+
+                                <Tooltip title="Report" placement="right-start" TransitionComponent={Zoom}>
+                                    <li className="flex-default pad-x-sm" id={reportsTab ? "active" : ""} onClick={() => { activateTab("reportsTab", setReportsTab) }}>
+                                        <div className="icon-padding">
+                                            <BugReportIcon className="cursor-pointer icon-set-light"/>
+                                        </div>
+                                        <div className="pad-x-sm light-fonts aside-labels">
+                                            <p className="m-b-sm"><b>Report</b></p>
+                                        </div>
+                                    </li>
+                                </Tooltip>
+
+                                <Tooltip title="Donations" placement="right-start" TransitionComponent={Zoom}>
+                                    <li className="flex-default pad-x-sm" id={donateTab ? "active" : ""} onClick={() => { activateTab("donateTab", setDonateTab) }}>
+                                        <div className="icon-padding">
+                                            <AccountBalanceWalletIcon className="cursor-pointer icon-set-light"/>
+                                        </div>
+                                        <div className="pad-x-sm light-fonts aside-labels">
+                                            <p className="m-b-sm"><b>Donations</b></p>
+                                        </div>
+                                    </li>
+                                </Tooltip>
+
                             </ul>
                         
                         </div>
@@ -545,6 +660,9 @@ export default function AdminUI() {
                     </header>
                     <main className="display-none" id={dashboardTab ? "display-block" : ""}>
                         <Dashboard/>
+                    </main>
+                    <main className="display-none" id={notification ? "display-block" : ""}>
+                        <AdminAppointCancel/>
                     </main>
                     <main className="display-none" id={accountTab? "display-block":""}>
                         <AdminAccountManagement username={userName} email={user} />

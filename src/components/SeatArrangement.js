@@ -60,11 +60,21 @@ function SeatArrangement() {
         setUpdate(!update)
     }
     function handleOpenDeleteModal(id) {
+        alert("wtf?")
         const dbGrp = firebase.database().ref("seat-arrangement/" + id)
-        dbGrp.remove().then(() => {
+        dbGrp.orderByChild("reserved").equalTo(true).once("value").then((snap) => {
+            if (snap.exists()) {
                         setAlertStatus(true)
-                        setFeedbackVariant("success")
-                        setAlertMessage("Success! group deleted. You can always create a new one.")
+                        setFeedbackVariant("error")
+                        setAlertMessage("Oopsies, there are reserved seats on this group.")
+            } else {
+                dbGrp.remove().then(() => {
+                                setAlertStatus(true)
+                                setFeedbackVariant("success")
+                                setAlertMessage("Success! group deleted. You can always create a new one.")
+                })
+                
+            }
         })
         setUpdate(!update)
 

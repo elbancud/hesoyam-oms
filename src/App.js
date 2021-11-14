@@ -7,6 +7,7 @@ import { CookiesProvider } from "react-cookie";
 import RingLoader from "react-spinners/RingLoader";
 import DashboardWebView from "./components/DashboardWebView"
 import PodcastMobileWebview from "./components/PodcastMobileWebview"
+import PageNotFound from "./components/PageNotFound"
 
 const Design1 = lazy(() => import('./components/Design1'))
 const EmailForForgetPass = lazy(() => import('./components/EmailForForgotPass'))
@@ -114,8 +115,7 @@ function App() {
               </Route>
 
               
-               {/* <Route component = {PageNotFound}>
-              </Route>  */}
+               
 
               <Route path="/dashboardWebView" exact >
                 <DashboardWebView/>
@@ -125,6 +125,8 @@ function App() {
                 <PodcastMobileWebview/>
               </Route>
             </Suspense>
+            <Route path="*" component = {PageNotFound} />
+              
           </Switch>
         </AuthProvider>
 

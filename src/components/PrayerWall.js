@@ -125,7 +125,7 @@ function PrayerWall() {
     }
     return (
         <div className={activeDesign === "design1" ? "design1-properties position-relative" : activeDesign === "design2 " ? "design2-properties position-relative" : "design3-properties position-relative"}>
-            <div className="pad-xy-sm position-fixed-top-z-1 full-width primary-bg-color  height-60">
+            <div className="pad-xy-sm position-fixed-top-z-1 full-width primary-bg-color height-400">
             </div>
 
             <header className="pad-x-md">

@@ -48,7 +48,7 @@ function AppointmentPage({ service, image }) {
     const [cookies] = useCookies(['user']);
     const [activeCookies, setActiveCookes] = useState(false);
     const [serviceArray, setServiceArray] = useState()
-    const [dateChosen, setDateChosen] = React.useState(new Date());
+    const [dateChosen, setDateChosen] = React.useState();
     const [maxCapacity, setMaxCapacity] = useState("");
     const [appointPeriod, setAppointPeriod] = useState("");
     const [cancelPeriod, setCancelPeriod] = useState("");
@@ -108,7 +108,68 @@ function AppointmentPage({ service, image }) {
         }
         setAlertStatus(false);
     };
-
+    function handleTimeChange(time) {
+        let timeDif = sessionIntervalState === "hours" ? parseInt(sessionInterval, 10) * 60 : parseInt(sessionInterval, 10)
+        if (new Date(time).getMinutes() % parseInt(timeDif,10) === 0) {
+            if (dateChosen) {
+    
+                const dbEvents = firebase.database().ref("events")
+                const fTime = time.getHours() + ":" + time.getMinutes()   
+                
+                dbEvents.orderByChild("sessionTime").equalTo(fTime).once("value").then((snap) => {
+                    if (!snap.exists()) {
+                        const dbSeat = firebase.database().ref("seat-arrangement")
+                        const dbRef = firebase.database().ref("services/" + cookies.activeService);
+                        dbRef.once('value', snapshot => {
+                            if (snapshot.val().seatArrangement === true) {
+                                    const dateSpecific = dateChosen.getFullYear() + ", " + parseInt(dateChosen.getMonth() + 1, 10) + ", " + dateChosen.getDate()
+                                    const dbUser = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + "/appointments");
+                                    const dbMaxcap = firebase.database().ref("events")
+                                    const fTime = time.getHours() + ":" + time.getMinutes()   
+                                    let dbPushUser = "services/" + cookies.activeService + "/seatManagement/" + dbSeat;
+                                    dbSeat.once('value', snapshot => {
+                                     
+                                    const appointmentDetails = {
+                                        sessionTime: fTime,
+                                        sessionDate: dateSpecific,
+                                        sessionService: cookies.activeService,
+                                        sessionCapacity: parseInt(maxCapacity, 10),
+                                        seatManagement: snapshot.val()
+                                    }
+                                        dbEvents.push(appointmentDetails)
+    
+                                    })
+    
+                                    
+                            }
+                        })
+                        // dbSeat.once('value', snapshot => {
+    
+                        //     dbRef.update({seatManagement: snapshot.val()})
+                        // })
+                    } 
+                })
+                dbEvents.orderByChild("sessionTime").equalTo(fTime).once("value").then((snap) => {
+                   let seatSpecificKey = ""
+                    if (snap.exists()) {
+                      seatSpecificKey = Object.keys(snap.val())[0]
+                    } 
+                    const dbGrp = firebase.database().ref("events/" + seatSpecificKey + "/seatManagement")
+                    dbGrp.once('value').then((snapshot) => {
+                        const snap = snapshot.val();
+                        const seatArray = [];
+                        for (let id in snap) {
+                            seatArray.push({ id, ...snap[id] })
+                        }
+                        setSeatArray(seatArray);
+    
+                    })
+                    
+                })  
+            }
+        }
+        setTimeChosen(time)
+    }
     function reserveSeat(group, rowTitle, colSeat, parentIndex, parent, row, col) {
 
         const parentId = seatArray[parentIndex].id;
@@ -159,24 +220,11 @@ function AppointmentPage({ service, image }) {
                 setServiceArray(serviceArray)
         });
         
-        if (cookies.UserLoginKey) {
-            
-            setActiveCookes(true)
-        }
+   
         // new Date("Sat Oct 23 2021 " + operationTimeEnd +":00 GMT+0800 (Philippine Standard Time)")
         // const fOdd =  "Sat Oct 23 2021 " + operationTimeStart + " GMT+0800 (Philippine Standard Time)"
         // setTimeChosen(new Date(fOdd))
-        const dbGrp = firebase.database().ref("services/"+cookies.activeService+"/seatManagement")
         
-        dbGrp.once('value').then((snapshot) => {
-             const snap = snapshot.val();
-            const seatArray = [];
-            for (let id in snap) {
-                seatArray.push({id, ...snap[id]})
-            }
-            setSeatArray(seatArray);
-
-        })
         const dbUser = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + "/appointments");
         dbUser.orderByChild("title").equalTo(cookies.activeService).once('value').then(snap => {
             if (snap.exists()) {
@@ -193,17 +241,24 @@ function AppointmentPage({ service, image }) {
     }, [update]);
 
     function post() {
-           
+        
+                            const dbMaxcap = firebase.database().ref("events")
+                            const fTime = timeChosen.getHours() + ":" + timeChosen.getMinutes()   
+                            dbMaxcap.orderByChild("sessionTime").equalTo(fTime).once("value").then((snap) => {
+                                
                                 let data = cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService + " " + dateChosen + " " + timeChosen 
                                 let seatStateDate =  seatState? " Group : " + group + " " + rowSeat : "" 
                                 const dateSpecific = dateChosen.getFullYear() + ", " + parseInt(dateChosen.getMonth() + 1, 10) + ", " + dateChosen.getDate()
                                 const generateQR = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + data + " " + seatStateDate
                                 const dbUser = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + "/appointments");
-                                const dbMaxcap = firebase.database().ref("events")
-                                const fTime = timeChosen.getHours() + ":" + timeChosen.getMinutes()   
-                                const dbSeatPush = firebase.database().ref("services/" + cookies.activeService + "/seatManagement/" + dbSeat)
-                                let dbPushUser = "services/" + cookies.activeService + "/seatManagement/" + dbSeat;
-
+                                
+                                let seatSpecificKey = ""
+                                if (snap.exists()) {
+                                    seatSpecificKey = Object.keys(snap.val())[0]
+                                } 
+                                let dbPushUser = "events/"+seatSpecificKey+"/seatManagement/" + dbSeat
+                                const dbSeatPush = firebase.database().ref("events/"+seatSpecificKey+"/seatManagement/" + dbSeat)
+                                
                                 const appointmentDetails = {
                                     sessionTime: fTime,
                                     sessionDate: dateSpecific,
@@ -232,11 +287,15 @@ function AppointmentPage({ service, image }) {
                                     groupCol: seatState ? group : 0,
                                     seatRow: seatState ? rowSeat: 0,
                                     seatColumn: seatState ? colSeat : 0,
-                                    seatDb:seatState? dbPushUser : ""
+                                    seatDb: seatState ? dbPushUser : "",
+                                    user: cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService,
+                                    key: cookies.UserLoginKey
                                 }
                                             
                                 dbUser.push(appointmentDetailsUser);
                                 //push in user account
+                                const dbEventOutside = firebase.database().ref("overallEvents");
+                                dbEventOutside.push(appointmentDetailsUser)
                                 
                                 dbSeatPush.update({reserved:true})
                                 
@@ -245,11 +304,11 @@ function AppointmentPage({ service, image }) {
                                     setFeedbackVariant("success")
                                     setAlertMessage("Service date appointed")
                                     setQrLink()
-
-
                                     window.location.reload()
                                     window.scrollTo(0, seatRef.current.offsetTop)
                                 })
+                        })
+                                    
     }
     function appointmentStatus() {
 
@@ -287,6 +346,8 @@ function AppointmentPage({ service, image }) {
         
                     } else {
                         if (dbCurrentCapacity <= parseInt(maxCapacity, 10)) {
+                                     const dbMaxcap = firebase.database().ref("events")
+                            dbMaxcap.orderByChild("sessionTime").equalTo(fTime).once("value").then((snap) => { 
 
                                     let data = cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService + " " + dateChosen + " " + timeChosen 
 
@@ -294,9 +355,14 @@ function AppointmentPage({ service, image }) {
                                     const generateQR = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + data + " " + seatStateDate
 
                                     const dbUser = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + "/appointments");
-                                    const dbSpecified = firebase.database().ref('events/' + currentId)      
-                                    let dbPushUser = "services/" + cookies.activeService + "/seatManagement/" + dbSeat;
-                                    
+                                    const dbSpecified = firebase.database().ref('events/' + currentId)
+                                          
+                                    let seatSpecificKey = ""
+                                    if (snap.exists()) {
+                                        seatSpecificKey = Object.keys(snap.val())[0]
+                                    } 
+                                   let dbPushUser = "events/"+seatSpecificKey+"/seatManagement/" + dbSeat
+                                    const dbSeatPush = firebase.database().ref("events/"+seatSpecificKey+"/seatManagement/" + dbSeat)
                                     //push in general event
                                     const appointmentDetailsUser = {
                                         title: cookies.activeService,
@@ -307,7 +373,11 @@ function AppointmentPage({ service, image }) {
                                         groupCol: seatState ? group : 0,
                                         seatRow: seatState ? rowSeat: 0,
                                         seatColumn: seatState ? colSeat : 0,
-                                        seatDb:seatState? dbPushUser : ""
+                                        seatDb: seatState ? dbPushUser : "",
+                                        user: cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService,
+                                        key: cookies.UserLoginKey
+
+                                        
                                     }
                                                 
                                     dbUser.push(appointmentDetailsUser);
@@ -315,10 +385,11 @@ function AppointmentPage({ service, image }) {
                                     //push in user account
                                     dbSpecified.push(appointmentDetailsUser)
                                     
-                                    const dbSeatPush = firebase.database().ref("services/" + cookies.activeService + "/seatManagement/" + dbSeat)
-
                                     dbSeatPush.update({reserved:true})
-                            
+                                    
+                                    const dbEventOutside = firebase.database().ref("overallEvents");
+                                    dbEventOutside.push(appointmentDetailsUser)
+                                    
                                     dbSpecified.update({sessionCapacity:parseInt(dbCurrentCapacity, 10) - 1}).then(() => {
                                         setAlertStatus(true)
                                         setFeedbackVariant("success")
@@ -327,7 +398,7 @@ function AppointmentPage({ service, image }) {
                                         window.scrollTo(0, seatRef.current.offsetTop)
 
                                     })
-                            
+                            })
                         } else {
 
                             setAlertStatus(true)
@@ -367,13 +438,19 @@ function AppointmentPage({ service, image }) {
                                                 groupCol: seatState ? group : 0,
                                                 seatRow: seatState ? rowSeat: 0,
                                                 seatColumn: seatState ? colSeat : 0,
-                                                seatDb:seatState? dbPushUser : ""
+                                                seatDb: seatState ? dbPushUser : "",
+                                                user: cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService,
+                                                key: cookies.UserLoginKey
+
+                                                
                                             }
                                                         
                                             dbUser.push(appointmentDetailsUser);
                                             
                                             const dbSeatPush = firebase.database().ref("services/" + cookies.activeService + "/seatManagement/" + dbSeat)
-
+                                            const dbEventOutside = firebase.database().ref("overallEvents");
+                                            dbEventOutside.push(appointmentDetailsUser)
+                                            
                                             dbSeatPush.update({reserved:true})
                                             
                                             //push in user account
@@ -498,9 +575,15 @@ function AppointmentPage({ service, image }) {
                                             
                         dbUser.orderByChild("title").equalTo(cookies.activeService).once('value').then(snap => {
                             if (snap.exists()) {
-                                setAlertStatus(true)
-                                setFeedbackVariant("error")
-                                setAlertMessage("You already have an active appointment in this service")
+                                if (snap.exists()) {
+                                
+                                    setAlertStatus(true)
+                                    setFeedbackVariant("error")
+                                    setAlertMessage("You already have an active appointment in this service")     
+                                    } else {
+                                        appointmentStatus()
+                                    
+                                    }
                                             
                             } else {
                                 appointmentStatus()
@@ -530,12 +613,13 @@ function AppointmentPage({ service, image }) {
                                             
                         dbUser.orderByChild("title").equalTo(cookies.activeService).once('value').then(snap => {
                             if (snap.exists()) {
-                                setAlertStatus(true)
-                                setFeedbackVariant("error")
-                                setAlertMessage("You already have an active appointment in this service")
-                                            
+                                
+                                    setAlertStatus(true)
+                                    setFeedbackVariant("error")
+                                    setAlertMessage("You already have an active appointment in this service")     
                             } else {
                                 appointmentStatus()
+                            
                             }
                         })
                     }
@@ -789,14 +873,12 @@ function AppointmentPage({ service, image }) {
                                                 label="choose time"
                                                 value={timeChosen}
                                                 onChange={(newValue) => {
-                                                    setTimeChosen(newValue);
-                                                    updateMaxCap();
+                                                    handleTimeChange(newValue) 
                                                 }}
                                                 renderInput={(params) => <TextField {...params} variant="outlined"/>}
                                                 minutesStep={sessionIntervalState === "hours" ? parseInt(sessionInterval, 10) * 60 : parseInt(sessionInterval, 10)}
                                             />
                                           
-                                            {/* <TimePicker minTime={new Date()} label="choose time" value={timeChosen} onChange={(date) => { setTimeChosen(date) }} minutesStep={sessionIntervalState === "hours" ? parseInt(sessionInterval, 10) * 60 : parseInt(sessionInterval, 10)} inputVariant="outlined" /> */}
                                             
 
                                     </div>

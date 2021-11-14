@@ -467,10 +467,9 @@ function Service() {
                 dbSeat.once('value', snapshot => {
                     dbRef.update({seatManagement: snapshot.val()})
                 })
-
             }
         } else {
-              setAlertStatus(true)
+                setAlertStatus(true)
                 setFeedbackVariant("error")
                 setAlertMessage("Oopsies, Please revisit the errors")
         }
