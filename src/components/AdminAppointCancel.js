@@ -76,9 +76,11 @@ function UserAppointment({ service, image }) {
 
         const db = firebase.database().ref("user-account-details/" + currentId + "/appointments/" + currentAppointKey)
         const dbOverall = firebase.database().ref("overallEvents/" + currentOverallKey);
-        const dbseat = firebase.database().ref(seatDb)
-        dbseat.update({ reserved: false })
-        
+        if (seatDb) {
+            const dbseat = firebase.database().ref(seatDb)
+            dbseat.update({ reserved: false })
+            
+        }
         db.remove().then(() => {
                     setAlertStatus(true);
                     setFeedbackVariant("success");
@@ -180,7 +182,7 @@ function UserAppointment({ service, image }) {
                                             </TableCell>
                                             
                                             <TableCell align="left"> 
-                                                <Button id="btn-error-contained" color="inherit" onClick={()=> {handleCancel(data.key,  data.appointmentKey, data.id, data.seatDb)}}>cancel</Button>
+                                                <Button disabled={!data.reason}  id={!data.reason ? "btn-disabled-contained" : "btn-error-contained"} color="inherit" onClick={()=> {handleCancel(data.key,  data.appointmentKey, data.id, data.seatDb)}}>cancel</Button>
                                              </TableCell>
                                             
                                             

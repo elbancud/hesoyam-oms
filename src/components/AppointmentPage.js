@@ -73,7 +73,7 @@ function AppointmentPage({ service, image }) {
     const [group, setGroup] = useState("");
     const [rowSeat, setRowSeat] = useState("");
     const [colSeat, setColSeat] = useState("")
-
+    const [beforeAppoint, setBeforeAppoint] = useState("")
     const [appointmentObj, setAppointmentObj] = useState()
     const handleClose = () => {
         setOpen(false);
@@ -208,7 +208,7 @@ function AppointmentPage({ service, image }) {
                 setSessionIntervalState(snapshot.val().sessionState)
                 setSessionInterval(snapshot.val().sessionIntervalNum)
                 setSeatState(snapshot.val().seatArrangement)
-
+                
                 const postSnap = snapshot.val();
                 const serviceArray = [];
 
@@ -218,8 +218,9 @@ function AppointmentPage({ service, image }) {
                 }
 
                 setServiceArray(serviceArray)
+                // let beforeAppointDay = new Date()
+                // alert(beforeAppointDay)
         });
-        
    
         // new Date("Sat Oct 23 2021 " + operationTimeEnd +":00 GMT+0800 (Philippine Standard Time)")
         // const fOdd =  "Sat Oct 23 2021 " + operationTimeStart + " GMT+0800 (Philippine Standard Time)"
@@ -258,6 +259,7 @@ function AppointmentPage({ service, image }) {
                                 } 
                                 let dbPushUser = "events/"+seatSpecificKey+"/seatManagement/" + dbSeat
                                 const dbSeatPush = firebase.database().ref("events/"+seatSpecificKey+"/seatManagement/" + dbSeat)
+                                const id = uuidv4();
                                 
                                 const appointmentDetails = {
                                     sessionTime: fTime,
@@ -265,14 +267,18 @@ function AppointmentPage({ service, image }) {
                                     sessionService: cookies.activeService,
                                     sessionCapacity: parseInt(maxCapacity, 10) - 1,
                                     sessionDetails: {
-                                                title: cookies.activeService + " " + cookies.UserLastName + " " + cookies.UserFirstName,
+                                                title: cookies.activeService,
                                                 start: dateSpecific,
                                                 end: dateSpecific,
                                                 time: timeChosen.toString(),
                                                 qrLink: generateQR,
-                                                groupCol: seatState ? group : "",
-                                                seatRow: seatState ? rowSeat: "",
-                                                seatColumn: seatState? colSeat: "",
+                                                groupCol: seatState ? group : 0,
+                                                seatRow: seatState ? rowSeat: 0,
+                                                seatColumn: seatState ? colSeat : 0,
+                                                seatDb: seatState ? dbPushUser : "",
+                                                user: cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService,
+                                                key: cookies.UserLoginKey,
+                                                appointmendId: id
                                                
                                     }
                                 }
@@ -289,7 +295,9 @@ function AppointmentPage({ service, image }) {
                                     seatColumn: seatState ? colSeat : 0,
                                     seatDb: seatState ? dbPushUser : "",
                                     user: cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService,
-                                    key: cookies.UserLoginKey
+                                    key: cookies.UserLoginKey,
+                                    appointmendId: id
+
                                 }
                                             
                                 dbUser.push(appointmentDetailsUser);
@@ -338,14 +346,14 @@ function AppointmentPage({ service, image }) {
                 })
                 if (dbCurrentDate === dateSpecific) {
                       //test if capacity  have rooms
-                    if (parseInt(maxCapacity, 10) === 1) {
+                    if (parseInt(maxCapacity, 10) === 0) {
                             
                         setAlertStatus(true)
                         setFeedbackVariant("error")
                         setAlertMessage("Date is already booked with maximum capacity. Please try another date or time")
         
                     } else {
-                        if (dbCurrentCapacity <= parseInt(maxCapacity, 10)) {
+                        if (dbCurrentCapacity <= parseInt(maxCapacity, 10) || dbCurrentCapacity === "") {
                                      const dbMaxcap = firebase.database().ref("events")
                             dbMaxcap.orderByChild("sessionTime").equalTo(fTime).once("value").then((snap) => { 
 
@@ -364,6 +372,8 @@ function AppointmentPage({ service, image }) {
                                    let dbPushUser = "events/"+seatSpecificKey+"/seatManagement/" + dbSeat
                                     const dbSeatPush = firebase.database().ref("events/"+seatSpecificKey+"/seatManagement/" + dbSeat)
                                     //push in general event
+                                const id = uuidv4();
+                                
                                     const appointmentDetailsUser = {
                                         title: cookies.activeService,
                                         start: dateSpecific,
@@ -375,7 +385,8 @@ function AppointmentPage({ service, image }) {
                                         seatColumn: seatState ? colSeat : 0,
                                         seatDb: seatState ? dbPushUser : "",
                                         user: cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService,
-                                        key: cookies.UserLoginKey
+                                        key: cookies.UserLoginKey,
+                                        appointmendId: id
 
                                         
                                     }
@@ -403,7 +414,7 @@ function AppointmentPage({ service, image }) {
 
                             setAlertStatus(true)
                             setFeedbackVariant("error")
-                            setAlertMessage("Date is already booked with maximum capacity. Please try another date or time")
+                            setAlertMessage("Date is already booked with maximum capacity. Please try another date or time" + "417")
                         }
                     }
                     
@@ -411,14 +422,14 @@ function AppointmentPage({ service, image }) {
                     //not same check time and capacity 
                     dbMaxcap.orderByChild("sessionTime").equalTo(fTime).once("value").then((snap) => {
                         if (snap.exists()) {
-                            if (parseInt(maxCapacity, 10) === 1) {
+                            if (parseInt(maxCapacity, 10) === 0) {
                                 
                                 setAlertStatus(true)
                                 setFeedbackVariant("error")
-                                setAlertMessage("Date is already booked with maximum capacity. Please try another date or time")
+                                setAlertMessage("Date is already booked with maximum capacity. Please try another date or time" + "429")
                 
                             } else {
-                                if (dbCurrentCapacity <= parseInt(maxCapacity, 10)) {
+                                if (dbCurrentCapacity <= parseInt(maxCapacity, 10) || dbCurrentCapacity === "") {
                                             let data = cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService + " " + dateChosen + " " + timeChosen 
   
                                             let seatStateDate =  seatState? " Group : " + group + " " + rowSeat : "" 
@@ -427,6 +438,7 @@ function AppointmentPage({ service, image }) {
                                             const dbUser = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + "/appointments");
                                             const dbSpecified = firebase.database().ref('events/' + currentId)      
                                             let dbPushUser = "services/" + cookies.activeService + "/seatManagement/" + dbSeat;
+                                            const id = uuidv4();
                                             
                                             //push in general event
                                             const appointmentDetailsUser = {
@@ -440,8 +452,8 @@ function AppointmentPage({ service, image }) {
                                                 seatColumn: seatState ? colSeat : 0,
                                                 seatDb: seatState ? dbPushUser : "",
                                                 user: cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService,
-                                                key: cookies.UserLoginKey
-
+                                                key: cookies.UserLoginKey,
+                                                appoinmentId: id
                                                 
                                             }
                                                         
@@ -466,10 +478,10 @@ function AppointmentPage({ service, image }) {
                                             })
                                     
                                 } else {
-
+                                    alert(dbCurrentCapacity)
                                     setAlertStatus(true)
                                     setFeedbackVariant("error")
-                                    setAlertMessage("Date is already booked with maximum capacity. Please try another date or time")
+                                    setAlertMessage("Date is already booked with maximum capacity. Please try another date or time" + "484")
                                 }
                             }
                             } else {
@@ -560,7 +572,7 @@ function AppointmentPage({ service, image }) {
 
                     setAlertStatus(true)
                     setFeedbackVariant("error")
-                    setAlertMessage("You should be appointing from " + (fMonth + 1) + " " + dateCons + " onwards")
+                    setAlertMessage("You should be appointing from " + (fMonth ) + " " + dateCons + " onwards")
 
                 } else {
 
@@ -568,7 +580,8 @@ function AppointmentPage({ service, image }) {
 
                         setAlertStatus(true)
                         setFeedbackVariant("error")
-                        setAlertMessage("You should be appointing from " + (fMonth + 1) + " " + dateCons + " onwards")
+                        alert(dateChosen.getMonth() + 1 + " " + fMonth)
+                        setAlertMessage("You should be appointing from " + (fMonth) + " " + dateCons + " onwards" + "583")
 
                     } else {
                         const dbUser = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + "/appointments");
@@ -582,11 +595,11 @@ function AppointmentPage({ service, image }) {
                                     setAlertMessage("You already have an active appointment in this service")     
                                     } else {
                                         appointmentStatus()
-                                    
                                     }
                                             
                             } else {
                                 appointmentStatus()
+
                             }
                         })
                         
@@ -606,7 +619,7 @@ function AppointmentPage({ service, image }) {
 
                         setAlertStatus(true)
                         setFeedbackVariant("error")
-                        setAlertMessage("You should be appointing from " + (fMonth + 1) + " " + dateCons + " onwards")
+                        setAlertMessage("You should be appointing from " + (fMonth + 1) + " " + dateCons + " onwards" )
 
                     } else {
                         const dbUser = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + "/appointments");
