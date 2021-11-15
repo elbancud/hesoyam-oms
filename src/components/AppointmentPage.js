@@ -127,6 +127,7 @@ function AppointmentPage({ service, image }) {
                                     const dbMaxcap = firebase.database().ref("events")
                                     const fTime = time.getHours() + ":" + time.getMinutes()   
                                     let dbPushUser = "services/" + cookies.activeService + "/seatManagement/" + dbSeat;
+                                    let fServiceTime = cookies.activeService + ""+time.getHours() + ":" + time.getMinutes()
                                     dbSeat.once('value', snapshot => {
                                      
                                     const appointmentDetails = {
@@ -134,7 +135,9 @@ function AppointmentPage({ service, image }) {
                                         sessionDate: dateSpecific,
                                         sessionService: cookies.activeService,
                                         sessionCapacity: parseInt(maxCapacity, 10),
-                                        seatManagement: snapshot.val()
+                                        seatManagement: snapshot.val(),
+                                        serviceTime:fServiceTime ,
+
                                     }
                                         dbEvents.push(appointmentDetails)
     
@@ -266,6 +269,7 @@ function AppointmentPage({ service, image }) {
                                     sessionDate: dateSpecific,
                                     sessionService: cookies.activeService,
                                     sessionCapacity: parseInt(maxCapacity, 10) - 1,
+                                    serviceTime: cookies.activeService + ""+timeChosen.getHours() + ":" + timeChosen.getMinutes()   ,
                                     sessionDetails: {
                                                 title: cookies.activeService,
                                                 start: dateSpecific,
@@ -324,7 +328,7 @@ function AppointmentPage({ service, image }) {
         const fTime = timeChosen.getHours() + ":" + timeChosen.getMinutes()
         const dateSpecific = dateChosen.getFullYear() + ", " + parseInt(dateChosen.getMonth() + 1, 10) + ", " + dateChosen.getDate()
         
-        dbMaxcap.orderByChild("sessionTime").equalTo(fTime).once("value").then((snap) => {
+        dbMaxcap.orderByChild("serviceTime").equalTo(cookies.activeService+""+fTime).once("value").then((snap) => {
             
             if (snap.exists()) {
                 
@@ -353,9 +357,10 @@ function AppointmentPage({ service, image }) {
                         setAlertMessage("Date is already booked with maximum capacity. Please try another date or time")
         
                     } else {
-                        if (dbCurrentCapacity <= parseInt(maxCapacity, 10) || dbCurrentCapacity === "") {
+                        if (dbCurrentCapacity <= parseInt(maxCapacity, 10) ) {
                                      const dbMaxcap = firebase.database().ref("events")
-                            dbMaxcap.orderByChild("sessionTime").equalTo(fTime).once("value").then((snap) => { 
+                                    dbMaxcap.orderByChild("serviceTime").equalTo(cookies.activeService+""+fTime).once("value").then((snap) => {
+
 
                                     let data = cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService + " " + dateChosen + " " + timeChosen 
 
@@ -414,22 +419,23 @@ function AppointmentPage({ service, image }) {
 
                             setAlertStatus(true)
                             setFeedbackVariant("error")
-                            setAlertMessage("Date is already booked with maximum capacity. Please try another date or time" + "417")
+                            setAlertMessage("Date is already booked with maximum capacity. Please try another date or time" )
                         }
                     }
                     
                 } else {
                     //not same check time and capacity 
-                    dbMaxcap.orderByChild("sessionTime").equalTo(fTime).once("value").then((snap) => {
+                    dbMaxcap.orderByChild("serviceTime").equalTo(cookies.activeService+""+fTime).once("value").then((snap) => {
+
                         if (snap.exists()) {
                             if (parseInt(maxCapacity, 10) === 0) {
                                 
                                 setAlertStatus(true)
                                 setFeedbackVariant("error")
-                                setAlertMessage("Date is already booked with maximum capacity. Please try another date or time" + "429")
+                                setAlertMessage("Date is already booked with maximum capacity. Please try another date or time" )
                 
                             } else {
-                                if (dbCurrentCapacity <= parseInt(maxCapacity, 10) || dbCurrentCapacity === "") {
+                                if (dbCurrentCapacity <= parseInt(maxCapacity, 10) ) {
                                             let data = cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService + " " + dateChosen + " " + timeChosen 
   
                                             let seatStateDate =  seatState? " Group : " + group + " " + rowSeat : "" 
@@ -478,10 +484,9 @@ function AppointmentPage({ service, image }) {
                                             })
                                     
                                 } else {
-                                    alert(dbCurrentCapacity)
                                     setAlertStatus(true)
                                     setFeedbackVariant("error")
-                                    setAlertMessage("Date is already booked with maximum capacity. Please try another date or time" + "484")
+                                    setAlertMessage("Date is already booked with maximum capacity. Please try another date or time" )
                                 }
                             }
                             } else {
@@ -552,8 +557,8 @@ function AppointmentPage({ service, image }) {
                 
         } else {
                 
-            fMonth = new Date().getMonth()
-            dateCons = fDate
+            fMonth = new Date().getMonth() + 1
+            dateCons = fDate 
 
         }
         if (!timeChosen || !dateChosen) {

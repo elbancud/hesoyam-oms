@@ -46,7 +46,7 @@ function UserAppointment({ service, image }) {
 
     const [openForm, setOpenForm] = useState(false);
 
-
+    const [currentService, setCurrentService] =  useState("")
     const [currentId, setCurrentId] = useState("")
     const [serviceDetails, setServiceDetails] = useState("");
     const [currentTime, setCurrentTime] = useState("")
@@ -67,7 +67,6 @@ function UserAppointment({ service, image }) {
     }
 
     function handleSubmit() {
-
         if (titleInput.length < 8) {
             setTitleErrorState(true)
             seTitleError("Please enter atleast 8 characters or 3 words above.")
@@ -80,7 +79,7 @@ function UserAppointment({ service, image }) {
 
             const db = firebase.database().ref("overallEvents")
 
-            db.orderByChild("user").equalTo(cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService).once("value").then((snapshot) => {
+            db.orderByChild("user").equalTo(cookies.UserLastName + cookies.UserFirstName + " " + currentService).once("value").then((snapshot) => {
                 if (snapshot.exists()) {
                     let key = Object.keys(snapshot.val())[0]
                     let dataSubmit = {
@@ -95,9 +94,10 @@ function UserAppointment({ service, image }) {
                         setAlertMessage("Success! reason sent. Cancellation may be done after a short while.")
                         setLoadingState(false)
                     })
+                    setOpenForm(false)
                     // const dbAppointmentCancelCount = firebase.database().ref("cancelCount")
                     // dbAppointmentCancelCount.update(dataSubmit)
-                }
+                } 
             })
 
         }
@@ -114,11 +114,12 @@ function UserAppointment({ service, image }) {
     //open dialog box
     //set variables depending on table data
 
-    function handleCancel(id, service, date, time, seatDb) {
+    function handleCancel(title, id, service, date, time, seatDb) {
 
         let titleHanlder = service + " " + cookies.UserLastName + " " + cookies.UserFirstName
         let fTime = new Date(time).getHours() + ":" + new Date(time).getMinutes()
 
+        setCurrentService(title)
         setCurrentId(id)
         setCurrentTime(fTime)
         setServiceDetails(titleHanlder)
@@ -386,7 +387,7 @@ function UserAppointment({ service, image }) {
                                                         </TableCell>
 
                                                         <TableCell align="left">
-                                                            <Button disabled={parseInt(new Date(data.end).getFullYear(), 10) <= parseInt(new Date().getFullYear(), 10) && parseInt(new Date(data.end).getMonth(), 10) < parseInt(new Date().getMonth(), 10)} size="small" variant="contained" id={parseInt(new Date(data.end).getFullYear(), 10) <= parseInt(new Date().getFullYear(), 10) && parseInt(new Date(data.end).getMonth(), 10) < parseInt(new Date().getMonth(), 10) ? "btn-disabled-contained" : "btn-error-contained"} color="default" onClick={() => { handleCancel(data.id, data.title, data.end, data.time, data.seatDb) }}>cancel</Button>
+                                                            <Button disabled={parseInt(new Date(data.end).getFullYear(), 10) <= parseInt(new Date().getFullYear(), 10) && parseInt(new Date(data.end).getMonth(), 10) < parseInt(new Date().getMonth(), 10)} size="small" variant="contained" id={parseInt(new Date(data.end).getFullYear(), 10) <= parseInt(new Date().getFullYear(), 10) && parseInt(new Date(data.end).getMonth(), 10) < parseInt(new Date().getMonth(), 10) ? "btn-disabled-contained" : "btn-error-contained"} color="default" onClick={() => { handleCancel(data.title, data.id, data.title, data.end, data.time, data.seatDb) }}>cancel</Button>
                                                         </TableCell>
 
 
