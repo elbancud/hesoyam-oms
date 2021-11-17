@@ -12,6 +12,7 @@ import firebase from '../firebase';
 import FaceIcon from '@material-ui/icons/Face';
 import AdminAccountManagement from './AdminAccountManagement';
 import Dashboard from './Dashboard';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Themes from './Themes';
 import FormatPaintIcon from '@material-ui/icons/FormatPaint';
 import PageviewIcon from '@material-ui/icons/Pageview';
@@ -219,7 +220,15 @@ export default function AdminUI() {
                             </ul>
                         
                         </div>
-                     
+                        <div >
+                            <ul className="">
+                                <li className="pad-x-sm" >
+                                    <div className="icon-padding">
+                                        {/* <ArrowForwardIosIcon className="cursor-pointer icon-set-light" /> */}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </aside>
 
                     </div>
@@ -452,21 +461,20 @@ export default function AdminUI() {
                 
                 <div className=" primary-color full-height-percent">
                     
-                <aside className=" primary-color" >
-                    <Tooltip title="Accounts" placement="right-start" TransitionComponent={Zoom}>
-
-                        <div className="">
-                            <ul className="">
-                                <li className="flex-default pad-x-sm" id={accountTab ? "active" : ""} onClick={() => { activateTab("accountTab", setAccountTab) }}>
-                                    <div className="icon-padding">
-                                        <FaceIcon className="cursor-pointer icon-set-light" />
-                                    </div>
-                                    
-                                </li>
-                            </ul>
-                        </div>
+                    <aside className=" primary-color" >
+                        <Tooltip title="Accounts" placement="right-start" TransitionComponent={Zoom}>
+                            <div className="">
+                                <ul className="">
+                                    <li className="flex-default pad-x-sm" id={accountTab ? "active" : ""} onClick={() => { activateTab("accountTab", setAccountTab) }}>
+                                        <div className="icon-padding">
+                                            <FaceIcon className="cursor-pointer icon-set-light" />
+                                        </div>
+                                        
+                                    </li>
+                                </ul>
+                            </div>
                         </Tooltip>
-    
+                        
                         <div className="grid-place-center ">
                             <ul className="animate__animated animate__bounceIn">
                                 <Tooltip title="Dashboard" placement="right-start" TransitionComponent={Zoom}>
@@ -606,7 +614,15 @@ export default function AdminUI() {
                             </ul>
                         
                         </div>
-                        
+                        <div >
+                            <ul className="">
+                                <li className="pad-x-sm" >
+                                    <div className="icon-padding">
+                                        {/* <ArrowForwardIosIcon className="cursor-pointer icon-set-light" /> */}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </aside>
 
                     </div>
