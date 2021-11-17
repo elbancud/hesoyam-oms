@@ -146,10 +146,7 @@ function AppointmentPage({ service, image }) {
                                     
                             }
                         })
-                        // dbSeat.once('value', snapshot => {
-    
-                        //     dbRef.update({seatManagement: snapshot.val()})
-                        // })
+                    
                     } 
                 })
                 dbEvents.orderByChild("sessionTime").equalTo(fTime).once("value").then((snap) => {
@@ -309,7 +306,7 @@ function AppointmentPage({ service, image }) {
                                 const dbEventOutside = firebase.database().ref("overallEvents");
                                 dbEventOutside.push(appointmentDetailsUser)
                                 
-                                dbSeatPush.update({reserved:true})
+                                // dbSeatPush.update({reserved:true})
                                 
                                 dbMaxcap.push(appointmentDetails).then(() => {
                                     setAlertStatus(true)
@@ -401,7 +398,7 @@ function AppointmentPage({ service, image }) {
                                     //push in user account
                                     dbSpecified.push(appointmentDetailsUser)
                                     
-                                    dbSeatPush.update({reserved:true})
+                                    // dbSeatPush.update({reserved:true})
                                     
                                     const dbEventOutside = firebase.database().ref("overallEvents");
                                     dbEventOutside.push(appointmentDetailsUser)
@@ -469,7 +466,7 @@ function AppointmentPage({ service, image }) {
                                             const dbEventOutside = firebase.database().ref("overallEvents");
                                             dbEventOutside.push(appointmentDetailsUser)
                                             
-                                            dbSeatPush.update({reserved:true})
+                                            // dbSeatPush.update({reserved:true})
                                             
                                             //push in user account
                                             dbSpecified.push(appointmentDetailsUser)
