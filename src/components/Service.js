@@ -439,13 +439,13 @@ function Service() {
         if (parseInt(maxCapacity, 10) >= 0 && parseInt(daysBeforeCancel, 10) >= 0 && parseInt(daysBeforeAppoint, 10) >= 0 && sessionInterval && !session !== 0 && service && !isNaN(daysBeforeCancel) && maxCapacity && !isNaN(daysBeforeAppoint) && timeOpTo && timeOpFrom && operationDaysFrom && maxCapacity && !isNaN(maxCapacity))  {
             const dbRef = firebase.database().ref("services/" + service);
             const serviceConstraints = {
-                maxCapacity: maxCapacity,
+                maxCapacity: parseInt(maxCapacity),
                 operationDaysStart: operationDaysFrom,
                 operationDaysEnd: operationDaysTo,
                 timeOperationStart: timeOpFrom,
                 timeOperationEnd: timeOpTo,
-                daysBeforeAppointment: daysBeforeAppoint,
-                daysBeforeCancel: daysBeforeCancel,
+                daysBeforeAppointment: parseInt(daysBeforeAppoint),
+                daysBeforeCancel: parseInt(daysBeforeCancel),
                 sessionIntervalNum: session,
                 sessionState: sessionInterval,
                 seatArrangement: switchSeat

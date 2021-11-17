@@ -66,13 +66,19 @@ function AdminAccountManagement({ username, email }) {
         setOpenEmailModal(true);
     };
     const handleCloseEmailModal = () => {
+        setPasswordError("");
+        setPasswordErrorState(false);
         setOpenEmailModal(false);
     };
     const handleOpenResetPassModal = () => {
+        setPasswordError("");
+        setPasswordErrorState(false);
         setOpenPasswordModal(true);
     };
     const handleCloseResetPassModal = () => {
         setOpenPasswordModal(false);
+        setPasswordError("");
+        setPasswordErrorState(false);
     };
     function showPassword(e) {
         e.preventDefault();

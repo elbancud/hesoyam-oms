@@ -128,7 +128,7 @@ function UserAppointment({ service, image }) {
                             
                             <TableRow>
                                 
-                                <TableCell>Service</TableCell>
+                                <TableCell>User/Service</TableCell>
                                 <TableCell>Date</TableCell>
                                 <TableCell>Time</TableCell>
                                 <TableCell>Seat</TableCell>
@@ -161,7 +161,7 @@ function UserAppointment({ service, image }) {
                                 return (
                                         <TableRow key={data.id}>
                                             
-                                            <TableCell align="left"> {data.title} </TableCell> 
+                                            <TableCell align="left"> {data.user} </TableCell> 
                                             
                                             <TableCell align="left"> {data.end} </TableCell>
                                             
