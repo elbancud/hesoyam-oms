@@ -663,6 +663,8 @@ export default function AdminUI() {
                             </div>   
                         </nav>
                     </header>
+                    <main className="">
+                        
                     <main className="display-none" id={dashboardTab ? "display-block" : ""}>
                         <Dashboard/>
                     </main>
@@ -702,6 +704,8 @@ export default function AdminUI() {
                 <main className="display-none" id={donateTab? "display-block":""}>
                         <DonateAdmin/>
                     </main>
+                </main>
+
             </div>
         </div>
     )

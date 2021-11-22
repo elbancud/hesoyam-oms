@@ -55,11 +55,12 @@ function Design1() {
                     
                     const dbLive = firebase.database().ref("liveUrl")
                     dbLive.once("value", (snap) => {
-                        if (new Date(snap.val().timestamp).getDay() !== (new Date().getDay() + 1)) {
-                             setLiveUrl(snap.val().liveUrl)
-                        } else {
+                        
+                        if (new Date(snap.val().timestamp).getDate() != (new Date().getDate())) {
                             setLiveUrl("")
-
+                        } else {
+                            
+                            setLiveUrl(snap.val().liveUrl)
                         }
 
                     })
@@ -238,7 +239,7 @@ function Design1() {
                         <div className="align-text-center">
                             <p><b>Contact Us</b></p>
                         </div>
-                        <div className="flex-no-wrap contact-us pad-y-md flex-evenly">
+                        <div className="flex-wrap contact-us pad-y-md flex-evenly">
 
                             <div className="box-default-width  ">
                                 <h3>Location</h3>

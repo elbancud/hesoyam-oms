@@ -127,7 +127,10 @@ function ServiceUser() {
                         <div className="burger-nav ">
                             <div className="flex-default">
                                 <div className="pad-x-sm">
-                                    <UserProfile/>
+                                   {
+                                      activeCookies? <UserProfile/> : ""
+
+                                  }
                                 </div>
                                 <TopNavGenWeb></TopNavGenWeb>
                                 

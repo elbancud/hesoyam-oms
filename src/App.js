@@ -8,6 +8,7 @@ import RingLoader from "react-spinners/RingLoader";
 import DashboardWebView from "./components/DashboardWebView"
 import PodcastMobileWebview from "./components/PodcastMobileWebview"
 import PageNotFound from "./components/PageNotFound"
+import PrivateRouteDesign from "./components/PrivateRouteDesign"
 
 const Design1 = lazy(() => import('./components/Design1'))
 const EmailForForgetPass = lazy(() => import('./components/EmailForForgotPass'))
@@ -43,10 +44,9 @@ function App() {
                   <RingLoader color={"#533c9f"} loading={true} size={80} speedMultiplier="1.4" /><br />
                 </div>
                 <div className="pad-y-sm"><p><b>To God be the Glory</b></p></div></div>}>
-              <Route path="/design1" exact >
-                <Design1 />
-              </Route>
-
+             
+              <PrivateRouteDesign path="/design1" exact component={Design1} />
+              
               <Route path="/" exact >
                 <Landingpage />
               </Route>
@@ -102,14 +102,19 @@ function App() {
               </Route>
 
               
-              <Route path="/design3" exact >
-                <Design3/>
+            
+              <PrivateRouteDesign path="/design3" exact component={Design3} />
+              <PrivateRouteDesign path="/design2" exact component={Design2} />
+               
+              <Route path="/design1" exact >
+                <Design1 />
               </Route>
-
               <Route path="/design2" exact >
-                <Design2/>
+                <Design2 />
               </Route>
-
+              <Route path="/design3" exact >
+                <Design3 />
+              </Route>
               <Route path="/newPassword" exact >
                 <NewPassword/>
               </Route>

@@ -84,7 +84,7 @@ function Dashboard() {
                         
                     </div>
                     
-                    <div className="full-width flex-flow-wrap-start-center-xy  pad-y-md ">
+                    <div className="full-width flex-flow-wrap-start-center-xy  pad-y-sm">
                         <div className="m-xy-sm ">
                             <div className="flex-default-center-y pad-x-sm m-b-sm">
                                         <WebIcon className="m-r-sm"/>
@@ -180,7 +180,7 @@ function Dashboard() {
                                         <h4 >Announcements</h4>
                                 </div>
                                 <div className="box box-default-width m-x-md box-fixed-height">
-                                     <div className="fullWidth  flex-default-center-x secondary-color">
+                                     <div className="fullWidth height-fixed flex-default-center-x secondary-color">
                                         {announcementArray ? announcementArray.map((data,index)=> {
                                             if(index === 0) {
                                             if (data.announcementTitle) {

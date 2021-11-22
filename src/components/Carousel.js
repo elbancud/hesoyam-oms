@@ -43,12 +43,12 @@ function Carousel() {
                         gutter={20}
                         leftChevron={<Tooltip title="previous">
                                                 <IconButton >
-                                                             <ArrowLeftIcon />
+                                                             <ArrowLeftIcon id = {activeDesign === "design3" ? "font-light": "font-dark"}/>
                                                 </IconButton>
                                                 </Tooltip>}
                         rightChevron={<Tooltip title="next">
                                                 <IconButton >
-                                                             <ArrowRightIcon />
+                                                             <ArrowRightIcon id = {activeDesign === "design3" ? "font-light": "font-dark"}/>
                                                 </IconButton>
                                                 </Tooltip>}
                         outsideChevron

@@ -60,7 +60,6 @@ function SeatArrangement() {
         setUpdate(!update)
     }
     function handleOpenDeleteModal(id) {
-        alert("wtf?")
         const dbGrp = firebase.database().ref("seat-arrangement/" + id)
         dbGrp.orderByChild("reserved").equalTo(true).once("value").then((snap) => {
             if (snap.exists()) {
@@ -285,12 +284,12 @@ function SeatArrangement() {
                                                                              <div className="seat-div" key={id2}>
                                                                                     
                                                                                     <span>
-                                                                                        <Tooltip title="Click for action">
+                                                                                        {/* <Tooltip title="Click for action"> */}
                                                                                                     <Button variant="contained"  id="reserved" disableElevation>
                                                                                                         {index + 1}
                                                                                                     </Button>
                                                                                             
-                                                                                        </Tooltip>
+                                                                                        {/* </Tooltip> */}
                                                                                     </span>
                                                                                 </div> 
                                                                         )
@@ -299,12 +298,12 @@ function SeatArrangement() {
                                                                         
                                                                             return (
                                                                                 <div className="seat-div" key = {id3}>
-                                                                                    <Tooltip title="Click for action">
+                                                                                    {/* <Tooltip title="Click for action"> */}
                                                                                         
                                                                                         <Button  variant="contained" id="available" disableElevation>
                                                                                                     {index + 1}
                                                                                                 </Button>
-                                                                                    </Tooltip>
+                                                                                    {/* </Tooltip> */}
                                                                                 </div> 
                                                                             )
                                                                     }

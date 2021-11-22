@@ -173,7 +173,7 @@ export default function Donate(){
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
                                 <Link to={activeDesign === "design1" ? "/design1" : activeDesign === "design2" ? "/design2" :"/design3"}>
-                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
+                                    <h3 className="secondary-color-text" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
                                 </Link>
                             </div>
                         </div>
@@ -212,7 +212,10 @@ export default function Donate(){
                         <div className="burger-nav ">
                             <div className="flex-default">
                                 <div className="pad-x-sm">
-                                    <UserProfile/>
+                                   {
+                                      activeCookies? <UserProfile/> : ""
+
+                                  }
                                 </div>
                                 <TopNavGenWeb></TopNavGenWeb>
                                 

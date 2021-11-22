@@ -209,6 +209,18 @@ b {
   li {
     color: #f1f1f1;
   }
+  color: #f1f1f1;
+}
+#font-light {
+  h1,
+  h2,
+  p,
+  h3,
+  h4,
+  li {
+    color: #f1f1f1;
+  }
+  color: #f1f1f1;
 }
 #font-dark {
   h1,
@@ -220,10 +232,14 @@ b {
     color: #271b4b !important;
     line-height: 2;
   }
+  color: #271b4b !important;
 }
 .error-red {
   color: $error-red;
   font-weight: bold;
+}
+.height-fixed {
+  height: 230px;
 }
 .page-not-found {
   height: 100vh;
@@ -340,6 +356,12 @@ b {
   display: flex;
   flex-flow: wrap;
   align-items: center;
+  width: 100%;
+  flex-direction: row;
+}
+.flex-wrap {
+  display: flex;
+  flex-flow: wrap;
   width: 100%;
   flex-direction: row;
 }
@@ -626,6 +648,7 @@ b {
 }
 .box-default-width {
   width: 400px !important;
+  width: 90%;
 }
 .box-default-width-force {
   max-width: 400px !important;
@@ -876,6 +899,8 @@ header {
   box-shadow: none !important;
   color: #fff;
 }
+#plain-white {
+}
 #btn-disabled-contained {
   background-color: #e4e4e4 !important;
   box-shadow: none !important;
@@ -915,8 +940,9 @@ header {
   }
 }
 .qr {
-  max-width: 450px;
+  max-width: 70%;
   object-fit: contain;
+  margin: 0 auto;
 }
 .qr-100 {
   max-width: 60% !important;
@@ -1091,6 +1117,7 @@ footer {
     width: 100%;
   }
   nav {
+    color: #000000;
     .burger-nav {
       display: block;
     }
@@ -1165,6 +1192,13 @@ footer {
 @media screen and (max-width: 1660px) {
   .box-default-width-accordion {
     width: 90%;
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width: 400px) {
+  .box-default-width,
+  .box-default-width-min {
+    width: 100% !important;
     margin: 0 auto;
   }
 }

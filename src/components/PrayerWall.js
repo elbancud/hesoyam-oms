@@ -35,6 +35,9 @@ function PrayerWall() {
 
                                     setSiteTitle(snapshot.val().savedSiteTitle)
                         });
+        if(cookies.UserLoginKey) {
+                            setActiveCookes(true)
+                        }
         
          const dbRefPrayers = firebase.database().ref("prayerWallPosts");
             dbRefPrayers.once("value")
@@ -157,25 +160,28 @@ function PrayerWall() {
 
                             </ul>
                         </div>
-                        <div className="nav-desktop-active">
-                        {
-                            activeCookies? <div> <UserProfile/></div>:  <Button
-                            onClick = {getStarted}
-                            variant="outlined"
-                            className="btn-large primary-color"
-                            color="primary"
-                            size="large"
-                            id="btn-large-primary-outline-white"
-                            >
-                            Get Started
-                            </Button>
-                        }
-                       
+                         <div className="nav-desktop-active">
+                                {
+                                    activeCookies? <div> <UserProfile/></div>:  <Button
+                                    onClick = {getStarted}
+                                    variant="outlined"
+                                    className="btn-large primary-color"
+                                    color="primary"
+                                    size="large"
+                                    id="btn-large-primary-outline-white"
+                                    >
+                                    Get Started
+                                    </Button>
+                                }
+                            
                         </div>
                         <div className="burger-nav ">
                             <div className="flex-default">
                                 <div className="pad-x-sm">
-                                    <UserProfile/>
+                                   {
+                                      activeCookies? <UserProfile/> : ""
+
+                                  }
                                 </div>
                                 <TopNavGenWeb></TopNavGenWeb>
                                 

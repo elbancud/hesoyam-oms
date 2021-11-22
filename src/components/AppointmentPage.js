@@ -582,7 +582,7 @@ function AppointmentPage({ service, image }) {
 
                         setAlertStatus(true)
                         setFeedbackVariant("error")
-                        alert(dateChosen.getMonth() + 1 + " " + fMonth)
+                      
                         setAlertMessage("You should be appointing from " + (fMonth) + " " + dateCons + " onwards" + "583")
 
                     } else {

@@ -8,7 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import {   useHistory} from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import firebase from "../firebase"
-import { yellow } from '@mui/material/colors';
+import "../style/style.css";
 
 
 const useStyles = makeStyles({
@@ -103,7 +103,7 @@ export default function TemporaryDrawer() {
             {['top'].map((anchor) => (
                 <React.Fragment key={anchor}>
                     <Button onClick={toggleDrawer(anchor, true)}>
-                        <MenuIcon sx={{ color: 'grey.900' }}/>
+                        <MenuIcon className="secondary-color-text"/>
                     </Button>
                     <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
                         {list(anchor)}

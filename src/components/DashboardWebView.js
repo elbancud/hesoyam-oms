@@ -180,7 +180,7 @@ function Dashboard() {
                                         <h4 >Announcements</h4>
                                 </div>
                                 <div className="box box-default-width m-x-md box-fixed-height">
-                                     <div className="fullWidth  qr-100 flex-default-center-x secondary-color">
+                                     <div className="fullWidth  height-fixed flex-default-center-x secondary-color">
                                         {announcementArray ? announcementArray.map((data,index)=> {
                                             if(index === 0) {
                                             if (data.announcementTitle) {
