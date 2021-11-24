@@ -237,7 +237,7 @@ function PrayerWall() {
                                     <div className="m-y-sm "  key={data.id}>
                                         <div className="box width-sm">
                                                     <div className="pad-xy-sm ">
-                                                        <div className="" id={activeDesign === "design3" ? "font-dark" : ""}>
+                                                        <div className="" >
                                                             <p>{data.postInput}</p>
                                                         </div>
                                                     
