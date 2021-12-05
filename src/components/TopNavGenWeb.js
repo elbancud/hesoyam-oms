@@ -26,13 +26,26 @@ export default function TemporaryDrawer() {
     const history = useHistory();
     const classes = useStyles();
     const [activePage, setActivePage] = useState("")
-
+    const [liturgyPage, setLiturgyPage] = useState(false);
+    const [staffPage, setStaffPage] = useState(false);
+    const [outReachPage, setOutreactPage] = useState(false);
+    const [quickLinksPage, setQuickLinksPage] = useState(false);
+    const [sacramentsPage, setSacramentsPage] = useState(false);
     const [state, setState] = React.useState({
         top: false,
 
     });
 
     useEffect(() => {
+            
+                    const dbPages = firebase.database().ref("pages")
+                    dbPages.once("value").then((snap) => {
+                        setLiturgyPage(snap.val().liturgyPage)
+                        setStaffPage(snap.val().staffPage)
+                        setOutreactPage(snap.val().outReachPage)
+                        setQuickLinksPage(snap.val().quickLinkPage)
+                        setSacramentsPage(snap.val().sacramentsPage)
+                    })
 
         const db = firebase.database().ref("themeChosen")
         db.on("value", snap => {
@@ -65,6 +78,26 @@ export default function TemporaryDrawer() {
         } else {
             history.push("/genWebLogin")
         }
+    }function lit() {
+        history.push("/liturgy")
+    }
+     function livestream() {
+        history.push("/livestream")
+    }
+    function outreach() {
+        history.push("/outreach")
+    }
+    function staff() {
+        history.push("/staff")
+    }
+    function lit() {
+        history.push("/liturgy")
+    }
+    function sacrament() {
+        history.push("/sacrament")
+    }
+    function quick() {
+        history.push("/quickLink")
     }
     const list = (anchor) => (
         <div
@@ -91,6 +124,31 @@ export default function TemporaryDrawer() {
                                     <li onClick={pod} className="cursor-pointer">
                                             Podcast
                                     </li>
+                                    <li onClick={livestream} className="cursor-pointer">
+                                            Streams
+                                    </li>
+                                    {liturgyPage? 
+                                                <li onClick={lit}  className="cursor-pointer">
+                                                    Liturgy & Music
+                                                </li>: ""
+                                            }{outReachPage? 
+                                                <li onClick={outreach} className="cursor-pointer">
+                                                    Outreach
+                                                </li>: ""
+                                            }{staffPage
+                                                ? 
+                                                <li onClick={staff} className="cursor-pointer">
+                                                    Meet the Stuff
+                                                </li>: ""
+                                            }{sacramentsPage? 
+                                                <li onClick={sacrament} className="cursor-pointer">
+                                                    Sacraments
+                                                </li>: ""
+                                            }{quickLinksPage? 
+                                                <li onClick={quick} className="cursor-pointer">
+                                                    Quick Links
+                                                </li>: ""
+                                            }
                                    
                 </ul>
             </div>

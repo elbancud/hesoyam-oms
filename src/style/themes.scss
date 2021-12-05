@@ -42,7 +42,9 @@ img {
 .plain-white-color-bg {
   background-color: #fff;
 }
-
+.bg-color-brown {
+  // background-color: #272822;
+}
 .primary-bg-color-off-white {
   background-color: #f5f2ef;
 }
@@ -161,7 +163,15 @@ img {
     }
   }
 }
-
+.profile-info {
+  padding-left: 2.5rem;
+  h3 {
+    margin-bottom: 0 !important;
+  }
+  p {
+    height: 25px;
+  }
+}
 //design 3
 
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");

@@ -97,7 +97,7 @@ export default function Donate(){
           setLoadingState(false);
           setAlertStatus(true)
           setFeedbackVariant("success")
-          setAlertMessage("Audio uploaded.")
+          setAlertMessage("Donation Posted.")
           setAmount("")
           setUsernameInput("")
 

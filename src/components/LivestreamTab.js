@@ -7,6 +7,10 @@ import firebase from 'firebase';
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import validator from 'validator';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 
 function LivestreamTab() {
@@ -17,24 +21,47 @@ function LivestreamTab() {
     const [alertStatus, setAlertStatus] = useState(false);
     const [feedbackVariant, setFeedbackVariant] = useState("");
     const [alertMessage, setAlertMessage] = useState("");
-
+    const [session, setSessions] = useState(0);
+    function addSession(getter, setter) {
+        setter(getter + 1);
+    }
+    function minusSession(getter, setter) {
+        if(getter > 0) {
+                setter(getter - 1)
+        }
+    }
     function handleUrl() {
-        if (!validator.isURL(url)) {
+        if (!validator.isURL(url) ) {
             setAlertStatus(true)
             setFeedbackVariant("error")
             setAlertMessage("Ooops! please input a valid url")
             
+        } else if (session === 0) {
+            setAlertStatus(true)
+            setFeedbackVariant("error")
+            setAlertMessage("Ooops! livestream duration shouldn't be 0")
         } else {
             
         const db = firebase.database().ref("liveUrl")
-            
+        const dbRecorded = firebase.database().ref("recordedliveUrl")
             
         let livestreamDetails = {
             liveUrl: url,
             timestamp: new Date(),
+            time: session
         }
-            
+        
+        let livestreamDetailsRecorded = {
+            liveUrl: url,
+            timestamp: new Date().getMonth() +","+ new Date().getDate()+","+ new Date().getFullYear(),
+            time: session
+        }
         db.update(livestreamDetails).then(() => {
+            setAlertStatus(true)
+            setFeedbackVariant("success")
+            setAlertMessage("Success! You can now view the Live on generated website")
+        })
+        dbRecorded.push(livestreamDetailsRecorded).then(() => {
             setAlertStatus(true)
             setFeedbackVariant("success")
             setAlertMessage("Success! You can now view the Live on generated website")
@@ -91,6 +118,33 @@ function LivestreamTab() {
                                 
                                 <div className="m-y-md ">
                                             <TextField type="url" error={urlErrorState} fullWidth helperText={urlError} onChange={e => {setUrl(e.target.value)}} value={url}   id="outlined-full-width"  label="Enter URL" variant="outlined" className="text-input-deafult "/>
+                                            
+                                            
+                                            <div className="flex-default">
+                                                <div>
+                                                    <h5 className="m-t-sm"><b>Go live for how many hours? </b></h5>
+                                                </div>
+                                            <div className="flex-default">
+                                                <div>
+                                                    <Tooltip title="subtract">
+                                                        <IconButton onClick={() => { minusSession(session, setSessions) }}>
+                                                            <IndeterminateCheckBoxIcon/>
+                                                        </IconButton>
+
+                                                    </Tooltip>
+                                                </div>
+                                                <div >
+                                                    {session}
+                                                </div>
+                                                <div >
+                                                    <Tooltip title="add">
+                                                        <IconButton onClick={() => { addSession(session, setSessions) }}>
+                                                            <AddBoxIcon/>
+                                                        </IconButton>
+
+                                                    </Tooltip>
+                                                </div>
+                                            </div>
                                             <div className="m-y-md">
                                                 <Button
                                                     disabled={!url}
@@ -105,6 +159,8 @@ function LivestreamTab() {
                                                 </Button>
                                                 
                                             </div>
+                                        </div>
+
                                 </div>
                             </li>
                             

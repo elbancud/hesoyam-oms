@@ -451,6 +451,9 @@ b {
 .height-90 {
   height: 90%;
 }
+.height-70 {
+  height: 70%;
+}
 .height-50 {
   height: 50%;
 }
@@ -653,6 +656,9 @@ b {
 .box-default-width-force {
   max-width: 400px !important;
 }
+.box-default-width-sm {
+  width: 380px !important;
+}
 .box-default-width-min {
   width: 400px !important;
 }
@@ -836,7 +842,7 @@ header {
   max-width: 300px !important;
 }
 .width-md-no-margin {
-  min-width: 80% !important;
+  min-width: 70% !important;
 }
 .username-cut-width {
   text-overflow: ellipsis;
@@ -956,6 +962,11 @@ header {
   img {
     width: 100%;
     max-height: 290px !important;
+  }
+}
+.theme-img-sm {
+  img {
+    max-width: 300px !important;
   }
 }
 .icon-set-light {

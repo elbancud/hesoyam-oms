@@ -487,6 +487,10 @@ b {
   height: 90%;
 }
 
+.height-70 {
+  height: 70%;
+}
+
 .height-50 {
   height: 50%;
 }
@@ -727,6 +731,10 @@ b {
   max-width: 400px !important;
 }
 
+.box-default-width-sm {
+  width: 380px !important;
+}
+
 .box-default-width-min {
   width: 400px !important;
 }
@@ -946,7 +954,7 @@ header .burger-nav-admin {
 }
 
 .width-md-no-margin {
-  min-width: 80% !important;
+  min-width: 70% !important;
 }
 
 .username-cut-width {
@@ -1092,6 +1100,10 @@ header .burger-nav-admin {
 .theme-img img {
   width: 100%;
   max-height: 290px !important;
+}
+
+.theme-img-sm img {
+  max-width: 300px !important;
 }
 
 .icon-set-light {

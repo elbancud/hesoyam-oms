@@ -56,6 +56,7 @@ function UserAppointment({ service, image }) {
     const [seatDb, setSeatDb] = useState("")
     const [data, setData] = useState("")
     const [activeDesign, setActiveDesign] = useState("")
+    const [eventKey, setEventKey] = useState("")
 
     const handleClose = () => {
         setOpen(false);
@@ -114,7 +115,7 @@ function UserAppointment({ service, image }) {
     //open dialog box
     //set variables depending on table data
 
-    function handleCancel(title, id, service, date, time, seatDb) {
+    function handleCancel(title, id, service, date, time, seatDb, eventKey) {
 
         let titleHanlder = service + " " + cookies.UserLastName + " " + cookies.UserFirstName
         let fTime = new Date(time).getHours() + ":" + new Date(time).getMinutes()
@@ -125,6 +126,8 @@ function UserAppointment({ service, image }) {
         setServiceDetails(titleHanlder)
         setCurrentDate(date)
         setSeatDb(seatDb)
+        setEventKey(eventKey)
+
         const dbService = firebase.database().ref("services/" + service);
 
         dbService.once("value").then(function (snapshot) {
@@ -152,7 +155,16 @@ function UserAppointment({ service, image }) {
                 removeDb.remove()
             }
         })
+        let currentCap = 0
+        const dbSessionCapacity = firebase.database().ref("events/" + eventKey)
 
+        dbSessionCapacity.once("value").then((snap) => {
+            currentCap = snap.val().sessionCapacity    
+        })
+
+        dbSessionCapacity.update({ sessionCapacity: parseInt(currentCap + 1, 10) })
+        
+        
         const dbseat = firebase.database().ref(seatDb)
         dbseat.update({ reserved: false })
         
@@ -387,7 +399,7 @@ function UserAppointment({ service, image }) {
                                                         </TableCell>
 
                                                         <TableCell align="left">
-                                                            <Button disabled={parseInt(new Date(data.end).getFullYear(), 10) <= parseInt(new Date().getFullYear(), 10) && parseInt(new Date(data.end).getMonth(), 10) < parseInt(new Date().getMonth(), 10)} size="small" variant="contained" id={parseInt(new Date(data.end).getFullYear(), 10) <= parseInt(new Date().getFullYear(), 10) && parseInt(new Date(data.end).getMonth(), 10) < parseInt(new Date().getMonth(), 10) ? "btn-disabled-contained" : "btn-error-contained"} color="default" onClick={() => { handleCancel(data.title, data.id, data.title, data.end, data.time, data.seatDb) }}>cancel</Button>
+                                                            <Button disabled={parseInt(new Date(data.end).getFullYear(), 10) <= parseInt(new Date().getFullYear(), 10) && parseInt(new Date(data.end).getMonth(), 10) < parseInt(new Date().getMonth(), 10)} size="small" variant="contained" id={parseInt(new Date(data.end).getFullYear(), 10) <= parseInt(new Date().getFullYear(), 10) && parseInt(new Date(data.end).getMonth(), 10) < parseInt(new Date().getMonth(), 10) ? "btn-disabled-contained" : "btn-error-contained"} color="default" onClick={() => { handleCancel(data.title, data.id, data.title, data.end, data.time, data.seatDb, data.eventKey) }}>cancel</Button>
                                                         </TableCell>
 
 

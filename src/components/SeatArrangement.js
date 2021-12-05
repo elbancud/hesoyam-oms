@@ -257,11 +257,16 @@ function SeatArrangement() {
                         </div>
                     </div>
                     <div className="flex-flow-wrap-x ">
-                        {seatArray ? seatArray.map((data) => {
+                        {seatArray ? seatArray.map((data, parentIndex) => {
                              const id = uuidv4();
 
                             return(
                                 <div className="m-xy-lg" key={data.id}>
+                                    <div className="flex-flow-wrap-x">
+                                         <div className="">
+                                            <h5 className="primary-color-text-custom ">Group {parentIndex + 1}</h5>
+                                        </div>
+                                    </div>
                                     {
                                             Object.values(data).map((key, indexLvl1) => {
                                             

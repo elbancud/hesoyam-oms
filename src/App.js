@@ -28,6 +28,9 @@ const UserAppointment = lazy(() => import('./components/UserAppointment'))
 const Design3 = lazy(() => import('./components/Design3'))
 const NewPassword = lazy(() => import('./components/NewPassword'))
 const Design2 = lazy(() => import('./components/Design2'))
+const Stuff = lazy(() => import('./components/Stuff'))
+const UserLivestream = lazy(() => import('./components/UserLivestream'))
+const Outreach = lazy(() => import('./components/Outreach'))
 
 function App() {
 
@@ -100,8 +103,16 @@ function App() {
               <Route path="/userAppointment" exact >
                 <UserAppointment/>
               </Route>
+              <Route path="/livestream" exact >
+                <UserLivestream/>
+              </Route>
 
-              
+              <Route path="/staff" exact >
+                <Stuff/>
+              </Route>
+              <Route path="/outreach" exact >
+                <Outreach/>
+              </Route>
             
               <PrivateRouteDesign path="/design3" exact component={Design3} />
               <PrivateRouteDesign path="/design2" exact component={Design2} />

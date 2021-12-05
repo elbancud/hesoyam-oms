@@ -342,7 +342,9 @@ function AppointmentPage({ service, image }) {
                                                 seatDb: seatState ? dbPushUser : "",
                                                 user: cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService,
                                                 key: cookies.UserLoginKey,
-                                                appointmendId: id
+                                                appointmendId: id,
+                                                eventKey: seatSpecificKey
+                                                
                                                
                                     }
                                 }
@@ -360,7 +362,9 @@ function AppointmentPage({ service, image }) {
                                     seatDb: seatState ? dbPushUser : "",
                                     user: cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService,
                                     key: cookies.UserLoginKey,
-                                    appointmendId: id
+                                    appointmendId: id,
+                                    eventKey: seatSpecificKey
+
 
                                 }
                                             
@@ -452,8 +456,10 @@ function AppointmentPage({ service, image }) {
                                         seatDb: seatState ? dbPushUser : "",
                                         user: cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService,
                                         key: cookies.UserLoginKey,
-                                        appointmendId: id
+                                        appointmendId: id,
+                                        eventKey: seatSpecificKey
 
+                                        
                                         
                                     }
                                                 
@@ -500,7 +506,14 @@ function AppointmentPage({ service, image }) {
                                             const dbSpecified = firebase.database().ref('events/' + currentId)      
                                             let dbPushUser = "services/" + cookies.activeService + "/seatManagement/" + dbSeat;
                                             const id = uuidv4();
-                                            
+                                            let seatSpecificKey = ""
+                                            if (snap.exists()) {
+                                                seatSpecificKey = Object.keys(snap.val())[0]
+                                                let db = "events/"+seatSpecificKey
+                                                db.once("value").then((snapshot) => {
+                                                    return parseInt(snapshot.val())
+                                                })
+                                            }
                                             //push in general event
                                             const appointmentDetailsUser = {
                                                 title: cookies.activeService,
@@ -514,7 +527,9 @@ function AppointmentPage({ service, image }) {
                                                 seatDb: seatState ? dbPushUser : "",
                                                 user: cookies.UserLastName + cookies.UserFirstName + " " + cookies.activeService,
                                                 key: cookies.UserLoginKey,
-                                                appoinmentId: id
+                                                appoinmentId: id,
+                                                eventKey: seatSpecificKey
+
                                                 
                                             }
                                                         
@@ -598,8 +613,6 @@ function AppointmentPage({ service, image }) {
         else {
             //if selected know if time being selected still have capacity 
             //know if appointing base on days count before appointment
-            // alert(fDate + "-" + dateCons + "-" + fMonth + "-" + monthQuot)
-                // alert(dateChosen.getMonth() + 2 + "ye")
             if (dateChosen.getYear() >= (new Date().getYear() + 1)) {
                  const dbUser = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + "/appointments");
                                             
@@ -637,7 +650,7 @@ function AppointmentPage({ service, image }) {
                                     setFeedbackVariant("error")
                                     setAlertMessage("You already have an active appointment in this service")     
                                     } else {
-                                appointmentStatus()
+                                        appointmentStatus()
                                         
                                     }
                                             

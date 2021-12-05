@@ -185,7 +185,7 @@ function NewPassword() {
 
                 </div>
               </header>
-              <h3>Silly you, New passowrd?</h3>
+              <h3>New passowrd?</h3>
               <p>We assume you are here from the email. Please type in your new password.</p>
             </div>
             <form noValidate autoComplete="off" onSubmit={handleSubmit}>

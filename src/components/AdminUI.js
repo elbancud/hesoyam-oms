@@ -37,6 +37,8 @@ import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import AdminAppointCancel from './AdminAppointCancel';
 import Zoom from '@mui/material/Zoom';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import Reports from './Reports';
 
 export default function AdminUI() {
     const [accountTab, setAccountTab] = useState(false);
@@ -53,6 +55,7 @@ export default function AdminUI() {
     const [reportsTab, setReportsTab] = useState(false);
     const [donateTab, setDonateTab] = useState(false);
     const [notification, setNotification] = useState(false);
+    const [reports, setReports] = useState(false);
 
     const [user, setUser] = useState(null);
     const [userName, setUsername] = useState("");
@@ -217,6 +220,15 @@ export default function AdminUI() {
                                         <p className="m-b-sm"><b>Donations</b></p>
                                     </div>
                                 </li>
+                                <li className="flex-default pad-x-sm" id={reports ? "active" : ""} onClick={() => { activateTab("reports", setReports) }}>
+                                    <div className="icon-padding">
+                                        <AssessmentIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm"><b>Contents</b></p>
+                                    </div>
+                                </li>
+                                
                             </ul>
                         
                         </div>
@@ -250,6 +262,8 @@ export default function AdminUI() {
             setTheme(false);
             setDonateTab(false);
             setNotification(false);
+            setReports(false);
+
 
             const dbRef = firebase.database().ref("account-details");
             dbRef.on('value', snapshot => {
@@ -275,6 +289,8 @@ export default function AdminUI() {
             setTheme(false);
             setDonateTab(false);
             setNotification(false);
+            setReports(false);
+
 
         } else if (tabName === "theme") {
             setAccountTab(false);
@@ -290,6 +306,8 @@ export default function AdminUI() {
             setReportsTab(false);
             setDonateTab(false);
             setNotification(false);
+            setReports(false);
+
 
 
         }else if (tabName === "webpagesTab") {
@@ -306,6 +324,8 @@ export default function AdminUI() {
             setTheme(false);
             setDonateTab(false);
             setNotification(false);
+            setReports(false);
+
 
 
         }else if (tabName === "servicesTab") {
@@ -322,6 +342,8 @@ export default function AdminUI() {
             setTheme(false);
             setDonateTab(false);
             setNotification(false);
+            setReports(false);
+
 
 
         }else if (tabName === "calendarTab") {
@@ -338,6 +360,8 @@ export default function AdminUI() {
             setTheme(false);
             setDonateTab(false);
             setNotification(false);
+            setReports(false);
+
 
 
         }else if (tabName === "seatsTab") {
@@ -353,6 +377,8 @@ export default function AdminUI() {
             setReportsTab(false);
             setTheme(false);
             setDonateTab(false);
+            setReports(false);
+
             setNotification(false);
 
 
@@ -370,6 +396,8 @@ export default function AdminUI() {
             setTheme(false);
             setDonateTab(false);
             setNotification(false);
+            setReports(false);
+
 
 
         }else if (tabName === "liveStreamTab") {
@@ -386,6 +414,8 @@ export default function AdminUI() {
             setTheme(false);
             setDonateTab(false);
             setNotification(false);
+            setReports(false);
+
 
 
         }else if (tabName === "podcastsTab") {
@@ -402,6 +432,8 @@ export default function AdminUI() {
             setTheme(false);
             setDonateTab(false);
             setNotification(false);
+            setReports(false);
+
 
 
         } else if(tabName === "reportsTab"){
@@ -417,6 +449,8 @@ export default function AdminUI() {
             setReportsTab(true);
             setTheme(false);
             setDonateTab(false);
+            setReports(false);
+
 
         } else if (tabName === "donateTab") {
             setAccountTab(false);
@@ -432,6 +466,8 @@ export default function AdminUI() {
             setTheme(false);
             setDonateTab(true);
             setNotification(false);
+            setReports(false);
+
 
         }
         else if (tabName === "notification") {
@@ -448,6 +484,26 @@ export default function AdminUI() {
             setTheme(false);
             setDonateTab(false);
             setNotification(true);
+            setReports(false);
+
+        }
+        else if (tabName === "reports") {
+            setAccountTab(false);
+            setDashboardTab(false);
+            setWebpagesTab(false);
+            setServicesTab(false);
+            setCalendarTab(false);
+            setSeatsTab(false);
+            setAnnouncementTab(false);
+            setLiveStreamTab(false);
+            setPodcastsTab(false);
+            setReportsTab(false);
+            setTheme(false);
+            setDonateTab(false);
+            setNotification(false);
+            setReports(true);
+
+
         }
     }
     return (
@@ -610,6 +666,15 @@ export default function AdminUI() {
                                         </div>
                                     </li>
                                 </Tooltip>
+                                <Tooltip title="Contents" placement="right-start" TransitionComponent={Zoom}>
+
+                                <li className="flex-default pad-x-sm" id={reports ? "active" : ""} onClick={() => { activateTab("reports", setReports) }}>
+                                    <div className="icon-padding">
+                                        <AssessmentIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     
+                                </li>
+                                </Tooltip>
 
                             </ul>
                         
@@ -703,7 +768,10 @@ export default function AdminUI() {
                 </main>
                 <main className="display-none" id={donateTab? "display-block":""}>
                         <DonateAdmin/>
-                    </main>
+                </main>
+                <main className="display-none" id={reports? "display-block":""}>
+                        <Reports/>
+                </main>
                 </main>
 
             </div>

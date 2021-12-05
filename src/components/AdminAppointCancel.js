@@ -39,7 +39,8 @@ function UserAppointment({ service, image }) {
    
     const [update, setUpdate] = useState(false)
     const [seatDb, setSeatDb] = useState("")
-    const [notifCount, setNotifCount] = useState(0)
+    const [eventKey, setEventKey] = useState("")
+
 
     const handleClose = () => {
         setOpen(false);
@@ -61,13 +62,13 @@ function UserAppointment({ service, image }) {
     //open dialog box
     //set variables depending on table data
 
-    function handleCancel(userLoginKey, userAppointKey, overAllEventKey, seatDb) {
+    function handleCancel(userLoginKey, userAppointKey, overAllEventKey, seatDb, eventKey) {
 
         setCurrentId(userLoginKey)
         setCurrentAppointKey(userAppointKey)
         setCurrentOverallKey(overAllEventKey)
         setSeatDb(seatDb)
-        
+        setEventKey(eventKey)
         setOpen(true);
 
     }
@@ -86,6 +87,14 @@ function UserAppointment({ service, image }) {
                     setFeedbackVariant("success");
                     setAlertMessage("Success! appointment cancelled.")
         })
+        let currentCap = 0
+        const dbSessionCapacity = firebase.database().ref("events/" + eventKey)
+
+        dbSessionCapacity.once("value").then((snap) => {
+            currentCap = snap.val().sessionCapacity    
+        })
+
+        dbSessionCapacity.update({sessionCapacity: parseInt(currentCap+1,10)})
         dbOverall.remove()
         setUpdate(!update)
         setOpen(false)
@@ -182,7 +191,7 @@ function UserAppointment({ service, image }) {
                                             </TableCell>
                                             
                                             <TableCell align="left"> 
-                                                <Button disabled={!data.reason}  id={!data.reason ? "btn-disabled-contained" : "btn-error-contained"} color="inherit" onClick={()=> {handleCancel(data.key,  data.appointmentKey, data.id, data.seatDb)}}>cancel</Button>
+                                                <Button disabled={!data.reason}  id={!data.reason ? "btn-disabled-contained" : "btn-error-contained"} color="inherit" onClick={()=> {handleCancel(data.key,  data.appointmentKey, data.id, data.seatDb, data.eventKey)}}>cancel</Button>
                                              </TableCell>
                                             
                                             

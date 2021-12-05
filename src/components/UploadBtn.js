@@ -10,9 +10,7 @@ import { styled } from '@mui/material/styles';
 import { v4 as uuidv4 } from 'uuid';
 import RingLoader from "react-spinners/RingLoader";
 import Tooltip from '@mui/material/Tooltip';
-import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import TextField from "@material-ui/core/TextField";
-import ImageIcon from '@mui/icons-material/Image';
 import { useCookies } from 'react-cookie';
 import { useAuth } from "../context/AuthContext";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
@@ -27,7 +25,6 @@ function UploadBtn({type}) {
     const [uploadFile, setUploadFile] = useState("")
     const [loadingState, setLoadingState] = useState(false)
     const [uploadFileImage, setuploadFileImage] = useState("")
-
 
     const [titleErrorState, setTitleErrorState] = useState(false);
     const [titleError, seTitleError] = useState("");
@@ -47,8 +44,7 @@ function UploadBtn({type}) {
         setCurrentfileState(event.target.files[0])
 
         const currentFile = getCurrentfile() ? getCurrentfile().name : ""
-
-      
+        setuploadFileImage("hello")
         event.target.value = null
         setUpdate(!update)
     }
@@ -201,17 +197,20 @@ function UploadBtn({type}) {
                                         </div>
                                         <div className="pad-xy-sm">
                                             {type=== "audio" ?
-                                                <Button
-                                                    disabled={!uploadFile}
-                                                    onClick ={uploadMp3}
-                                                    id="btn-large-secondary"
-                                                    variant="contained"
-                                                    className="btn-large primary-color"
-                                                    color="secondary"
-                                                    size="large"
-                                                >
-                                                    upload
-                                                </Button>
+                                                <div>
+                                                    <Button
+                                                        disabled={!uploadFile}
+                                                        onClick ={uploadMp3}
+                                                        id="btn-large-secondary"
+                                                        variant="contained"
+                                                        className="btn-large primary-color"
+                                                        color="secondary"
+                                                        size="large"
+                                                    >
+                                                        upload
+                                                    </Button>
+                                                    
+                                                    </div>
                                                 : <Button
                                                     onClick ={uploadImage}
                                                     id="btn-large-secondary"
@@ -222,17 +221,18 @@ function UploadBtn({type}) {
                                                 >
                                                     upload
                                                 </Button>
+                                                
                                             }
                                             
                                         </div>
-                                        {type=== "audio" ?
+                                        {type === "audio" ?
                                                 <div>
                                                         <p>File: </p>
                                                         <p><b>{uploadFile.name}</b></p>
                                                     </div>
                                                 :  <div>
                                                         <p>File: </p>
-                                                        <p><b>{uploadFileImage}</b></p>
+                                                        <p><b>{getCurrentfile().name}</b></p>
                                                     </div>
                                             }
                                         

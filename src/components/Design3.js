@@ -31,6 +31,13 @@ function Design1() {
     const [contact1, setContact1] = useState();
     const [contact2, setContact2] = useState();
     const [contact3, setContact3] = useState();
+
+    const [liturgyPage, setLiturgyPage] = useState(false);
+    const [staffPage, setStaffPage] = useState(false);
+    const [outReachPage, setOutreactPage] = useState(false);
+    const [quickLinksPage, setQuickLinksPage] = useState(false);
+    const [sacramentsPage, setSacramentsPage] = useState(false);
+    
     useEffect(() => {
                     const dbRef = firebase.database().ref("generated-data");
                         dbRef.on('value', snapshot => {
@@ -56,7 +63,7 @@ function Design1() {
                     const dbLive = firebase.database().ref("liveUrl")
                     dbLive.once("value", (snap) => {
                         
-                        if (new Date(snap.val().timestamp).getDate() != (new Date().getDate())) {
+                        if (new Date(snap.val().timestamp).getDate() != (new Date().getDate()) && new Date(snap.val().timestamp).getHours() + parseInt(snap.val().time, 10) != (new Date().getHours())  ) {
                             setLiveUrl("")
                         } else {
                             
@@ -64,7 +71,14 @@ function Design1() {
                         }
 
                     })
-                    
+                    const dbPages = firebase.database().ref("pages")
+                    dbPages.once("value").then((snap) => {
+                        setLiturgyPage(snap.val().liturgyPage)
+                        setStaffPage(snap.val().staffPage)
+                        setOutreactPage(snap.val().outReachPage)
+                        setQuickLinksPage(snap.val().quickLinkPage)
+                        setSacramentsPage(snap.val().sacramentsPage)
+                    })
     }, []);
 
     function getStarted() {
@@ -92,6 +106,9 @@ function Design1() {
     function pod() {
         history.push("/userPodcast")
     }
+    function stuff() {
+        history.push("/stuff")
+    }
     function handleServiceRedirect() {
         if (cookies.UserLoginKey) {
             history.push("/userService")
@@ -99,7 +116,9 @@ function Design1() {
             history.push("/genWebLogin")
         }
     }
-   
+   function livestream() {
+        history.push("/livestream")
+    }
     return (
         
         <div className="design3-properties">
@@ -128,6 +147,31 @@ function Design1() {
                                             <li onClick={pod}>
                                                     Podcast
                                             </li>
+                                            <li onClick={livestream} className="cursor-pointer">
+                                                    Streams
+                                            </li>
+                                            {liturgyPage? 
+                                                <li >
+                                                    Liturgy & Music
+                                                </li>: ""
+                                            }{outReachPage? 
+                                                <li >
+                                                    Outreach
+                                                </li>: ""
+                                            }{staffPage
+                                                ? 
+                                                <li onClick={stuff}>
+                                                    Meet the Stuff
+                                                </li>: ""
+                                            }{sacramentsPage? 
+                                                <li >
+                                                    Sacraments
+                                                </li>: ""
+                                            }{quickLinksPage? 
+                                                <li >
+                                                    Quick Links
+                                                </li>: ""
+                                            }
 
                             </ul>
                         </div>
@@ -149,7 +193,9 @@ function Design1() {
                         <div className="burger-nav ">
                             <div className="flex-default">
                                 <div className="pad-x-sm">
-                                    <UserProfile/>
+                                        {
+                                            activeCookies? <div> <UserProfile/></div>: ""
+                                        }
                                 </div>
                                 <TopNavGenWeb></TopNavGenWeb>
                                 
