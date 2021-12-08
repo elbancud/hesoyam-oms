@@ -10,6 +10,7 @@ import { Button } from "@material-ui/core";
 import TopNavGenWeb from './TopNavGenWeb'
 import 'react-h5-audio-player/lib/styles.css';
 import AudioPlayer from 'react-h5-audio-player';
+import QuickLinks from './QuickLinks';
 
 function UserPodcast() {
         const [siteTitle, setSiteTitle] = useState("");
@@ -85,6 +86,7 @@ function UserPodcast() {
                                     </div>
                                 </div>
                                 <div className="nav-desktop-active">
+                                    
                                     <ul className="flex-default">
                                             <li onClick={prayerWall}>
                                                     Prayer Wall
@@ -98,8 +100,15 @@ function UserPodcast() {
                                             <li onClick={pod}>
                                                     Podcast
                                             </li>
+                                            {/* <li onClick={livestream}>
+                                                    Streams
+                                            </li> */}
+                                            <li className = "flex-space-between" >
+                                                    <QuickLinks/>
+                                            </li>
+                                            
 
-                                    </ul>
+                            </ul>
                                 </div>
                                 <div className="nav-desktop-active">
                                 {

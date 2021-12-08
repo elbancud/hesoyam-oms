@@ -37,7 +37,6 @@ function PageTab() {
     const [liturgySwitch, setLiturgySwitch] = useState(false);
     const [staffSwitch, setStaffSwitch] = useState(false);
     const [outreachSwitch, setOutreactSwitch] = useState(false);
-    const [quickLinksSwitch, setQuickLinksSwitch] = useState(false);
     const [sacramentsSwitch, setSacramentsSwitch] = useState(false);
 
     const [liturgyBtn, setLiturgyBtn] = useState(false);
@@ -45,7 +44,6 @@ function PageTab() {
     const [outreachBtn, setOutreactBtn] = useState(false);
     const [quickLinksBtn, setQuickLinksBtn] = useState(false);
     const [sacramentsBtn, setSacramentsBtn] = useState(false);
-
       useEffect(() => {
             const dbRefWithKey = firebase.database().ref("themeChosen");
                 dbRefWithKey.on("value", snap => {
@@ -59,7 +57,6 @@ function PageTab() {
               setStaffSwitch(snap.val().staffPage)
               setOutreactSwitch(snap.val().outReachPage)
               setSacramentsSwitch(snap.val().sacramentsPage)
-              setQuickLinksSwitch(snap.val().quickLinkPage)
           })
                 
      }, []);
@@ -89,9 +86,6 @@ function PageTab() {
             
         } else if (tab === "outreach") {
             db.update({outReachPage: !outreachSwitch})
-            
-        } else if (tab === "quickLinks") {
-            db.update({quickLinkPage: !quickLinksSwitch})
             
         } else if (tab === "sacrament") {
             db.update({sacramentsPage: !sacramentsSwitch})
@@ -206,31 +200,6 @@ function PageTab() {
                                               </div>
                                             
                                     </div>
-                                </div>
-                            </div>  
-                        </div>
-                        <div className="box box-default-width-sm  m-xy-md theme-img">
-                             <img src="https://images.unsplash.com/photo-1625734119701-b2894d8e4c10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt ="design 3"></img>
-                             <div className="modal-footer plain-white-color-bg  pad-x-sm ">
-                                <div className="flex-space-between pad-y-sm">
-                                    <p>Quick Links</p>
-                                    
-                                    <div className="flex-space-between">
-                                        <Switch  color = "primary"checked={quickLinksSwitch} onChange={event => { setQuickLinksSwitch(event.target.checked);switchTab("quickLinks") }} />
-                                            <div className={!quickLinksSwitch ? "on-customize-display-none " : ""}>
-                                                <Button
-                                                        onClick = {()=>{setQuickLinksBtn(true)}}
-                                                        className="btn-large primary-color"
-                                                        color="secondary"
-                                                        size="large"
-                                                >
-                                                <EditIcon />
-                                                
-                                                </Button>
-                                            
-                                              </div>
-                                            
-                                        </div>
                                 </div>
                             </div>  
                         </div>

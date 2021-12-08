@@ -29,7 +29,6 @@ function AccordionSideTab() {
   const [communityMeal, setCommunityMeal] = useState("");
   const [donationDrive, setDonationDrive] = useState("");
   const [outreachFacility, setOutreachFacility] = useState("");
-
   const [immigrants, setImmigrants] = useState("");
   const Input = styled('input')({
         display: 'none',
@@ -87,7 +86,7 @@ function AccordionSideTab() {
                                         storage.getDownloadURL().then(url => {
                                             const dbComm = firebase.database().ref("data/communityMeal");
                                             const data = {
-                                                staffImage: url
+                                                communityMealImage: url
                                             }
                                             dbComm.update(data).then(() => {
                                                 setLoadingState(false);
@@ -130,7 +129,7 @@ function AccordionSideTab() {
                                         storage.getDownloadURL().then(url => {
                                             const dbComm = firebase.database().ref("data/covidAssist");
                                             const data = {
-                                                staffImage: url
+                                                covidAssistImage: url
                                             }
                                             dbComm.update(data).then(() => {
                                                 setLoadingState(false);
@@ -176,7 +175,7 @@ function AccordionSideTab() {
                                         storage.getDownloadURL().then(url => {
                                             const dbComm = firebase.database().ref("data/donationDrive");
                                             const data = {
-                                                staffImage: url
+                                                donationDriveImage: url
                                             }
                                             dbComm.update(data).then(() => {
                                                 setLoadingState(false);
@@ -221,7 +220,7 @@ function AccordionSideTab() {
                                         storage.getDownloadURL().then(url => {
                                             const dbComm = firebase.database().ref("data/immigrants");
                                             const data = {
-                                                staffImage: url
+                                                immigrantsImage: url
                                             }
                                             dbComm.update(data).then(() => {
                                                 setLoadingState(false);
@@ -266,7 +265,7 @@ function AccordionSideTab() {
                                         storage.getDownloadURL().then(url => {
                                             const dbComm = firebase.database().ref("data/outreachFacility");
                                             const data = {
-                                                staffImage: url
+                                                outreachFacilityImage: url
                                             }
                                             dbComm.update(data).then(() => {
                                                 setLoadingState(false);

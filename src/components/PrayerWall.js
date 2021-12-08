@@ -11,6 +11,8 @@ import TextField from "@material-ui/core/TextField";
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import UserProfile from './UserProfile';
+import QuickLinks from './QuickLinks';
+
 function PrayerWall() {
 
     const [siteTitle, setSiteTitle] = useState("");
@@ -28,8 +30,22 @@ function PrayerWall() {
 
     const [prayerArray, setPrayerArray] = useState();
     const [activeDesign, setActiveDesign] = useState("")
-
+    const [liturgyPage, setLiturgyPage] = useState(false);
+    const [staffPage, setStaffPage] = useState(false);
+    const [outReachPage, setOutreactPage] = useState(false);
+    const [quickLinksPage, setQuickLinksPage] = useState(false);
+    const [sacramentsPage, setSacramentsPage] = useState(false);
+    
     useEffect(() => {
+         const dbPages = firebase.database().ref("pages")
+                    dbPages.once("value").then((snap) => {
+                        setLiturgyPage(snap.val().liturgyPage)
+                        setStaffPage(snap.val().staffPage)
+                        setOutreactPage(snap.val().outReachPage)
+                        setQuickLinksPage(snap.val().quickLinkPage)
+                        setSacramentsPage(snap.val().sacramentsPage)
+                    })
+        
                     const dbRef = firebase.database().ref("generated-data");
                         dbRef.on('value', snapshot => {
 
@@ -55,7 +71,7 @@ function PrayerWall() {
                 setActiveDesign(snap.val().designName)      
             })
     }, [update]);
-  
+   
     function getStarted() {
         history.push("/genWebLogin")
     }
@@ -132,48 +148,55 @@ function PrayerWall() {
             </div>
 
             <header className="pad-x-md">
-                     <nav className="pad-y-md flex-space-between " >
+                <nav className="pad-y-sm  primary-bg-color ">
+                    <div className="flex-space-between nav-inside">
+                        
                         <div className="logo flex-default">
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
                                 <Link to={activeDesign === "design1" ? "/design1" : activeDesign === "design2" ? "/design2" :"/design3"}>
-
-                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
-                                    
+                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle }</h3>
                                 </Link>
                             </div>
                         </div>
-                        <div className="nav-desktop-active">
+                        <div className="nav-desktop-active ">
                             <ul className="flex-default">
-                                    <li onClick={prayerWall}>
-                                            Prayer Wall
-                                    </li>
-                                    <li onClick = {donate}>
-                                            Donate
-                                    </li>
-                                    <li onClick={handleServiceRedirect}>
-                                            Services
-                                    </li>
-                                    <li onClick={pod}>
-                                            Podcast
-                                    </li>
+                                            <li onClick={prayerWall}>
+                                                    Prayer Wall
+                                            </li>
+                                            <li onClick = {donate}>
+                                                    Donate
+                                            </li>
+                                            <li onClick={handleServiceRedirect}>
+                                                    Services
+                                            </li>
+                                            <li onClick={pod}>
+                                                    Podcast
+                                            </li>
+                                            {/* <li onClick={livestream}>
+                                                    Streams
+                                            </li> */}
+                                            <li className = "flex-space-between" >
+                                                    <QuickLinks/>
+                                            </li>
+                                            
 
                             </ul>
                         </div>
-                         <div className="nav-desktop-active">
-                                {
-                                    activeCookies? <div> <UserProfile/></div>:  <Button
-                                    onClick = {getStarted}
-                                    variant="outlined"
-                                    className="btn-large primary-color"
-                                    color="primary"
-                                    size="large"
-                                    id="btn-large-primary-outline-white"
-                                    >
-                                    Get Started
-                                    </Button>
-                                }
-                            
+                        <div className="nav-desktop-active">
+                        {
+                            activeCookies? <div> <UserProfile/></div>:  <Button
+                            onClick = {getStarted}
+                            variant="outlined"
+                            // className="btn-large primary-color"
+                            color="primary"
+                            size="small"
+                            id="btn-large-primary-outline-white"
+                            >
+                            Get Started
+                            </Button>
+                        }
+                       
                         </div>
                         <div className="burger-nav ">
                             <div className="flex-default">
@@ -187,30 +210,15 @@ function PrayerWall() {
                                 
                             </div>
                         </div>
+                    </div>
+
                     </nav>
                     <Container>
                         <div className="align-text-center pad-y-md">
                             <h1 className="" id ="dynamic-h1"> Submit it to God</h1>
                             <p >This page is a wall on which prayers are inscribed. Please be reminded to keep courtesy, pour it to God. Rest assured that identity is hidden.</p>
                         </div>
-                    <div className="pad-y-md width-sm flex-default-align-default ">
-                                <TextField   error={titleErrorState} helperText={titleError} onChange={e => { setTitleInput(e.target.value) }} value={titleInput} id="outlined-full-width" fullWidth label="Enter post" variant="outlined" className="text-input-deafult m-x-sm" />
-                                    
-                            
-                        
-                            {/* <TextField multiline rows={4} error={descriptionInputErrorState} helperText={descriptionInputError} onChange={e => { setDescriptionInput(e.target.value) }} value={descriptionInput} id="outlined-full-width" fullWidth label="Description" variant="outlined" type="text" className="text-input-deafult" /> */}
-                                <Button
-                                    onClick={postPrayer}
-                                    variant="contained"
-                                    color="default"
-                                    size="large"
-                                    
-                                    id="btn-large-primary-contained-black"
-                                >
-                                post
-                                 </Button>
-                                
-                        </div>
+                    
                 
                     </Container>
                     {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
@@ -230,12 +238,32 @@ function PrayerWall() {
                     </Snackbar>
                 }
                 </header>
-                <Container className="pad-y-md">
+            <Container className="pad-y-md">
+                <div className="pad-y-md width-sm flex-default-align-default position-relative">
+                                        <TextField   error={titleErrorState} helperText={titleError} onChange={e => { setTitleInput(e.target.value) }} value={titleInput} id="outlined-full-width" fullWidth label="Enter post" variant="outlined" className="text-input-deafult m-x-sm" />
+                                      
+                                    
+                            <div className="pad-x-sm">
+                                <Button
+                                    onClick={postPrayer}
+                                    variant="contained"
+                                    color="default"
+                                    size="large"
+                                    className=""
+                                    id="btn-large-primary-contained-black"
+                                >
+                                post
+                                 </Button>
+                                  </div>
+
+                            {/* <TextField multiline rows={4} error={descriptionInputErrorState} helperText={descriptionInputError} onChange={e => { setDescriptionInput(e.target.value) }} value={descriptionInput} id="outlined-full-width" fullWidth label="Description" variant="outlined" type="text" className="text-input-deafult" /> */}
+                                
+                        </div>
                     <main>
                         {prayerArray ? prayerArray.map((data)=> {
                                     return (
                                     <div className="m-y-sm "  key={data.id}>
-                                        <div className="box width-sm">
+                                        <div className=" width-sm">
                                                     <div className="pad-xy-sm ">
                                                         <div className="" id="font-dark">
                                                             <p>{data.postInput}</p>

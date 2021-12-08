@@ -68,7 +68,8 @@ function AccordionSideTab() {
                                       name: name,
                                       email: email,
                                       number: number,
-                                      staffImage: url
+                                      staffImage: url,
+                                      imageId: id
                                   }
                                   dbRef.push(data).then(() => {
                                       setLoadingState(false);
@@ -157,7 +158,7 @@ function AccordionSideTab() {
                           </div>
                         </div>
              <div className="m-t-sm">
-                  <Typography variant="subtitle2">Staff Name</Typography>
+                <Typography variant="subtitle2">Staff Name</Typography>
                <TextField value={name} onChange={(e) => { setName(e.target.value); setTyping(true)}}  id="outlined-full-width" fullWidth label="Full Name" size="small" variant="outlined" className="text-input-deafult full-width"/>
 
              </div>

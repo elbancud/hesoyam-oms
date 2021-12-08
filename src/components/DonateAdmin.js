@@ -129,34 +129,6 @@ function DonateAdmin() {
                         <img src={qrArray} className="imageFixedWH"/>
                     : ""}
                 </div>
-                <TableContainer className="box">
-                    <Table  size="medium" aria-label="a dense table">
-                        <TableHead>
-                            <TableRow>
-                            <TableCell align="center" colSpan={2}>Donation History</TableCell>
-                            
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell align="right">Amount</TableCell>
-                            
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                 donationArray ? donationArray.map((data) => {
-                                return (
-                                        <TableRow key={data.id}>
-                                            <TableCell align="left"> {data.donator} </TableCell>
-                                            <TableCell align="right"> {data.donationAmount} php</TableCell>
-                                        </TableRow>
-                                        )
-
-                                    }) : ""
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
              
                  {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="success">

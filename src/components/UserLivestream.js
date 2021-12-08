@@ -9,6 +9,7 @@ import UserProfile from './UserProfile';
 import { Button } from "@material-ui/core";
 import TopNavGenWeb from './TopNavGenWeb'
 import ReactPlayer from "react-player"
+import QuickLinks from './QuickLinks';
 
 function UserLivestream() {
     const [siteTitle, setSiteTitle] = useState("");
@@ -40,15 +41,15 @@ function UserLivestream() {
                         setQuickLinksPage(snap.val().quickLinkPage)
                         setSacramentsPage(snap.val().sacramentsPage)
                     })
-        const dbRefPod = firebase.database().ref("recordedliveUrl");
-        dbRefPod.once("value").then(function (snapshot) {
-                const postSnap = snapshot.val();
-                const livestreamtArray = [];
-                for (let id in postSnap) {
-                    livestreamtArray.push({id, ...postSnap[id]});
-                }
-                setLivestreamArray(livestreamtArray)
-        });
+            const dbRefPod = firebase.database().ref("recordedliveUrl");
+            dbRefPod.once("value").then(function (snapshot) {
+                    const postSnap = snapshot.val();
+                    const livestreamtArray = [];
+                    for (let id in postSnap) {
+                        livestreamtArray.push({id, ...postSnap[id]});
+                    }
+                    setLivestreamArray(livestreamtArray)
+            });
           const dbTheme = firebase.database().ref("themeChosen")
             dbTheme.on('value', snap => {
             })
@@ -74,25 +75,7 @@ function UserLivestream() {
             history.push("/genWebLogin")
         }
     }
-    function lit() {
-        history.push("/liturgy")
-    }
-     function livestream() {
-        history.push("/livestream")
-    }
-    function outreach() {
-        history.push("/outreach")
-    }
-    function staff() {
-        history.push("/staff")
-    }
     
-    function sacrament() {
-        history.push("/sacrament")
-    }
-    function quick() {
-        history.push("/quickLink")
-    }
    
     return (
         <div className="design3-properties">
@@ -127,31 +110,13 @@ function UserLivestream() {
                                             <li onClick={pod}>
                                                     Podcast
                                             </li>
-                                            <li onClick={livestream} className="cursor-pointer">
+                                            {/* <li onClick={livestream}>
                                                     Streams
+                                            </li> */}
+                                            <li className = "flex-space-between" >
+                                                    <QuickLinks/>
                                             </li>
-                                           {liturgyPage? 
-                                                <li onClick={lit}  className="cursor-pointer">
-                                                    Liturgy & Music
-                                                </li>: ""
-                                            }{outReachPage? 
-                                                <li onClick={outreach} className="cursor-pointer">
-                                                    Outreach
-                                                </li>: ""
-                                            }{staffPage
-                                                ? 
-                                                <li onClick={staff} className="cursor-pointer">
-                                                    Meet the Stuff
-                                                </li>: ""
-                                            }{sacramentsPage? 
-                                                <li onClick={sacrament} className="cursor-pointer">
-                                                    Sacraments
-                                                </li>: ""
-                                            }{quickLinksPage? 
-                                                <li onClick={quick} className="cursor-pointer">
-                                                    Quick Links
-                                                </li>: ""
-                                            }
+                                            
 
                             </ul>
                         </div>
@@ -197,26 +162,28 @@ function UserLivestream() {
                    <div className="flex-flow-wrap-start-center-xy ">
                             {livestreamtArray ? livestreamtArray.map((data)=> {
                                     return (
-                                    <div key={data.id} className="m-xy-md">
+                                    <div key={data.id} className="m-xy-md height-fixed-450" id="font-dark">
                                                 
                                         <div  className=" width-sm ">
-                                                    <div className="pad-xy-sm" id="font-dark">
+                                                    <div className="pad-xy-sm" >
                                                         <ReactPlayer
                                                             url = {data.liveUrl}
                                                             controls
-                                                            width="800" height="500" 
+                                                            className="react-player"
+                                                            width="100%" height="100%" 
                                                         /> 
                                                         <div>
-                                                        <p>{data.timeStamps}</p>
                                                         </div>    
                                                     </div>
                                                 
 
-                                        </div>
+                                            </div>
+                                                        <p>{data.timeStamp}</p>
+                                            
                                     </div>
 
                                     )
-                            }) : "No podcasts uploaded yet"}
+                            }) : "No livestreams uploaded yet"}
                         </div>     
             </main>
         </div>

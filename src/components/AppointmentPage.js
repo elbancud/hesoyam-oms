@@ -32,7 +32,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { v4 as uuidv4 } from 'uuid';
-
+import QuickLinks from './QuickLinks';
 
 function AppointmentPage({ service, image }) {
     const seatRow = ['A','B','C','D','E','F','G','H','I','J','K','L','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
@@ -753,19 +753,27 @@ function AppointmentPage({ service, image }) {
                         </div>
                         
                         <div className="nav-desktop-active">
-                            <ul className="flex-default">
-                                    <li onClick={prayerWall}>
-                                            Prayer Wall
-                                    </li>
-                                    <li onClick = {donate}>
-                                            Donate
-                                    </li>
-                                    <li onClick={handleServiceRedirect}>
-                                            Services
-                                    </li>
-                                    <li onClick={pod}>
-                                            Podcast
-                                    </li>
+                            
+<ul className="flex-default">
+                                            <li onClick={prayerWall}>
+                                                    Prayer Wall
+                                            </li>
+                                            <li onClick = {donate}>
+                                                    Donate
+                                            </li>
+                                            <li onClick={handleServiceRedirect}>
+                                                    Services
+                                            </li>
+                                            <li onClick={pod}>
+                                                    Podcast
+                                            </li>
+                                            {/* <li onClick={livestream}>
+                                                    Streams
+                                            </li> */}
+                                            <li className = "flex-space-between" >
+                                                    <QuickLinks/>
+                                            </li>
+                                            
 
                             </ul>
                         </div>

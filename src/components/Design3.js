@@ -11,6 +11,7 @@ import Carousel from './Carousel'
 import Container from "@material-ui/core/Container";
 import ReactPlayer from "react-player"
 import Skeleton from '@mui/material/Skeleton';
+import QuickLinks from './QuickLinks';
 
 function Design1() {
     
@@ -63,7 +64,7 @@ function Design1() {
                     const dbLive = firebase.database().ref("liveUrl")
                     dbLive.once("value", (snap) => {
                         
-                        if (new Date(snap.val().timestamp).getDate() != (new Date().getDate()) && new Date(snap.val().timestamp).getHours() + parseInt(snap.val().time, 10) != (new Date().getHours())  ) {
+                        if (new Date(snap.val().timestamp).getDate() != new Date().getDate() || new Date(snap.val().timestamp).getHours() + parseInt(snap.val().time, 10) != (new Date().getHours())  ) {
                             setLiveUrl("")
                         } else {
                             
@@ -119,6 +120,24 @@ function Design1() {
    function livestream() {
         history.push("/livestream")
     }
+    function lit() {
+        history.push("/liturgy")
+    }
+    function outreach() {
+        history.push("/outreach")
+    }
+    function staff() {
+        history.push("/staff")
+    }
+    function lit() {
+        history.push("/liturgy")
+    }
+    function sacrament() {
+        history.push("/sacrament")
+    }
+    function quick() {
+        history.push("/quickLink")
+    }
     return (
         
         <div className="design3-properties">
@@ -147,31 +166,11 @@ function Design1() {
                                             <li onClick={pod}>
                                                     Podcast
                                             </li>
-                                            <li onClick={livestream} className="cursor-pointer">
-                                                    Streams
+                                          
+                                            <li className = "flex-space-between" >
+                                                    <QuickLinks/>
                                             </li>
-                                            {liturgyPage? 
-                                                <li >
-                                                    Liturgy & Music
-                                                </li>: ""
-                                            }{outReachPage? 
-                                                <li >
-                                                    Outreach
-                                                </li>: ""
-                                            }{staffPage
-                                                ? 
-                                                <li onClick={stuff}>
-                                                    Meet the Stuff
-                                                </li>: ""
-                                            }{sacramentsPage? 
-                                                <li >
-                                                    Sacraments
-                                                </li>: ""
-                                            }{quickLinksPage? 
-                                                <li >
-                                                    Quick Links
-                                                </li>: ""
-                                            }
+                                            
 
                             </ul>
                         </div>
@@ -182,7 +181,7 @@ function Design1() {
                             variant="outlined"
                             // className="btn-large primary-color"
                             color="primary"
-                            size="large"
+                            size="small"
                             id="btn-large-primary-outline-white"
                             >
                             Get Started

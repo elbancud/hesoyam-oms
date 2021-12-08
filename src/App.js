@@ -31,6 +31,8 @@ const Design2 = lazy(() => import('./components/Design2'))
 const Stuff = lazy(() => import('./components/Stuff'))
 const UserLivestream = lazy(() => import('./components/UserLivestream'))
 const Outreach = lazy(() => import('./components/Outreach'))
+const Sacrament = lazy(() => import('./components/Sacraments'))
+const Liturgy = lazy(() => import('./components/Liturgy'))
 
 function App() {
 
@@ -107,13 +109,19 @@ function App() {
                 <UserLivestream/>
               </Route>
 
+              <Route path="/liturgy" exact >
+                <Liturgy/>
+              </Route>
+
               <Route path="/staff" exact >
                 <Stuff/>
               </Route>
               <Route path="/outreach" exact >
                 <Outreach/>
               </Route>
-            
+              <Route path="/sacrament" exact >
+                <Sacrament/>
+              </Route>
               <PrivateRouteDesign path="/design3" exact component={Design3} />
               <PrivateRouteDesign path="/design2" exact component={Design2} />
                

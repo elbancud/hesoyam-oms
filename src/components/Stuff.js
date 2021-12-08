@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie';
 import TopNavGenWeb from './TopNavGenWeb'
 import UserProfile from './UserProfile';
 import Container from "@material-ui/core/Container";
+import QuickLinks from './QuickLinks';
 
 function Stuff() {
     
@@ -21,11 +22,7 @@ function Stuff() {
     // const [activatedPage, setActivatePage] = useState("")
 
 
-    const [liturgyPage, setLiturgyPage] = useState(false);
-    const [staffPage, setStaffPage] = useState(false);
-    const [outReachPage, setOutreactPage] = useState(false);
-    const [quickLinksPage, setQuickLinksPage] = useState(false);
-    const [sacramentsPage, setSacramentsPage] = useState(false);
+   
     const [activeDesign, setActiveDesign] = useState("")
     
     useEffect(() => {
@@ -41,14 +38,7 @@ function Stuff() {
                     }
                     
                     const dbPages = firebase.database().ref("pages")
-                    dbPages.once("value").then((snap) => {
-                        setLiturgyPage(snap.val().liturgyPage)
-                        setStaffPage(snap.val().staffPage)
-                        setOutreactPage(snap.val().outReachPage)
-                        setQuickLinksPage(snap.val().quickLinkPage)
-                        setSacramentsPage(snap.val().sacramentsPage)
-                    })
-        
+                   
                     const dbRef = firebase.database().ref("data/staff");
                     dbRef.once("value")
                         .then(function (snapshot) {
@@ -77,24 +67,7 @@ function Stuff() {
 
         }
     }
-    function lit() {
-        history.push("/liturgy")
-    }
-    function outreach() {
-        history.push("/outreach")
-    }
-    function staff() {
-        history.push("/staff")
-    }
-    function lit() {
-        history.push("/liturgy")
-    }
-    function sacrament() {
-        history.push("/sacrament")
-    }
-    function quick() {
-        history.push("/quickLink")
-    }
+   
     function getStarted() {
         history.push("/genWebLogin")
     }
@@ -144,28 +117,13 @@ function Stuff() {
                                             <li onClick={pod}>
                                                     Podcast
                                             </li>
-                                            {liturgyPage? 
-                                                <li onClick={lit}>
-                                                    Liturgy & Music
-                                                </li>: ""
-                                            }{outReachPage? 
-                                                <li onClick={outreach}>
-                                                    Outreach
-                                                </li>: ""
-                                            }{staffPage
-                                                ? 
-                                                <li onClick={staff}>
-                                                    Meet the Stuff
-                                                </li>: ""
-                                            }{sacramentsPage? 
-                                                <li onClick={sacrament}>
-                                                    Sacraments
-                                                </li>: ""
-                                            }{quickLinksPage? 
-                                                <li onClick={quick}>
-                                                    Quick Links
-                                                </li>: ""
-                                            }
+                                            {/* <li onClick={livestream}>
+                                                    Streams
+                                            </li> */}
+                                            <li className = "flex-space-between" >
+                                                    <QuickLinks/>
+                                            </li>
+                                            
 
                             </ul>
                         </div>

@@ -13,6 +13,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Button, CardActionArea } from '@material-ui/core';
+import QuickLinks from './QuickLinks';
 
 
 function ServiceUser() {
@@ -93,19 +94,26 @@ function ServiceUser() {
                             </div>
                         </div>
                         <div className="nav-desktop-active">
-                            <ul className="flex-default">
-                                    <li onClick={prayerWall}>
-                                            Prayer Wall
-                                    </li>
-                                    <li onClick = {donate}>
-                                            Donate
-                                    </li>
-                                    <li onClick={handleServiceRedirect}>
-                                            Services
-                                    </li>
-                                    <li onClick={pod}>
-                                            Podcast
-                                    </li>
+                           <ul className="flex-default">
+                                            <li onClick={prayerWall}>
+                                                    Prayer Wall
+                                            </li>
+                                            <li onClick = {donate}>
+                                                    Donate
+                                            </li>
+                                            <li onClick={handleServiceRedirect}>
+                                                    Services
+                                            </li>
+                                            <li onClick={pod}>
+                                                    Podcast
+                                            </li>
+                                            {/* <li onClick={livestream}>
+                                                    Streams
+                                            </li> */}
+                                            <li className = "flex-space-between" >
+                                                    <QuickLinks/>
+                                            </li>
+                                            
 
                             </ul>
                         </div>
