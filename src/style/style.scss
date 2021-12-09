@@ -977,7 +977,7 @@ header {
   padding: 1rem;
 }
 .qr-250 {
-  max-width: 50% !important;
+  max-width: 40% !important;
 }
 .theme-img {
   max-width: 400px !important;
@@ -1218,6 +1218,10 @@ footer {
 }
 .qr-150 {
   max-width: 80px !important;
+  object-fit: contain;
+}
+.qr-350 {
+  max-width: 350px !important;
   object-fit: contain;
 }
 .react-player-sm {

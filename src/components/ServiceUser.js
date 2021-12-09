@@ -13,7 +13,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Button, CardActionArea } from '@material-ui/core';
-import QuickLinks from './QuickLinks';
+import QuickLinks from './QuickLinksDark';
+
 
 
 function ServiceUser() {
@@ -159,8 +160,9 @@ function ServiceUser() {
                                                 <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id} onClick={() => { redirectTotAppointment(data.id)}}>
                                                     <CardActionArea>
                                                         <CardMedia
+                                                            className="qr-350"
                                                             component="img"
-                                                            height="140"
+                                                            height="345"
                                                             image="https://images.unsplash.com/photo-1619553433619-e4e225134558?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
                                                             alt="green iguana"
                                                         />
@@ -183,8 +185,10 @@ function ServiceUser() {
                                                 
                                                 <CardActionArea>
                                                     <CardMedia
+                                                            className="qr-350"
+
                                                         component="img"
-                                                        height="140"
+                                                        height="345"
                                                         image="https://images.unsplash.com/photo-1565566237557-4db41ccd167f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
                                                         alt="green iguana"
                                                     />
@@ -207,9 +211,11 @@ function ServiceUser() {
                                                 
                                                 <CardActionArea>
                                                     <CardMedia
+                                                            className="qr-350"
+
                                                     component="img"
-                                                    height="140"
-                                                    image="https://images.unsplash.com/photo-1565566237557-4db41ccd167f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
+                                                    height="345"
+                                                    image="https://images.unsplash.com/photo-1529634597503-139d3726fed5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80"
                                                     alt="green iguana"
                                                     />
                                                     <CardContent>
@@ -217,7 +223,7 @@ function ServiceUser() {
                                                         {data.id}
                                                     </Typography>
                                                     <Typography variant="body2" >
-                                                        Sunday preaching.
+                                                        Marriage ceremoney.
                                                     </Typography>
                                                     </CardContent>
                                                 </CardActionArea>
@@ -231,9 +237,11 @@ function ServiceUser() {
                                                 
                                                 <CardActionArea>
                                                     <CardMedia
+                                                            className="qr-350"
+
                                                     component="img"
-                                                    height="140"
-                                                    image="https://images.unsplash.com/photo-1565566237557-4db41ccd167f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
+                                                    height="345"
+                                                    image="https://images.unsplash.com/photo-1520629716099-d147346eb224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
                                                     alt="green iguana"
                                                     />
                                                     <CardContent>
@@ -241,7 +249,7 @@ function ServiceUser() {
                                                         {data.id}
                                                     </Typography>
                                                     <Typography variant="body2" >
-                                                        Sunday preaching.
+                                                        Special outpouring.
                                                     </Typography>
                                                     </CardContent>
                                                 </CardActionArea>
@@ -254,8 +262,10 @@ function ServiceUser() {
                                                 <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id} onClick={() => { redirectTotAppointment(data.id)}}>
                                                 <CardActionArea>
                                                     <CardMedia
+                                                            className="qr-350"
+
                                                     component="img"
-                                                    height="140"
+                                                    height="345"
                                                     image="https://images.unsplash.com/photo-1565566237557-4db41ccd167f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
                                                     alt="green iguana"
                                                     />
@@ -264,7 +274,7 @@ function ServiceUser() {
                                                         {data.id}
                                                     </Typography>
                                                     <Typography variant="body2" >
-                                                        Sunday preaching.
+                                                        Protect the inhabitants.
                                                     </Typography>
                                                     </CardContent>
                                                 </CardActionArea>
@@ -277,8 +287,10 @@ function ServiceUser() {
                                                 <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id} onClick={() => { redirectTotAppointment(data.id)}}>
                                                 <CardActionArea>
                                                     <CardMedia
+                                                            className="qr-350"
+
                                                     component="img"
-                                                    height="140"
+                                                    height="345"
                                                     image="https://images.unsplash.com/photo-1565566237557-4db41ccd167f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
                                                     alt="green iguana"
                                                     />
@@ -287,7 +299,7 @@ function ServiceUser() {
                                                         {data.id}
                                                     </Typography>
                                                     <Typography variant="body2" >
-                                                        Sunday preaching.
+                                                        Protect the investmetns.
                                                     </Typography>
                                                     </CardContent>
                                                 </CardActionArea>
@@ -296,12 +308,13 @@ function ServiceUser() {
                                             )
                                         }else if (data.id.toLowerCase() === "burial") {
                                             return (
-                                                <Card sx={{ maxWidth: 345 }} className="box m-xy-sm" key={data.id} onClick={() => { redirectTotAppointment(data.id)}}>
+                                                <Card sx={{ maxWidth: 345  }} className="box m-xy-sm" key={data.id} onClick={() => { redirectTotAppointment(data.id)}}>
                                                 <CardActionArea>
                                                     <CardMedia
+                                                            className="qr-350"
                                                     component="img"
-                                                    height="140"
-                                                    image="https://images.unsplash.com/photo-1565566237557-4db41ccd167f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
+                                                    height="345"
+                                                    image="https://images.unsplash.com/photo-1532935909789-91408ff42c04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
                                                     alt="green iguana"
                                                     />
                                                     <CardContent>
@@ -309,7 +322,7 @@ function ServiceUser() {
                                                         {data.id}
                                                     </Typography>
                                                     <Typography variant="body2" >
-                                                        Sunday preaching.
+                                                        Funeral Ceremony.
                                                     </Typography>
                                                     </CardContent>
                                                 </CardActionArea>

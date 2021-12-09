@@ -101,17 +101,17 @@ export default function MenuListComposition() {
       
     <Stack direction="column" spacing={2}  className="z-2500 ">
    
-      <div className={activeDesign === "design1" ? "design1-properties " : activeDesign === "design2 " ? "design2-properties " : "design3-properties "}>
+      <div className= "design1-properties">
         
         <div  ref={anchorRef}
           id="composition-button"
           aria-controls={open ? 'composition-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
           aria-haspopup="true"
-          onClick={handleToggle} className = "flex-default font-light" >
+          onClick={handleToggle} className = "flex-default " >
                 Quick Links
                 
-                <div className="m-t-sm">
+                <div className="">
                     <ArrowDropDownIcon/>
                 </div>
         </div>
@@ -122,6 +122,8 @@ export default function MenuListComposition() {
           placement="bottom-start"
           transition
           disablePortal
+                    className="m-t-sm pad-y-sm"
+          
         >
           {({ TransitionProps, placement }) => (
             <Grow
@@ -135,23 +137,24 @@ export default function MenuListComposition() {
               <Paper >
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList
+                   
                     autoFocusItem={open}
                     id="composition-menu "
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                                   >
-                                                <MenuItem onClick={livestream} id="font-dark">Recorded Livestreams</MenuItem>
+                                                <MenuItem  className = "pad-xy-sm"  onClick={livestream} id="font-dark">Recorded Livestreams</MenuItem>
                                             {liturgyPage? 
-                                                    <MenuItem onClick={lit} id="font-dark">Liturgy & Music</MenuItem> : ""
+                                                    <MenuItem  className = "pad-xy-sm"  onClick={lit} id="font-dark">Liturgy & Music</MenuItem> : ""
                                                     
                                             }{outReachPage? 
-                                                    <MenuItem onClick={outreach} id="font-dark">Outreach</MenuItem> : ""
+                                                    <MenuItem   className = "pad-xy-sm" onClick={outreach} id="font-dark">Outreach</MenuItem> : ""
                                                 
                                             }{staffPage? 
-                                                    <MenuItem onClick={staff} id="font-dark">Meet the Stuff</MenuItem> : ""
+                                                    <MenuItem  className = "pad-xy-sm"  onClick={staff} id="font-dark">Meet the Stuff</MenuItem> : ""
                                                 
                                             }{sacramentsPage? 
-                                                <MenuItem onClick={sacrament} id="font-dark">Sacraments</MenuItem> : ""
+                                                <MenuItem   className = "pad-xy-sm" onClick={sacrament} id="font-dark">Sacraments</MenuItem> : ""
                                                
                                             }
                     

@@ -32,7 +32,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { v4 as uuidv4 } from 'uuid';
-import QuickLinks from './QuickLinks';
+import QuickLinks from './QuickLinksDark';
+
 
 function AppointmentPage({ service, image }) {
     const seatRow = ['A','B','C','D','E','F','G','H','I','J','K','L','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
@@ -153,6 +154,7 @@ function AppointmentPage({ service, image }) {
                         })
                             
                     } else {
+                            alert(Object.values(snap.val())[0].sessionCapacity)
                             setMaxCapUpdate(Object.values(snap.val())[0].sessionCapacity)
                             if (parseInt(Object.values(snap.val())[0].sessionCapacity) === 0) {
                                 setAlertStatus(true)
@@ -881,7 +883,7 @@ function AppointmentPage({ service, image }) {
                                     </div>
                                     
                                     <div>
-                                        <b><p>Available slots left: {maxCapUpdate === 0? maxCapUpdate: maxCapacity}</p></b>
+                                        <b><p>Available slots left: {maxCapUpdate !== 0? maxCapUpdate: maxCapacity}</p></b>
                                     </div>
                                     
                                     <div>

@@ -1120,7 +1120,7 @@ header .burger-nav-admin {
 }
 
 .qr-250 {
-  max-width: 50% !important;
+  max-width: 40% !important;
 }
 
 .theme-img {
@@ -1429,6 +1429,12 @@ footer li {
 
 .qr-150 {
   max-width: 80px !important;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.qr-350 {
+  max-width: 350px !important;
   -o-object-fit: contain;
      object-fit: contain;
 }
