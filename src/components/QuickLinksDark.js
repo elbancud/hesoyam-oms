@@ -151,7 +151,7 @@ export default function MenuListComposition() {
                                                     <MenuItem   className = "pad-xy-sm" onClick={outreach} id="font-dark">Outreach</MenuItem> : ""
                                                 
                                             }{staffPage? 
-                                                    <MenuItem  className = "pad-xy-sm"  onClick={staff} id="font-dark">Meet the Stuff</MenuItem> : ""
+                                                    <MenuItem  className = "pad-xy-sm"  onClick={staff} id="font-dark">Meet the Staffs</MenuItem> : ""
                                                 
                                             }{sacramentsPage? 
                                                 <MenuItem   className = "pad-xy-sm" onClick={sacrament} id="font-dark">Sacraments</MenuItem> : ""

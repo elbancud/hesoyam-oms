@@ -47,7 +47,6 @@ const [events, setEvents] = useState([]);
 
 useEffect(() => {
 
-   const dbEventOutside = firebase.database().ref("overallEvents");
      const db = firebase.database().ref("overallEvents")
         db.once('value', snapshot => {
              const postSnap = snapshot.val();

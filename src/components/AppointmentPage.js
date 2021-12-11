@@ -154,7 +154,6 @@ function AppointmentPage({ service, image }) {
                         })
                             
                     } else {
-                            alert(Object.values(snap.val())[0].sessionCapacity)
                             setMaxCapUpdate(Object.values(snap.val())[0].sessionCapacity)
                             if (parseInt(Object.values(snap.val())[0].sessionCapacity) === 0) {
                                 setAlertStatus(true)
