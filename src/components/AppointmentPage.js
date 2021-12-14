@@ -78,6 +78,8 @@ function AppointmentPage({ service, image }) {
     const [appointmentObj, setAppointmentObj] = useState()
     const [minDateAppoint, setMinDateAppoint] = useState()
     const [maxCapUpdate, setMaxCapUpdate] = useState(0)
+
+    const [appointmentDetails, setAppointmentDetails] = useState(false)
     const handleClose = () => {
         setOpen(false);
     };
@@ -619,18 +621,28 @@ function AppointmentPage({ service, image }) {
                                             
                         dbUser.orderByChild("title").equalTo(cookies.activeService).once('value').then(snap => {
                             if (snap.exists()) {
-                                if (snap.exists()) {
-                                
-                                    setAlertStatus(true)
-                                    setFeedbackVariant("error")
-                                    setAlertMessage("You already have an active appointment in this service")     
-                                    } else {
-                                        appointmentStatus()
+                                   snap.forEach((data,index) => {
+                                        if(index === snap.length) {
+                                        const dbSpecificAppointment = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + "/appointments/" +data.key)
+                                        dbSpecificAppointment.once("value").then((snapshot) => {
+                                            // if(snapshot.val().end )
+                                            let appointmentDate = new Date(snapshot.val().end)
+                                            if (appointmentDate.getMonth() === new Date().getMonth() + 1 && new Date().getDate() <= appointmentDate.getDate()) {
+                                                setAlertStatus(true)
+                                                setFeedbackVariant("error")
+                                                setAlertMessage("You already have an active appointment in this service")
+                                                setAppointmentDetails(true)
 
+                                            } else {
+                                                appointmentStatus()
+                                                setAppointmentDetails(false)
+                                            }
+                                        })
                                     }
+                                    })  
                                             
                             } else {
-                                appointmentStatus()
+                                // appointmentStatus()
 
 
                             }
@@ -642,18 +654,30 @@ function AppointmentPage({ service, image }) {
 
                 if (dateChosen.getMonth() >= month) {
                     const dbUser = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + "/appointments");
-                                            
                         dbUser.orderByChild("title").equalTo(cookies.activeService).once('value').then(snap => {
                             if (snap.exists()) {
-                                if (snap.exists()) {
-                                
-                                    setAlertStatus(true)
-                                    setFeedbackVariant("error")
-                                    setAlertMessage("You already have an active appointment in this service")     
-                                    } else {
-                                        appointmentStatus()
-                                        
+                                    // console.log(snap.key + "644")
+                                         
+                                    snap.forEach((data,index) => {
+                                        if(index === snap.length) {
+                                        const dbSpecificAppointment = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + "/appointments/" +data.key)
+                                        dbSpecificAppointment.once("value").then((snapshot) => {
+                                            // if(snapshot.val().end )
+                                            let appointmentDate = new Date(snapshot.val().end)
+                                            if (appointmentDate.getMonth() === new Date().getMonth() + 1 && new Date().getDate() <= appointmentDate.getDate()) {
+                                                setAlertStatus(true)
+                                                setFeedbackVariant("error")
+                                                setAlertMessage("You already have an active appointment in this service")
+                                                setAppointmentDetails(true)
+
+                                            } else {
+                                                appointmentStatus()
+                                                setAppointmentDetails(false)
+                                            }
+                                        })
                                     }
+                                    })
+
                                             
                             } else {
                                 appointmentStatus()
@@ -668,15 +692,24 @@ function AppointmentPage({ service, image }) {
                                             
                         dbUser.orderByChild("title").equalTo(cookies.activeService).once('value').then(snap => {
                             if (snap.exists()) {
-                                if (snap.exists()) {
-                                
-                                    setAlertStatus(true)
-                                    setFeedbackVariant("error")
-                                    setAlertMessage("You already have an active appointment in this service")     
-                                    } else {
-                                        appointmentStatus()
+                                snap.forEach((data,index) => {
+                                        if(index === snap.length) {
+                                        const dbSpecificAppointment = firebase.database().ref('user-account-details/' + cookies.UserLoginKey + "/appointments/" +data.key)
+                                        dbSpecificAppointment.once("value").then((snapshot) => {
+                                            // if(snapshot.val().end )
+                                            let appointmentDate = new Date(snapshot.val().end)
+                                            if (appointmentDate.getMonth() === new Date().getMonth() + 1 && new Date().getDate() <= appointmentDate.getDate()) {
+                                                setAlertStatus(true)
+                                                setFeedbackVariant("error")
+                                                setAlertMessage("You already have an active appointment in this service")
+                                            } else {
+                                                appointmentStatus()
 
+                                                setAppointmentDetails(true)
+                                            }
+                                        })
                                     }
+                                    })
                                             
                             } else {
                                 appointmentStatus()
@@ -1105,9 +1138,9 @@ function AppointmentPage({ service, image }) {
                     <main className="pad-y-md flex-flow-wrap-x ">
                             <div >
                                 {appointmentObj? 
-                                    Object.values(appointmentObj).map((data)=> {
+                                    Object.values(appointmentObj).map((data, index)=> {
                                     const id1 = uuidv4();
-
+                                        if(index + 1 === Object.values(appointmentObj).length) {
                                         return (
                                         <div className="flex-default" key ={id1}>
                                             <div className="pad-x-sm">
@@ -1140,7 +1173,9 @@ function AppointmentPage({ service, image }) {
                                             </div>
 
                                         </div>
-                                )})
+                                            )
+                                        }
+                                        })
                                     
                                 :"No appointments yet"}
                             </div>
