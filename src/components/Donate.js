@@ -13,6 +13,7 @@ import TopNavGenWeb from './TopNavGenWeb'
 import { useCookies } from 'react-cookie';
 import UserProfile from './UserProfile';
 import Skeleton from '@mui/material/Skeleton';
+import QuickLinks from './QuickLinks';
 
 export default function Donate(){
   //variables
@@ -153,44 +154,43 @@ export default function Donate(){
             })
     }, []);
   return (
-      <div className={activeDesign === "design1" ? "design1-properties" : activeDesign === "design2" ? "design2-properties" : "design3-properties"}>
+    <div className={activeDesign === "design1" ? "design1-properties position-relative" : activeDesign === "design2 " ? "design2-properties position-relative" : "design3-properties position-relative"}>
+            <div className="pad-xy-sm position-fixed-top-z-1 full-width primary-bg-color height-400">
+            </div>
 
-     {
-                loadingState? <div className="middle-fix" >
-                <div className="flex-default-center-xy">
-                    <RingLoader color={"#533c9f"} loading={loadingState} size={80} speedMultiplier="1.4" /><br />
-                </div>
-                <div className="pad-y-sm"><p><b>Uploading...</b></p></div>
-                </div>: ""
-            }
-    <div className="position-relative">
-
-      <div className="position-absolute full-width">
-        <Container>
-            <header>
-                 <nav className="pad-y-md flex-space-between">
+            <header className="pad-x-md">
+                <nav className="pad-y-sm  primary-bg-color ">
+                    <div className="flex-space-between nav-inside">
+                        
                         <div className="logo flex-default">
                             <div className="icon"></div>
                              <div className="app-name cursor-pointer">
                                 <Link to={activeDesign === "design1" ? "/design1" : activeDesign === "design2" ? "/design2" :"/design3"}>
-                                    <h3 className="secondary-color-text" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle}</h3>
+                                    <h3 className="" id =""> {typeof(siteTitle) === 'undefined'? "Site title": siteTitle }</h3>
                                 </Link>
                             </div>
                         </div>
-                        <div className="nav-desktop-active" id={activeDesign === "design3" ? "font-dark" : ""}>
+                        <div className="nav-desktop-active ">
                             <ul className="flex-default">
-                                  <li onClick={prayerWall}>
-                                            Prayer Wall
-                                    </li>
-                                    <li onClick = {donate}>
-                                            Donate
-                                    </li>
-                                    <li onClick={handleServiceRedirect}>
-                                            Services
-                                    </li>
-                                    <li onClick={pod}>
-                                            Podcast
-                                    </li>
+                                            <li onClick={prayerWall}>
+                                                    Prayer Wall
+                                            </li>
+                                            <li onClick = {donate}>
+                                                    Donate
+                                            </li>
+                                            <li onClick={handleServiceRedirect}>
+                                                    Services
+                                            </li>
+                                            <li onClick={pod}>
+                                                    Podcast
+                                            </li>
+                                            {/* <li onClick={livestream}>
+                                                    Streams
+                                            </li> */}
+                                            <li className = "flex-space-between" >
+                                                    <QuickLinks/>
+                                            </li>
+                                            
 
                             </ul>
                         </div>
@@ -199,10 +199,10 @@ export default function Donate(){
                             activeCookies? <div> <UserProfile/></div>:  <Button
                             onClick = {getStarted}
                             variant="outlined"
-                            className="btn-large primary-color"
+                            // className="btn-large primary-color"
                             color="primary"
-                            size="large"
-                            id="btn-large-primary-outline-black"
+                            size="small"
+                            id="btn-large-primary-outline-white"
                             >
                             Get Started
                             </Button>
@@ -221,100 +221,40 @@ export default function Donate(){
                                 
                             </div>
                         </div>
+                    </div>
+
                     </nav>
-
-            </header>
-        </Container>
-
-        </div>
-        
-      <div className="">
-        <main className="full-height flex-flow-wrap ">
-          <div className="  pad-xy-md width-sm primary-bg-color  full-height left-banner position-relative">
-              <nav className="pad-y-sm pad-y-md ">
-                <div className=" align-text-left pad-xy-md ">
+                    <Container>
+                        <div className="align-text-center pad-y-md">
+                            <h1 className="" id ="dynamic-h1"> Psalm 112:5</h1>
+                           <p>Good will come to those who are generous and lend freely, who conduct their affairs with justice.</p>                    
+                                  {
+                            qrArray? 
+                            <img src={qrArray} className="pad-xy-md qr" alt="qr"/> : <Skeleton animation="wave"  variant="rectangular" width={500} height={400} sx={{ borderRadius: '5px', bgcolor: 'grey.900' }} />
+                      }
+                        </div>
+                    
                 
-                      <h2>Psalm 112:5</h2>
-                    <p>Good will come to those who are generous and lend freely, who conduct their affairs with justice.</p>                    
-                </div>
-              </nav>
-              {
-                qrArray? 
-                <img src={qrArray} className="qr" alt="qr"/> : <Skeleton animation="wave"  variant="rectangular" width={500} height={400} sx={{ borderRadius: '5px', bgcolor: 'grey.900' }} />
-              }
-           
-          </div>
-          <div className="full-width">
-            
-            <div className="pad-xy-sm width-sm ">
-              <div >
-                
-                
-              </div>
-              <div className="subtitle" id={activeDesign === "design3" ? "font-dark" : ""}>
-                  <header className="">
-                    <div className="app-name m-b-md ">
-                          <nav>
-                              <div className="burger-nav ">
-                                  <img src={qrArray} className="qr-100 grid-place-center" alt="qr"/>
-                              </div>
-                            
-                          </nav>
-
-                    </div>
+                    </Container>
+                    {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                        <Alert onClose={handleCloseAlert} severity="success">
+                            {alertMessage}
+                        </Alert>
+                    </Snackbar> :
+                    feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                        <Alert onClose={handleCloseAlert} severity="warning">
+                            {alertMessage}
+                        </Alert>
+                    </Snackbar> :
+                    <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
+                        <Alert onClose={handleCloseAlert} severity="error">
+                        {alertMessage}
+                        </Alert>
+                    </Snackbar>
+                }
                 </header>
-                  <h3>Donate</h3>     
-                  <p>We are grateful for your donation, it will help us to further our goals. Do you mind if we get your information just the basic ones. We will make sure your identity is secured. </p>
-                </div>
-                <form autoComplete="off" onSubmit={handleSubmitDonation}>
-                  <div className="pad-y-sm">
-                       <TextField  error={usernameErrorState} helperText={usernameError} onChange={e => { setUsernameInput(e.target.value) }} value={usernameInput} id="outlined-full-width" fullWidth label="Name" variant="outlined" type="text" className="text-input-deafult" />
-
-                  </div>
-                  <div>
-                  
-                    <div>
-                    <div className="pad-y-sm position-relative">
-                        <TextField type="text" error={amountErrorState} helperText={amountError} onChange={e => { setAmount(e.target.value) }} value={amount} id="outlined-full-width" fullWidth label="Amount" variant="outlined" className="text-input-deafult" />
-                      </div>
-                    </div>
-                    <div className="pad-y-sm">
-                      <Button
-                        variant="contained"
-                        className="btn-large primary-color full-width"
-                        color="secondary"
-                        size="large"
-                        id="btn-large-primary"
-                        type="submit">
-                        Donate
-                      </Button>
-                    </div>
-                      
-                  
-                    </div>
-                  
-                </form>
-              </div>
-          </div>
-        </main>
-        </div>
-            {feedbackVariant === "success"? <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
-                <Alert onClose={handleCloseAlert} severity="success">
-                    {alertMessage}
-                </Alert>
-            </Snackbar> :
-            feedbackVariant === "warning"?<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
-                <Alert onClose={handleCloseAlert} severity="warning">
-                    {alertMessage}
-                </Alert>
-              </Snackbar> :
-             <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={alertStatus} autoHideDuration={3000} onClose={handleCloseAlert}>
-                <Alert onClose={handleCloseAlert} severity="error">
-                   {alertMessage}
-                </Alert>
-            </Snackbar>
-            }
-      </div>
+            
+      
       </div>
       
   );

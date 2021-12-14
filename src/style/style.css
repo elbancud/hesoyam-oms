@@ -1105,7 +1105,7 @@ header .burger-nav-admin {
 }
 
 .qr {
-  max-width: 70%;
+  max-width: 50%;
   -o-object-fit: contain;
      object-fit: contain;
   margin: 0 auto;
