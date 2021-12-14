@@ -118,7 +118,7 @@ function PrayerWall() {
                         dbRefPush.push(postInput).then(() => {
                             setAlertStatus(true)
                             setFeedbackVariant("success")
-                            setAlertMessage("That's it right there, Event or announcement posted")
+                            setAlertMessage("That's it right there, Prayers posted")
                             setTitleInput('')
                         })
                         setUpdate(!update);
