@@ -22,7 +22,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-function UserAppointment({ service, image }) {
+function UsersTab() {
 
   
 
@@ -104,8 +104,6 @@ function UserAppointment({ service, image }) {
                                 <TableCell>Lastname</TableCell>
                                 <TableCell>Email</TableCell>
                                 
-                                
-                            
                             </TableRow>
                         </TableHead>
                         
@@ -113,28 +111,13 @@ function UserAppointment({ service, image }) {
                             {
                             userDetails ? userDetails.map((data) => {
                                 
-                              
-                                let currentDate = new Date().getDate()
-                                let currentYear = new Date().getFullYear()
-                                let currentMonth = new Date().getMonth()
-                                let appointmentDate = new Date(data.end)
-                                let btnState = false
-                                
-                                if (parseInt(currentMonth,10) <= parseInt(appointmentDate.getMonth(),10) && parseInt(currentYear,10) <= parseInt(appointmentDate.getFullYear(),10)) {
-                                    if (parseInt(currentDate, 10) < parseInt(appointmentDate.getDate(), 10)) {
-                                        btnState = true
-                                    }
-                                }
                                 return (
                                         <TableRow key={data.id}>
                                             
                                             <TableCell align="left"> {data.username} </TableCell> 
                                             
                                             <TableCell align="left"> {data.lastname} </TableCell>
-                                            <TableCell align="left"> {data.email} </TableCell>
-                                            
-                                        
-                                            
+                                            <TableCell align="left"> {data.email} </TableCell>                                        
                                             
                                         </TableRow>
                                         )
@@ -154,4 +137,4 @@ function UserAppointment({ service, image }) {
     )
 }
 
-export default UserAppointment
+export default UsersTab

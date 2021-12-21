@@ -811,7 +811,7 @@ export default function AdminUI() {
                         <Reports/>
                 </main>
                 <main className="display-none" id={usersTab? "display-block":""}>
-                        <UsersTab/>
+                        <Reports/>
                 </main>
                 </main>
 
