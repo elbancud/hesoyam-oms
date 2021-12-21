@@ -39,12 +39,16 @@ import AdminAppointCancel from './AdminAppointCancel';
 import Zoom from '@mui/material/Zoom';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import Reports from './Reports';
+import GroupIcon from '@mui/icons-material/Group';
+import UsersTab from './UsersTab';
+
 
 export default function AdminUI() {
     const [accountTab, setAccountTab] = useState(false);
     const [dashboardTab, setDashboardTab] = useState(true);
     const [theme, setTheme] = useState(false);
     const [webpagesTab, setWebpagesTab] = useState(false);
+    const [usersTab, setUsersTab] = useState(false);
     
     const [servicesTab, setServicesTab] = useState(false);
     const [calendarTab, setCalendarTab] = useState(false);
@@ -228,7 +232,14 @@ export default function AdminUI() {
                                         <p className="m-b-sm"><b>Contents</b></p>
                                     </div>
                                 </li>
-                                
+                                <li className="flex-default pad-x-sm" id={reports ? "active" : ""} onClick={() => { activateTab("usersTab", setUsersTab) }}>
+                                    <div className="icon-padding">
+                                        <AssessmentIcon className="cursor-pointer icon-set-light"/>
+                                    </div>
+                                     <div className="pad-x-sm light-fonts ">
+                                        <p className="m-b-sm"><b>Users</b></p>
+                                    </div>
+                                </li>
                             </ul>
                         
                         </div>
@@ -263,6 +274,8 @@ export default function AdminUI() {
             setDonateTab(false);
             setNotification(false);
             setReports(false);
+            setUsersTab(false);
+
 
 
             const dbRef = firebase.database().ref("account-details");
@@ -307,6 +320,7 @@ export default function AdminUI() {
             setDonateTab(false);
             setNotification(false);
             setReports(false);
+            setUsersTab(false);
 
 
 
@@ -325,11 +339,11 @@ export default function AdminUI() {
             setDonateTab(false);
             setNotification(false);
             setReports(false);
-
-
+            setUsersTab(false);
 
         }else if (tabName === "servicesTab") {
             setAccountTab(false);
+            setUsersTab(false);
             setDashboardTab(false);
             setWebpagesTab(false);
             setServicesTab(true);
@@ -361,8 +375,7 @@ export default function AdminUI() {
             setDonateTab(false);
             setNotification(false);
             setReports(false);
-
-
+            setUsersTab(false);
 
         }else if (tabName === "seatsTab") {
             setAccountTab(false);
@@ -378,9 +391,8 @@ export default function AdminUI() {
             setTheme(false);
             setDonateTab(false);
             setReports(false);
-
+            setUsersTab(false);
             setNotification(false);
-
 
         }else if (tabName === "announcementTab") {
             setAccountTab(false);
@@ -397,8 +409,7 @@ export default function AdminUI() {
             setDonateTab(false);
             setNotification(false);
             setReports(false);
-
-
+            setUsersTab(false);
 
         }else if (tabName === "liveStreamTab") {
             setAccountTab(false);
@@ -415,8 +426,7 @@ export default function AdminUI() {
             setDonateTab(false);
             setNotification(false);
             setReports(false);
-
-
+            setUsersTab(false);
 
         }else if (tabName === "podcastsTab") {
             setAccountTab(false);
@@ -433,8 +443,7 @@ export default function AdminUI() {
             setDonateTab(false);
             setNotification(false);
             setReports(false);
-
-
+            setUsersTab(false);
 
         } else if(tabName === "reportsTab"){
             setAccountTab(false);
@@ -450,7 +459,7 @@ export default function AdminUI() {
             setTheme(false);
             setDonateTab(false);
             setReports(false);
-
+            setUsersTab(false);
 
         } else if (tabName === "donateTab") {
             setAccountTab(false);
@@ -467,7 +476,7 @@ export default function AdminUI() {
             setDonateTab(true);
             setNotification(false);
             setReports(false);
-
+            setUsersTab(false);
 
         }
         else if (tabName === "notification") {
@@ -485,6 +494,26 @@ export default function AdminUI() {
             setDonateTab(false);
             setNotification(true);
             setReports(false);
+            setUsersTab(false);
+
+        }
+        else if (tabName === "usersTab") {
+            setAccountTab(false);
+            setDashboardTab(false);
+            setWebpagesTab(false);
+            setServicesTab(false);
+            setCalendarTab(false);
+            setSeatsTab(false);
+            setAnnouncementTab(false);
+            setLiveStreamTab(false);
+            setPodcastsTab(false);
+            setReportsTab(false);
+            setTheme(false);
+            setDonateTab(false);
+            setNotification(false);
+            setUsersTab(true);
+            setReports(false);
+            setUsersTab(false);
 
         }
         else if (tabName === "reports") {
@@ -502,6 +531,7 @@ export default function AdminUI() {
             setDonateTab(false);
             setNotification(false);
             setReports(true);
+            setUsersTab(false);
 
 
         }
@@ -675,7 +705,15 @@ export default function AdminUI() {
                                      
                                 </li>
                                 </Tooltip>
+                                <Tooltip title="User Management" placement="right-start" TransitionComponent={Zoom}>
 
+                                    <li className="flex-default pad-x-sm" id={usersTab ? "active" : ""} onClick={() => { activateTab("usersTab", setUsersTab) }}>
+                                        <div className="icon-padding">
+                                            <GroupIcon className="cursor-pointer icon-set-light"/>
+                                        </div>
+                                        
+                                    </li>
+                                    </Tooltip>
                             </ul>
                         
                         </div>
@@ -771,6 +809,9 @@ export default function AdminUI() {
                 </main>
                 <main className="display-none" id={reports? "display-block":""}>
                         <Reports/>
+                </main>
+                <main className="display-none" id={usersTab? "display-block":""}>
+                        <UsersTab/>
                 </main>
                 </main>
 
