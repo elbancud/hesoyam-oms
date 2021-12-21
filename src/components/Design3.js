@@ -64,7 +64,7 @@ function Design1() {
                     const dbLive = firebase.database().ref("liveUrl")
                     dbLive.once("value", (snap) => {
                         
-                        if (new Date(snap.val().timestamp).getDate() != new Date().getDate() || new Date(snap.val().timestamp).getHours() + parseInt(snap.val().time, 10) != (new Date().getHours())  ) {
+                        if (new Date(snap.val().timestamp).getDate() != new Date().getDate() || new Date(snap.val().timestamp).getHours() + parseInt(snap.val().time, 10) < (new Date().getHours())  ) {
                             setLiveUrl("")
                         } else {
                             
