@@ -303,7 +303,7 @@ export default function AdminUI() {
             setDonateTab(false);
             setNotification(false);
             setReports(false);
-
+            setUsersTab(false);
 
         } else if (tabName === "theme") {
             setAccountTab(false);
