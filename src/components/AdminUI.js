@@ -513,7 +513,6 @@ export default function AdminUI() {
             setNotification(false);
             setUsersTab(true);
             setReports(false);
-            setUsersTab(false);
 
         }
         else if (tabName === "reports") {
@@ -811,7 +810,7 @@ export default function AdminUI() {
                         <Reports/>
                 </main>
                 <main className="display-none" id={usersTab? "display-block":""}>
-                        <Reports/>
+                        <UsersTab/>
                 </main>
                 </main>
 

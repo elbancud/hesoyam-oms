@@ -65,7 +65,8 @@ function UsersTab() {
 
     useEffect(() => {
                   
-                       
+       
+        
         const dbUser = firebase.database().ref("user-account-details");
 
         dbUser.once('value').then((snapshot) => {
@@ -113,9 +114,7 @@ function UsersTab() {
                                 
                                 return (
                                         <TableRow key={data.id}>
-                                            
                                             <TableCell align="left"> {data.username} </TableCell> 
-                                            
                                             <TableCell align="left"> {data.lastname} </TableCell>
                                             <TableCell align="left"> {data.email} </TableCell>                                        
                                             
